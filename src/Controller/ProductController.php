@@ -10,10 +10,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product', name: 'product')]
+    #[Route('/product', name: 'app-product')]
     public function showProduct(): Response
     {
-        return $this->render('product/product.html', [
+        return $this->render('product/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
