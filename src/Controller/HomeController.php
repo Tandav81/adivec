@@ -18,12 +18,16 @@ class HomeController extends AbstractController
         $slides = $entityManager->getRepository(Slide::class)->findOneByDate();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
         $news = $entityManager->getRepository(BlogPost::class)->findAll();
+        $today = new \DateTime();
+        $yearNow = $today->format('Y');
+        $yearsExperience = $yearNow - 1989;
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'slides' => $slides,
             'logos' => $logosPartenaires,
             'news' => $news,
+            'yearsExperience' => $yearsExperience
         ]);
     }
 }

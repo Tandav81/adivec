@@ -92,15 +92,16 @@
             <a href="{{ path('app_about') }}" class="nav-item nav-link">Nous découvrir</a>
             <a href="{{ path('app_service') }}" class="nav-item nav-link">News</a>
             <a href="{{ path('app-product') }}" class="nav-item nav-link">Produits</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Autres</a>
-                <div class="dropdown-menu bg-light m-0">
-                    <a href="{{ path('app_gallery') }}" class="dropdown-item">Gallerie</a>
-                    <a href="{{ path('app_feature') }}" class="dropdown-item">Projets</a>
-                    <a href="{{ path('app_team') }}" class="dropdown-item">Notre équipe</a>
-                </div>
-            </div>
-            <a href="{{ path('app_contact') }}" class="dropdown-item nav-item nav-link">Contactez-nous</a>
+            <a href="{{ path('app_team') }}"  class="nav-item nav-link">Notre équipe</a>
+{#            <div class="nav-item dropdown">#}
+{#                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Autres</a>#}
+{#                <div class="dropdown-menu bg-light m-0">#}
+{#                    <a href="{{ path('app_gallery') }}" class="dropdown-item">Gallerie</a>#}
+{#                    <a href="{{ path('app_feature') }}" class="dropdown-item">Projets</a>#}
+{#                    <a href="{{ path('app_team') }}" class="dropdown-item">Notre équipe</a>#}
+{#                </div>#}
+{#            </div>#}
+            <a href="{{ path('app_contact') }}" class="nav-item nav-link">Contactez-nous</a>
         </div>
         <div class="border-start ps-4 d-none d-lg-block">
             <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
