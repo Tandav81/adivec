@@ -19,8 +19,13 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pays = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    #[ORM\ManyToOne(targetEntity: "Type" , inversedBy: "products")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Type $type = null;
+
+    #[ORM\ManyToOne(targetEntity: "Family" , inversedBy: "products")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Family $family = null;
 
     public function getId(): ?int
     {
@@ -59,6 +64,18 @@ class Product
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFamily(): ?Family
+    {
+        return $this->family;
+    }
+
+    public function setFamily(?Family $family): static
+    {
+        $this->family = $family;
 
         return $this;
     }
