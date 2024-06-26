@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $slides = $entityManager->getRepository(Slide::class)->findAll();
+        $slides = $entityManager->getRepository(Slide::class)->findOneByDate();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
         $news = $entityManager->getRepository(BlogPost::class)->findAll();
 

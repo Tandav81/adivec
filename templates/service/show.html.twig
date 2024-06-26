@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ServiceController!{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 animated slideInDown">News</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">News</p>
+                <h1 class="mb-5">{{ new.title }}</h1>
+            </div>
+            <div class="row gy-5 gx-4">
+                <div class="col-auto">
+                    <div class="service-img">
+                        <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
+                             alt="{{ new.title }}">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pt-5 ">
+                    <div class="service-item d-flex h-100">
+                        <p class="mb-4">{{ new.description | raw }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+{% endblock %}

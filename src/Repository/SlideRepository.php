@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Slide;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @extends ServiceEntityRepository<Slide>
@@ -31,13 +32,12 @@ class SlideRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Slide
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        public function findOneByDate()
+        {
+            return $this->createQueryBuilder('s')
+                ->andWhere('CURRENT_DATE() BETWEEN s.dateDebut and s.dateFin')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
 }
