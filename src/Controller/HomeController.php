@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\BlogPost;
 use App\Entity\LogoPartenaire;
 use App\Entity\Slide;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,11 +17,13 @@ class HomeController extends AbstractController
     {
         $slides = $entityManager->getRepository(Slide::class)->findAll();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
+        $news = $entityManager->getRepository(BlogPost::class)->findAll();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'slides' => $slides,
-            'logos' => $logosPartenaires
+            'logos' => $logosPartenaires,
+            'news' => $news,
         ]);
     }
 }
