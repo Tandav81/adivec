@@ -57,7 +57,7 @@
 
 
 <!-- Topbar Start -->
-<div class="container-fluid bg-dark px-0">
+<div class="container-fluid px-0 topbar">
     <div class="row g-0 d-none d-lg-flex">
         <div class="col-lg-6 ps-5 text-start">
             <div class="h-100 d-inline-flex align-items-center text-light">
@@ -69,9 +69,9 @@
             </div>
         </div>
         <div class="col-lg-6 text-end">
-            <div class="h-100 bg-secondary d-inline-flex align-items-center text-dark py-2 px-4">
+            <div class="h-100 d-inline-flex align-items-center text-dark py-2 px-4 phone">
                 <span class="me-2 fw-semi-bold"><i class="fa fa-phone-alt me-2"></i>Appelez-nous:</span>
-                <span>02 38 24 15 50</span>
+                <a href="tel:+33238241550">02 38 24 15 50</a>
             </div>
         </div>
     </div>
@@ -98,7 +98,6 @@
                     <a href="{{ path('app_gallery') }}" class="dropdown-item">Gallerie</a>
                     <a href="{{ path('app_feature') }}" class="dropdown-item">Projets</a>
                     <a href="{{ path('app_team') }}" class="dropdown-item">Notre équipe</a>
-                    <a href="{{ path('app_testimonial') }}" class="dropdown-item">Avis clients</a>
                 </div>
             </div>
             <a href="{{ path('app_contact') }}" class="dropdown-item nav-item nav-link">Contactez-nous</a>
@@ -120,7 +119,7 @@
 
 {% endblock %}
 <!-- Footer Start -->
-<div class="container-fluid bg-dark footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+<div class="container-fluid footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
@@ -128,19 +127,21 @@
                 <p class="mb-2">
                     <a href="https://maps.app.goo.gl/bdN2JzJaGxAWqyRu9" target="blank">
                         <i class="fa fa-map-marker-alt me-3"></i>
+                        10 bis rue de Lahire
+                        <p class="align-adress">45000 Orléans</p>
                     </a>
-                    10 bis rue de Lahire, 45000 Orléans
+
                 </p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02 38 24 15 50</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>contact@adivec.fr</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+33238241550">02 38 24 15 50</a></p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr"></a>contact@adivec.fr</p>
                 <div class="d-flex pt-3">
-                    <a class="btn btn-square btn-secondary rounded-circle me-2" href=""><i
+                    <a class="btn btn-square rounded-circle me-2" href=""><i
                                 class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square btn-secondary rounded-circle me-2" href=""><i
+                    <a class="btn btn-square rounded-circle me-2" href=""><i
                                 class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square btn-secondary rounded-circle me-2" href=""><i
+                    <a class="btn btn-square rounded-circle me-2" href=""><i
                                 class="fab fa-youtube"></i></a>
-                    <a class="btn btn-square btn-secondary rounded-circle me-2" href=""><i
+                    <a class="btn btn-square rounded-circle me-2" href=""><i
                                 class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
@@ -168,7 +169,7 @@
 
 
 <!-- Copyright Start -->
-<div class="container-fluid bg-secondary text-body copyright py-4">
+<div class="container-fluid text-body copyright py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">

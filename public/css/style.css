@@ -1,7 +1,7 @@
 /********** Template CSS **********/
 :root {
-    --primary: #5B8C51;
-    --secondary: #EDDD5E;
+    --primary: #8cc51f;
+    --secondary: #689d1c;
     --light: #F7F7F7;
     --dark: #404A3D;
 }
@@ -474,7 +474,7 @@
 
 /*** Footer ***/
 .footer {
-    color: #B0B9AE;
+    background: var(--primary);
 }
 
 .footer .btn.btn-link {
@@ -482,7 +482,6 @@
     margin-bottom: 5px;
     padding: 0;
     text-align: left;
-    color: #B0B9AE;
     font-weight: normal;
     text-transform: capitalize;
     transition: .3s;
@@ -500,4 +499,25 @@
     color: var(--light);
     letter-spacing: 1px;
     box-shadow: none;
+}
+
+.display-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.copyright {
+    background: var(--secondary);
+}
+
+.topbar {
+    background: var(--secondary);
+}
+
+.phone {
+    background: var(--primary);
+}
+
+.align-adress {
+    margin-left: 2rem;
 }
