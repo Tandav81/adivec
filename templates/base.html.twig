@@ -3,22 +3,23 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>{% block title %}Bienvenue{% endblock %}</title>
+    <meta name="description" content="ADIVEC est une société de représentation et de négoce spécialisée dans les dérivés de produits agricoles et les matières premières naturelles."/>
+    <meta name="author" content="Adivec"/>
+
+    <title>{% block title %}ADIVEC Produits transformés d'origine naturelle{% endblock %}</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_adivec_seul.png') }}"/>
     {% block stylesheets %}
         <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/fontawesome_all.js') }}" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Open+Sans:wght@400;500;600&display=swap"
               rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="{{ asset('css/fontawesome_all.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font_bootstrap-icon.css') }}" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
         <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
@@ -33,8 +34,8 @@
 
     {% block javascripts %}
         <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
         <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
         <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
         <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
@@ -62,10 +63,10 @@
         <div class="col-lg-6 ps-5 text-start">
             <div class="h-100 d-inline-flex align-items-center text-light">
                 <span>Suivez-nous:</span>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-instagram"></i></a>
+{#                <a class="btn btn-link text-light" href=""><i class="fab fa-facebook-f"></i></a>#}
+{#                <a class="btn btn-link text-light" href=""><i class="fab fa-twitter"></i></a>#}
+                <a class="btn btn-link text-light" href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"><i class="fab fa-linkedin-in"></i></a>
+{#                <a class="btn btn-link text-light" href=""><i class="fab fa-instagram"></i></a>#}
             </div>
         </div>
         <div class="col-lg-6 text-end">
@@ -84,13 +85,13 @@
     <a href="{{ path('app_home') }}" class="navbar-brand d-flex align-items-center">
         <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="">
     </a>
-    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-labelledby="menu">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{{ path('app_about') }}" class="nav-item nav-link">Nous découvrir</a>
-            <a href="{{ path('app_service') }}" class="nav-item nav-link">News</a>
+            <a href="{{ path('app_news') }}" class="nav-item nav-link">News</a>
             <a href="{{ path('app-product') }}" class="nav-item nav-link">Produits</a>
             <a href="{{ path('app_team') }}"  class="nav-item nav-link">Notre équipe</a>
 {#            <div class="nav-item dropdown">#}
@@ -104,7 +105,7 @@
             <a href="{{ path('app_contact') }}" class="nav-item nav-link">Contactez-nous</a>
         </div>
         <div class="border-start ps-4 d-none d-lg-block">
-            <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-sm p-0" aria-labelledby="recherche"><i class="fa fa-search"></i></button>
         </div>
     </div>
 </nav>
@@ -136,23 +137,22 @@
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+33238241550">02 38 24 15 50</a></p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr"></a>contact@adivec.fr</p>
                 <div class="d-flex pt-3">
-                    <a class="btn btn-square rounded-circle me-2" href=""><i
-                                class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square rounded-circle me-2" href=""><i
-                                class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square rounded-circle me-2" href=""><i
-                                class="fab fa-youtube"></i></a>
-                    <a class="btn btn-square rounded-circle me-2" href=""><i
+{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
+{#                                class="fab fa-twitter"></i></a>#}
+{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
+{#                                class="fab fa-facebook-f"></i></a>#}
+{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
+{#                                class="fab fa-youtube"></i></a>#}
+                    <a class="btn btn-square rounded-circle me-2" href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"><i
                                 class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Liens rapides</h5>
-                <a class="btn btn-link" href="">Découvrir</a>
-                <a class="btn btn-link" href="">Nous contacter</a>
-                <a class="btn btn-link" href="">Nos Services</a>
+                <a class="btn btn-link" href="{{ path('app_about') }}">Découvrir</a>
+                <a class="btn btn-link" href="{{ path('app_contact') }}">Nous contacter</a>
+                <a class="btn btn-link" href="{{ path('app_news') }}">Nos news</a>
                 <a class="btn btn-link" href="">Terms & Condition</a>
-                <a class="btn btn-link" href="">Support</a>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Heures d'ouvertures</h5>
