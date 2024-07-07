@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Members;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -13,7 +13,7 @@ class MembersCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Members::class;
+        return Member::class;
     }
 
 
@@ -24,8 +24,8 @@ class MembersCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('description'),
             ImageField::new('image')
-                ->setBasePath('uploads/images')
-                ->setUploadDir('public/uploads/images')
+                ->setBasePath('uploads/images/members')
+                ->setUploadDir('public/uploads/images/members')
         ];
     }
 }

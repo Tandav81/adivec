@@ -24,7 +24,11 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('nom'),
             AssociationField::new('type'),
             TextField::new('pays'),
-            AssociationField::new('family')
+            AssociationField::new('family'),
+            ImageField::new('image')
+                ->setBasePath('uploads/images/products')
+                ->setUploadDir('public/uploads/images/products')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]')
         ];
     }
 }

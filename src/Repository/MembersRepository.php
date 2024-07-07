@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Members;
+use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Members>
+ * @extends ServiceEntityRepository<Member>
  */
 class MembersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Members::class);
+        parent::__construct($registry, Member::class);
     }
 
     //    /**
-    //     * @return Members[] Returns an array of Members objects
+    //     * @return Member[] Returns an array of Member objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class MembersRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Members
+    //    public function findOneBySomeField($value): ?Member
     //    {
     //        return $this->createQueryBuilder('m')
     //            ->andWhere('m.exampleField = :val')

@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\BlogPost;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
-use App\Entity\Members;
+use App\Entity\Member;
 use App\Entity\Product;
 use App\Entity\Slide;
 use App\Entity\Type;
@@ -44,7 +44,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Product', 'fa fa-book', Product::class),
             MenuItem::linkToCrud('Logos', 'fa fa-briefcase', LogoPartenaire::class),
             MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
-            MenuItem::linkToCrud('Members', 'fa fa-user-circle-o', Members::class),
+            MenuItem::linkToCrud('Member', 'fa fa-user-circle-o', Member::class),
             MenuItem::linkToLogout('Logout', 'fa fa-exit'),
             ];
     }

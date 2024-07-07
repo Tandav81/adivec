@@ -18,7 +18,7 @@
               rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        <link href="{{ asset('css/fontawesome_all.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/font_bootstrap-icon.css') }}" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
@@ -63,16 +63,16 @@
         <div class="col-lg-6 ps-5 text-start">
             <div class="h-100 d-inline-flex align-items-center text-light">
                 <span>Suivez-nous:</span>
-{#                <a class="btn btn-link text-light" href=""><i class="fab fa-facebook-f"></i></a>#}
-{#                <a class="btn btn-link text-light" href=""><i class="fab fa-twitter"></i></a>#}
-                <a class="btn btn-link text-light" href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"><i class="fab fa-linkedin-in"></i></a>
-{#                <a class="btn btn-link text-light" href=""><i class="fab fa-instagram"></i></a>#}
+                <a class="btn btn-link text-light" href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"
+                    title="lien linkedin Adivec">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
         </div>
         <div class="col-lg-6 text-end">
             <div class="h-100 d-inline-flex align-items-center text-dark py-2 px-4 phone">
                 <span class="me-2 fw-semi-bold"><i class="fa fa-phone-alt me-2"></i>Appelez-nous:</span>
-                <a href="tel:+33238241550">02 38 24 15 50</a>
+                <a href="tel:+33238241550" title="numéro de téléphone Adivec">02 38 24 15 50</a>
             </div>
         </div>
     </div>
@@ -82,10 +82,11 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-    <a href="{{ path('app_home') }}" class="navbar-brand d-flex align-items-center">
-        <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="">
+    <a href="{{ path('app_home') }}" class="navbar-brand d-flex align-items-center" title="lien page accueil">
+        <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="logo Adivec">
     </a>
-    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-labelledby="menu">
+    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-labelledby="menu">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -94,18 +95,12 @@
             <a href="{{ path('app_news') }}" class="nav-item nav-link">News</a>
             <a href="{{ path('app-product') }}" class="nav-item nav-link">Produits</a>
             <a href="{{ path('app_team') }}"  class="nav-item nav-link">Notre équipe</a>
-{#            <div class="nav-item dropdown">#}
-{#                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Autres</a>#}
-{#                <div class="dropdown-menu bg-light m-0">#}
-{#                    <a href="{{ path('app_gallery') }}" class="dropdown-item">Gallerie</a>#}
-{#                    <a href="{{ path('app_feature') }}" class="dropdown-item">Projets</a>#}
-{#                    <a href="{{ path('app_team') }}" class="dropdown-item">Notre équipe</a>#}
-{#                </div>#}
-{#            </div>#}
             <a href="{{ path('app_contact') }}" class="nav-item nav-link">Contactez-nous</a>
         </div>
         <div class="border-start ps-4 d-none d-lg-block">
-            <button type="button" class="btn btn-sm p-0" aria-labelledby="recherche"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-sm p-0" aria-labelledby="recherche" title="recherche" id="search">
+                <i class="fa fa-search"></i>
+            </button>
         </div>
     </div>
 </nav>
@@ -137,12 +132,6 @@
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+33238241550">02 38 24 15 50</a></p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr"></a>contact@adivec.fr</p>
                 <div class="d-flex pt-3">
-{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
-{#                                class="fab fa-twitter"></i></a>#}
-{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
-{#                                class="fab fa-facebook-f"></i></a>#}
-{#                    <a class="btn btn-square rounded-circle me-2" href=""><i#}
-{#                                class="fab fa-youtube"></i></a>#}
                     <a class="btn btn-square rounded-circle me-2" href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"><i
                                 class="fab fa-linkedin-in"></i></a>
                 </div>
@@ -178,7 +167,7 @@
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By Tanguy
+                Designed By <a class="fw-semi-bold" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
     </div>
@@ -187,7 +176,7 @@
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top" title="Back to Top"><i class="bi bi-arrow-up"></i></a>
 
 
 </body>

@@ -6,7 +6,7 @@ use App\Repository\MembersRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MembersRepository::class)]
-class Members
+class Member
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,9 +25,22 @@ class Members
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $job = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 
     public function getFirstName(): ?string

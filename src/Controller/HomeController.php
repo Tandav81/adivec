@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Entity\LogoPartenaire;
+use App\Entity\Member;
+use App\Entity\Product;
 use App\Entity\Slide;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +20,8 @@ class HomeController extends AbstractController
         $slides = $entityManager->getRepository(Slide::class)->findOneByDate();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
         $news = $entityManager->getRepository(BlogPost::class)->findAll();
+        $products = $entityManager->getRepository(Product::class)->findAll();
+        $members = $entityManager->getRepository(Member::class)->findAll();
         $today = new \DateTime();
         $yearNow = $today->format('Y');
         $yearsExperience = $yearNow - 1989;
@@ -27,7 +31,9 @@ class HomeController extends AbstractController
             'slides' => $slides,
             'logos' => $logosPartenaires,
             'news' => $news,
-            'yearsExperience' => $yearsExperience
+            'yearsExperience' => $yearsExperience,
+            'members' => $members,
+            'products' => $products
         ]);
     }
 }
