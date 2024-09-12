@@ -26,7 +26,7 @@ class Type
 
     #[ORM\ManyToOne(inversedBy: 'types')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Family $family = null;
+    private Family $family;
 
     public function __construct()
     {

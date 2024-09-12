@@ -19,13 +19,9 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pays = null;
 
-    #[ORM\ManyToOne(targetEntity: "Type" , inversedBy: "products")]
+    #[ORM\ManyToOne(targetEntity: "Type" ,inversedBy: "products")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
-
-    #[ORM\ManyToOne(targetEntity: "Family" , inversedBy: "products")]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Family $family = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -69,27 +65,20 @@ class Product
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?Type
     {
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(Type $type): static
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getFamily(): ?Family
+    public function __toString(): string
     {
-        return $this->family;
-    }
-
-    public function setFamily(?Family $family): static
-    {
-        $this->family = $family;
-
-        return $this;
+        return $this->nom;
     }
 }
