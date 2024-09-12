@@ -10,11 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product', name: 'app-product')]
-    public function showProduct(): Response
+    #[Route('/produit-alimentaire', name: 'app-product-alim')]
+    public function showProduct(EntityManagerInterface $entityManager): Response
     {
+        $productAlimentaire = $entityManager->getRepository(Product::class)->findAll();
         return $this->render('product/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'productAlimentaire' => $productAlimentaire,
         ]);
     }
 

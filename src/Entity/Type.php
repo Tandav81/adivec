@@ -24,6 +24,10 @@ class Type
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'type')]
     private Collection $products;
 
+    #[ORM\ManyToOne(inversedBy: 'types')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Family $family = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -58,5 +62,17 @@ class Type
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getFamily(): ?Family
+    {
+        return $this->family;
+    }
+
+    public function setFamily(?Family $family): static
+    {
+        $this->family = $family;
+
+        return $this;
     }
 }

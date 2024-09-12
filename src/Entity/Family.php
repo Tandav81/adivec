@@ -24,9 +24,16 @@ class Family
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'family')]
     private Collection $products;
 
+    /**
+     * @var Collection<int, Type>
+     */
+    #[ORM\OneToMany(targetEntity: Type::class, mappedBy: 'family')]
+    private Collection $types;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,5 +64,35 @@ class Family
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Type>
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): static
+    {
+        if (!$this->types->contains($type)) {
+            $this->types->add($type);
+            $type->setFamily($this);
+        }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): static
+    {
+        if ($this->types->removeElement($type)) {
+            // set the owning side to null (unless already changed)
+            if ($type->getFamily() === $this) {
+                $type->setFamily(null);
+            }
+        }
+
+        return $this;
     }
 }
