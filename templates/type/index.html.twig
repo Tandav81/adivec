@@ -6,7 +6,7 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white mb-4 animated slideInDown">Nos ingrédients</h1>
+            <h1 class="display-3 text-white mb-4 animated slideInDown">Nos types d'ingrédients</h1>
         </div>
     </div>
     <!-- Page Header End -->
@@ -16,24 +16,32 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">Nos familles d'ingrédients</p>
+                <p class="section-title bg-white text-center text-primary px-3">Nos types d'ingrédients</p>
                 <h1 class="mb-5">Découvrir nos solutions</h1>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 
-                {% for family in families %}
+                {% for type in typesByFamily %}
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="product-item">
-                            <div class="position-relative famille">
-                                <a class="d-block h5" href="{{ path('app_types_family', {'familyId': family.id}) }}">
-                                    <img class="img-fluid" src="{{ asset('img/famille1.jpg') }}"
-                                          alt="famille alimentaire">
-                                </a>
-                            </div>
                             <div class="text-center p-4">
-                                <a class="d-block h5" href="">{{ family.name }}</a>
+                                <button class="btn" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample{{ type.id }}" aria-expanded="false">
+                                    {{type.name}}
+                                </button>
+
+                            </div>
+                            <div class="collapse" id="collapseExample{{ type.id }}">
+                                <div class="card card-body">
+                                    <ul>
+                                        {% for product in type.products %}
+                                            <li>{{ product.nom }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}

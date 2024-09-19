@@ -240,71 +240,6 @@
     </div>
     <!-- News End -->
 
-
-{#    <!-- Gallery Start -->#}
-{#    <div class="container-xxl py-5 px-0">#}
-{#        <div class="row g-0">#}
-{#            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">#}
-{#                <div class="row g-0">#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-5.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-5.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-1.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-1.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">#}
-{#                <div class="row g-0">#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-2.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-2.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-6.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-6.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">#}
-{#                <div class="row g-0">#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-7.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-7.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-3.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-3.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">#}
-{#                <div class="row g-0">#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-4.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-4.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="col-12">#}
-{#                        <a class="d-block" href="{{ asset('img/gallery-8.jpg') }}" data-lightbox="gallery">#}
-{#                            <img class="img-fluid" src="{{ asset('img/gallery-8.jpg') }}" alt="">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Gallery End -->#}
-
-
     <!-- Product Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -313,42 +248,24 @@
                 <h1 class="mb-5">Découvrir nos solutions</h1>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item">
-                        <div class="position-relative famille">
-                            <a class="d-block h5" href="">
-                                <img class="img-fluid" src="{{ asset('img/famille1.jpg') }}" alt="famille alimentaire">
-                            </a>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Alimentaire</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item">
-                        <div class="position-relative famille">
-                            <a class="d-block h5" href="">
-                                <img class="img-fluid" src="{{ asset('img/ecocert.jpg') }}" alt="famille bio">
-                            </a>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Produits Bio</a>
+
+                {% for family in families %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="product-item">
+                            <div class="position-relative famille">
+                                <a class="d-block h5" href="{{ path('app_types_family', {'familyId': family.id}) }}">
+                                    <img class="img-fluid" src="{{ asset('img/famille1.jpg') }}"
+                                         alt="famille alimentaire">
+                                </a>
+                            </div>
+                            <div class="text-center p-4">
+                                <a class="d-block h5" href="">{{ family.name }}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="product-item">
-                        <div class="position-relative famille">
-                            <a class="d-block h5" href="">
-                                <img class="img-fluid" src="{{ asset('img/famille1.jpg') }}" alt="famille technique">
-                            </a>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Technique</a>
-                        </div>
-                    </div>
-                </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+
             </div>
         </div>
     </div>

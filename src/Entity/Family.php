@@ -19,12 +19,6 @@ class Family
     private ?string $name = null;
 
     /**
-     * @var Collection<int, Product>
-     */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'family')]
-    private Collection $products;
-
-    /**
      * @var Collection<int, Type>
      */
     #[ORM\OneToMany(targetEntity: Type::class, mappedBy: 'family')]
@@ -32,7 +26,6 @@ class Family
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->types = new ArrayCollection();
     }
 
@@ -51,14 +44,6 @@ class Family
         $this->name = $name;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
     }
 
     public function __toString(): string

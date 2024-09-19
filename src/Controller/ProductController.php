@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
+use App\Entity\Family;
+use App\Entity\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,28 +11,25 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product', name: 'app-product')]
-    public function showProduct(): Response
+    #[Route('/familles', name: 'app_familles')]
+    public function showProduct(EntityManagerInterface $entityManager): Response
     {
+        $families = $entityManager->getRepository(Family::class)->findAll();
         return $this->render('product/index.html.twig', [
             'controller_name' => 'HomeController',
+            'families' => $families,
         ]);
     }
 
-    #[Route('/create-product', name: 'create_product')]
-    public function createProduct(EntityManagerInterface $entityManager): Response
+    #[Route('/types/{familyId}', name: 'app_types_family')]
+    public function showProductsByType(EntityManagerInterface $entityManager,
+                                       int $familyId): Response
     {
-        $product = new Product();
-        $product->setNom('Blé');
-        $product->setType('farine');
-        $product->setPays('France');
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new product with id '.$product->getId());
+        $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $familyId]);
+        $typesByFamily = $entityManager->getRepository(Type::class)->findBy(array('family' => $family));
+        return $this->render('type/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'typesByFamily' => $typesByFamily
+        ]);
     }
 }

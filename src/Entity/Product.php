@@ -17,7 +17,10 @@ class Product
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pays = null;
+    private ?string $application = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $packaging = null;
 
     #[ORM\ManyToOne(targetEntity: "Type" ,inversedBy: "products")]
     #[ORM\JoinColumn(nullable: false)]
@@ -53,18 +56,6 @@ class Product
         return $this;
     }
 
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(?string $pays): static
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
     public function getType(): ?Type
     {
         return $this->type;
@@ -75,6 +66,26 @@ class Product
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getApplication(): ?string
+    {
+        return $this->application;
+    }
+
+    public function setApplication(?string $application): void
+    {
+        $this->application = $application;
+    }
+
+    public function getPackaging(): ?string
+    {
+        return $this->packaging;
+    }
+
+    public function setPackaging(?string $packaging): void
+    {
+        $this->packaging = $packaging;
     }
 
     public function __toString(): string
