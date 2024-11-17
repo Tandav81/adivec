@@ -9,11 +9,23 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Produit>
  */
-class ProduitRepository extends ServiceEntityRepository
+class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    public function findProductsByApplicationId($applicationId)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.applications', 'app')
+            ->where('app.id = :val')
+            ->setParameter('val', $applicationId)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Application;
 use App\Entity\BlogPost;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
@@ -35,12 +36,12 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToUrl('Site Adivec', 'fa fa-home', url: '/'),
-
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
             MenuItem::linkToCrud('BlogPost', 'fa fa-newspaper-o', BlogPost::class),
             MenuItem::linkToCrud('Slide', 'fa fa-picture-o', Slide::class),
             MenuItem::linkToCrud('Type', 'fa fa-tags', Type::class),
             MenuItem::linkToCrud('Family', 'fa fa-tags', Family::class),
+            MenuItem::linkToCrud('Application', 'fa fa-book', Application::class),
             MenuItem::linkToCrud('Product', 'fa fa-book', Product::class),
             MenuItem::linkToCrud('Logos', 'fa fa-briefcase', LogoPartenaire::class),
             MenuItem::linkToCrud('Users', 'fa fa-user', User::class),

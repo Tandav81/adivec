@@ -3,12 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use App\Entity\Type;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ProductCrudController extends AbstractCrudController
@@ -24,12 +21,12 @@ class ProductCrudController extends AbstractCrudController
         return [
             TextField::new('nom'),
             AssociationField::new('type'),
-            TextField::new('application'),
+            AssociationField::new('applications'),
             TextField::new('packaging'),
             ImageField::new('image')
-                ->setBasePath('uploads/images/products')
-                ->setUploadDir('public/uploads/images/products')
-                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]')
+        ->setBasePath('uploads/images/products')
+        ->setUploadDir('public/uploads/images/products')
+        ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]')
         ];
     }
 }

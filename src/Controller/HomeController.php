@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
 use App\Entity\BlogPost;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
@@ -24,6 +25,7 @@ class HomeController extends AbstractController
         $products = $entityManager->getRepository(Product::class)->findAll();
         $families = $entityManager->getRepository(Family::class)->findAll();
         $members = $entityManager->getRepository(Member::class)->findAll();
+        $applications = $entityManager->getRepository(Application::class)->findAll();
         $today = new \DateTime();
         $yearNow = $today->format('Y');
         $yearsExperience = $yearNow - 1989;
@@ -37,6 +39,7 @@ class HomeController extends AbstractController
             'members' => $members,
             'products' => $products,
             'families' => $families,
+            'applications' => $applications
         ]);
     }
 }

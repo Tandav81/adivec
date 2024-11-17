@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitRepository;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 
-#[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
     #[ORM\Id]
@@ -16,8 +20,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $application = null;
+    #[ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
+    #[JoinTable(name: 'products_application')]
+    private Collection $applications;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $packaging = null;
@@ -28,6 +33,12 @@ class Product
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+
+    public function __construct() {
+        $this->applications = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -68,16 +79,6 @@ class Product
         return $this;
     }
 
-    public function getApplication(): ?string
-    {
-        return $this->application;
-    }
-
-    public function setApplication(?string $application): void
-    {
-        $this->application = $application;
-    }
-
     public function getPackaging(): ?string
     {
         return $this->packaging;
@@ -91,5 +92,13 @@ class Product
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
     }
 }

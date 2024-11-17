@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits pour cette application{% endblock %}
+
+{% block body %}
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Nos Produits</p>
+            </div>
+            <div class="row gx-4 d-flex justify-content-around">
+
+                {% for product in products %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="product-item">
+                            <div class="position-relative famille">
+                                <a href="" class="d-block h5">
+                                    <img class="img-fluid" src="{{ asset('uploads/images/products/'~product.image) }}"
+                                         alt="image du produit">
+                                </a>
+                            </div>
+                            <div class="text-center p-4">
+                                <a class="d-block h5" href="">{{ product.nom }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- Product End -->
+{% endblock %}
