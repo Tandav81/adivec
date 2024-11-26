@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits{% endblock %}
+
+{% block body %}
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Nos Produits</p>
+            </div>
+            <div class="d-flex justify-content-around">
+
+                {% for product in products %}
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="product-item">
+                            <div class="text-center p-4">
+                                <button class="btn btnHeigth" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample{{ product.id }}" aria-expanded="false">
+                                    {{product.nom}}
+                                </button>
+                            </div>
+                            <div class="collapse" id="collapseExample{{ product.id }}">
+                                <div class="card card-body">
+                                    <div class="card-content">
+                                        {% if product.image %}
+                                        <img class="img-fluid"
+                                             src="{{ asset('uploads/images/products/'~product.image) }}"
+                                             alt="famille alimentaire">
+                                        {% endif %}
+                                    <ul>
+                                        {% if product.applications.length > 0 %}<li>{{ product.applications.toString() }}</li>{% endif %}
+                                        {% if product.packaging %}<li>{{ product.packaging }}</li>{% endif %}
+                                        {% if product.type %}<li>{{ product.type }}</li>{% endif %}
+                                    </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Product End -->
+{% endblock %}

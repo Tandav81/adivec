@@ -24,6 +24,9 @@ class Family
     #[ORM\OneToMany(targetEntity: Type::class, mappedBy: 'family')]
     private Collection $types;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->types = new ArrayCollection();
@@ -77,6 +80,18 @@ class Family
                 $type->setFamily(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

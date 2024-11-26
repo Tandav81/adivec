@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits pour cette application{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 animated slideInDown">Nos applications</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Applications Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Nos applications</p>
+            </div>
+            <div class="row gx-4 d-flex justify-content-around">
+
+                {% for application in applications %}
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
+                            <div class="product-item">
+                                <div class="position-relative famille image">
+                                    <img class="img-fluid"
+                                         src="{{ asset('uploads/images/application/'~application.image) }}"
+                                         alt="famille alimentaire">
+                                </div>
+                                <div class="text-center p-4">
+                                    <span>{{ application.libelle }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- Applications End -->
+{% endblock %}

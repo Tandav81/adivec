@@ -18,7 +18,8 @@
                                         <p class="fs-4 text-white">{{ slide.subtitle | raw }}</p>
                                         <h1 class="display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</h1>
                                         <a href="{{ path('app_about') }}"
-                                           class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Voir plus ...</a>
+                                           class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Voir
+                                            plus ...</a>
                                     </div>
                                 </div>
                             </div>
@@ -148,17 +149,17 @@
 
                 {% for family in families %}
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="product-item">
-                            <div class="position-relative famille">
-                                <a class="d-block h5" href="{{ path('app_types_family', {'familyId': family.id}) }}">
-                                    <img class="img-fluid" src="{{ asset('img/famille1.jpg') }}"
-                                         alt="famille alimentaire">
-                                </a>
+                        <a class="d-block h5" href="{{ path('app_types_family', {'familyId': family.id}) }}">
+                            <div class="product-item">
+                                <div class="position-relative famille image">
+                                    <img class="img-fluid" src="{{ asset('uploads/images/family/'~family.image) }}"
+                                         alt="{{ family.name }}">
+                                </div>
+                                <div class="text-center p-4">
+                                    <a class="d-block h5" href="">{{ family.name }}</a>
+                                </div>
                             </div>
-                            <div class="text-center p-4">
-                                <a class="d-block h5" href="">{{ family.name }}</a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}
@@ -177,19 +178,22 @@
             <div class="row gx-4 d-flex justify-content-around">
 
                 {% for application in applications %}
+
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="product-item">
-                            <div class="position-relative famille">
-                                <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
-                                    <img class="img-fluid" src="{{ asset('uploads/images/application/'~application.image) }}"
+                        <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
+                            <div class="product-item">
+                                <div class="position-relative famille image">
+                                    <img class="img-fluid"
+                                         src="{{ asset('uploads/images/application/'~application.image) }}"
                                          alt="famille alimentaire">
-                                </a>
+                                </div>
+                                <div class="text-center p-4">
+                                    <span>{{ application.libelle }}</span>
+                                </div>
                             </div>
-                            <div class="text-center p-4">
-                                <a class="d-block h5" href="">{{ application.libelle }}</a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
+
                     {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}
 
@@ -199,24 +203,18 @@
     <!-- Applications End -->
 
     <!-- Partenaires Logos Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
-            </div>
-            <div class="row g-5 align-items-center">
-                <div class="col-12 wow fadeInUp display-flex" data-wow-delay="0.1s">
-                    <div class="row">
-                        {% for logo in logos %}
-                            <div class="col-4 col-lg-3">
-                                <img class="img-fluid animated infinite"
-                                     src="{{ asset('uploads/images/logos/'~logo.logo) }}"
-                                     alt="logos partenaire {{ logo.name }}">
-                            </div>
-                        {% endfor %}
-                    </div>
+    <div class="container-xxl py-5 mt-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
+        </div>
+        <div class="wow fadeInUp d-flex justify-content-center" data-wow-delay="0.1s">
+            {% for logo in logos %}
+                <div class="logo">
+                    <img class="img-fluid animated infinite"
+                         src="{{ asset('uploads/images/logos/'~logo.logo) }}"
+                         alt="logos partenaire {{ logo.name }}">
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <!-- Partenaires Logos End -->

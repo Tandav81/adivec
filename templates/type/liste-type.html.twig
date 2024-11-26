@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de nos produits{% endblock %}
+{% block title %}Nos types d'ingrédients{% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
@@ -25,20 +25,9 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="product-item">
                             <div class="text-center p-4">
-                                <button class="btn" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseExample{{ type.id }}" aria-expanded="false">
+                                <a class="btn" type="button" href="{{ path('app_products_type', {'typeId': type.id}) }}">
                                     {{type.name}}
-                                </button>
-
-                            </div>
-                            <div class="collapse" id="collapseExample{{ type.id }}">
-                                <div class="card card-body">
-                                    <ul>
-                                        {% for product in type.products %}
-                                            <li>{{ product.nom }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                                </a>
                             </div>
                         </div>
 
