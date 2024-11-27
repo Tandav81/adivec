@@ -2,18 +2,18 @@
 
 namespace App\Repository;
 
-use App\Entity\News;
+use App\Entity\BlogPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<News>
+ * @extends ServiceEntityRepository<BlogPost>
  */
-class NewsRepository extends ServiceEntityRepository
+class BlogPostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, News::class);
+        parent::__construct($registry, BlogPost::class);
     }
 
     //    /**
