@@ -2,18 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\BlogPost;
+use App\Entity\News;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class BlogPostCrudController extends AbstractCrudController
+class NewsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return BlogPost::class;
+        return News::class;
     }
 
 

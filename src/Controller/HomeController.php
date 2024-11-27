@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Application;
-use App\Entity\BlogPost;
+use App\Entity\News;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
 use App\Entity\Member;
@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     {
         $slides = $entityManager->getRepository(Slide::class)->findOneByDate();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
-        $news = $entityManager->getRepository(BlogPost::class)->findAll();
+        $news = $entityManager->getRepository(News::class)->findAll();
         $products = $entityManager->getRepository(Product::class)->findAll();
         $families = $entityManager->getRepository(Family::class)->findAll();
         $members = $entityManager->getRepository(Member::class)->findAll();
