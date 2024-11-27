@@ -3,44 +3,49 @@
 {% block title %}Nos produits{% endblock %}
 
 {% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 animated slideInDown">Nos produits</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
     <!-- Product Start -->
     <div class="container-xxl py-5">
+
         <div class="container">
+
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">Nos Produits</p>
+                <p class="section-title bg-white text-center text-primary px-3">Nos produits</p>
             </div>
-            <div class="d-flex justify-content-around">
 
+            <div class="container d-flex align-items-center justify-content-center flex-wrap">
                 {% for product in products %}
-
-                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="product-item">
-                            <div class="text-center p-4">
-                                <button class="btn btnHeigth" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseExample{{ product.id }}" aria-expanded="false">
-                                    {{product.nom}}
-                                </button>
+                    <div class="box">
+                        <div class="body">
+                            <div class="imgContainer">
+                                {% if product.image %}
+                                    <img class="img-fluid"
+                                         src="{{ asset('uploads/images/products/'~product.image) }}"
+                                         alt="famille alimentaire">
+                                {% else %}
+                                    <img class="img-fluid"
+                                         src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
+                                         alt="famille alimentaire">
+                                {% endif %}
+                                <div class="texte-over-image">
+                                    <p class="fs-6">{{ product.packaging }}</p>
+                                    <p class="fs-6">{{ product.applications.toString() }}</p>
+                                </div>
                             </div>
-                            <div class="collapse" id="collapseExample{{ product.id }}">
-                                <div class="card card-body">
-                                    <div class="card-content">
-                                        {% if product.image %}
-                                        <img class="img-fluid"
-                                             src="{{ asset('uploads/images/products/'~product.image) }}"
-                                             alt="famille alimentaire">
-                                        {% endif %}
-                                    <ul>
-                                        {% if product.applications.length > 0 %}<li>{{ product.applications.toString() }}</li>{% endif %}
-                                        {% if product.packaging %}<li>{{ product.packaging }}</li>{% endif %}
-                                        {% if product.type %}<li>{{ product.type }}</li>{% endif %}
-                                    </ul>
-                                    </div>
+                            <div class="content d-flex flex-column align-items-center justify-content-center">
+                                <div>
+                                    <h3 class="text-white fs-5">{{ product.nom }}</h3>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}
             </div>
         </div>
