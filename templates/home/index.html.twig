@@ -149,7 +149,7 @@
 
                 {% for family in families %}
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="d-block h5" href="{{ path('app_types_family', {'familyId': family.id}) }}">
+                        <a class="d-block h5" href="{{ path('app_types_family', {'id': family.id}) }}">
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid" src="{{ asset('uploads/images/family/'~family.image) }}"

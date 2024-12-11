@@ -17,19 +17,17 @@ class ProductController extends AbstractController
     {
         $families = $entityManager->getRepository(Family::class)->findAll();
         return $this->render('family/liste-famille.html.twig', [
-            'controller_name' => 'HomeController',
             'families' => $families,
         ]);
     }
 
-    #[Route('/types/{familyId}', name: 'app_types_family')]
+    #[Route('/types/{id}', name: 'app_types_family')]
     public function showTypesByFamily(EntityManagerInterface $entityManager,
-                                       int $familyId): Response
+                                       int $id): Response
     {
-        $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $familyId]);
+        $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $id]);
         $typesByFamily = $entityManager->getRepository(Type::class)->findBy(array('family' => $family));
         return $this->render('type/liste-type.html.twig', [
-            'controller_name' => 'HomeController',
             'typesByFamily' => $typesByFamily
         ]);
     }
@@ -40,7 +38,6 @@ class ProductController extends AbstractController
     {
         $products = $entityManager->getRepository(Product::class)->findProductsByTypeId($typeId);
         return $this->render('product/liste-produit.html.twig', [
-            'controller_name' => 'HomeController',
             'products' => $products
         ]);
     }
