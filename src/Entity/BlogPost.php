@@ -23,6 +23,9 @@ class BlogPost
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?bool $visible = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class BlogPost
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
 
         return $this;
     }
