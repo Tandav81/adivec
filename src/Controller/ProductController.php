@@ -41,4 +41,14 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
+
+    #[Route('/product/{id}', name: 'app_product_page')]
+    public function showProductById(EntityManagerInterface $entityManager,
+                                       int $id) : Response
+    {
+        $product = $entityManager->getRepository(Product::class)->findById($id);
+        return $this->render('product/page-produit.html.twig', [
+            'product' => $product
+        ]);
+    }
 }

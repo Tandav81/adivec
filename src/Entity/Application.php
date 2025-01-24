@@ -19,7 +19,7 @@ class Application
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $image = null;
 
     #[ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]

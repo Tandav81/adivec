@@ -38,4 +38,12 @@ class ProductRepository extends ServiceEntityRepository
                 ->getResult()
             ;
     }
+
+    public function findById(int $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()->getOneOrNullResult();
+    }
 }

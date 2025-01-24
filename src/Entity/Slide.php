@@ -20,7 +20,7 @@ class Slide
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $subtitle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

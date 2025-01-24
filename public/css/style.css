@@ -616,3 +616,11 @@
     left: 5px;
     color: #0a0a0a !important;
 }
+.image {
+    display: flex;
+    justify-content: center;
+}
+.image-height {
+    width: 100%;
+    max-height: 250px;
+}

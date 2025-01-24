@@ -22,19 +22,21 @@
             <div class="row gx-4 d-flex justify-content-around">
 
                 {% for type in typesByFamily %}
+
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="product-item">
-                            <div class="text-center p-4">
+
+                            <div class="product-item">
                                 <a class="btn" type="button" href="{{ path('app_products_type', {'typeId': type.id}) }}">
-                                    {{type.name}}
+                                <div class="text-center p-4">
+                                    {{ type.name }}
+                                </div>
                                 </a>
                             </div>
-                        </div>
 
                     </div>
+
                     {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}
-
             </div>
         </div>
     </div>

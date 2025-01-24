@@ -22,30 +22,34 @@
 
             <div class="container d-flex align-items-center justify-content-center flex-wrap">
                 {% for product in products %}
-                    <div class="box">
-                        <div class="body">
-                            <div class="imgContainer">
-                                {% if product.image %}
-                                    <img class="img-fluid"
-                                         src="{{ asset('uploads/images/products/'~product.image) }}"
-                                         alt="famille alimentaire">
-                                {% else %}
-                                    <img class="img-fluid"
-                                         src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
-                                         alt="famille alimentaire">
-                                {% endif %}
-                                <div class="texte-over-image">
-                                    <p class="fs-6">{{ product.packaging }}</p>
-                                    <p class="fs-6">{{ product.applications.toString() }}</p>
+                    <a href="{{ path('app_product_page', {'id': product.id} ) }}">
+                        <div class="box">
+                            <div class="body">
+                                <div class="imgContainer">
+
+                                    {% if product.image %}
+                                        <img class="img-fluid"
+                                             src="{{ asset('uploads/images/products/'~product.image) }}"
+                                             alt="famille alimentaire">
+                                    {% else %}
+                                        <img class="img-fluid"
+                                             src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
+                                             alt="famille alimentaire">
+                                    {% endif %}
+                                    <div class="texte-over-image">
+                                        <p class="fs-6">{{ product.packaging }}</p>
+                                        <p class="fs-6">{{ product.applications.toString() }}</p>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="content d-flex flex-column align-items-center justify-content-center">
-                                <div>
-                                    <h3 class="text-white fs-5">{{ product.nom }}</h3>
+                                <div class="content d-flex flex-column align-items-center justify-content-center">
+                                    <div>
+                                        <h3 class="text-white fs-5">{{ product.nom }}</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
