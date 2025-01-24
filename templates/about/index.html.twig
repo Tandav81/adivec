@@ -12,56 +12,68 @@
     <!-- Page Header End -->
 
 
+    <!-- About Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6">
                     <div class="row g-2">
                         <div class="col-6 position-relative wow fadeIn" data-wow-delay="0.7s">
-                            <div class="about-experience bg-secondary rounded">
-                                <h1 class="display-1 mb-0">{{ yearsExperience }}</h1>
-                                <small class="fs-5 fw-bold">Ans d'experience</small>
+                            <div class="about-experience bg-secondary rounded animated slideInLeft">
+                                <h1 class="display-1 mb-0 text-primary">{{ yearsExperience }} </h1>
+                                <h2 class="text-primary">ans</h2>
+                                <small class="fs-5 fw-bold text-primary texte-cadre-annee">d'accompagnement client</small>
                             </div>
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.1s">
-                            <img class="img-fluid rounded" src="{{ asset('img/service-1.jpg') }}" alt="un champs de blé">
+                            <img class="img-fluid rounded" src="{{ asset('img/service-1.jpg') }}" alt="">
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.3s">
-                            <img class="img-fluid rounded" src="{{ asset('img/service-2.jpg') }}" alt="une assiette de riz et poulet">
+                            <img class="img-fluid rounded" src="{{ asset('img/service-2.jpg') }}" alt="">
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.5s">
-                            <img class="img-fluid rounded" src="{{ asset('img/service-3.jpg') }}" alt="un bol de céréales">
+                            <img class="img-fluid rounded" src="{{ asset('img/service-3.jpg') }}" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h1>
-                    <p class="mb-4">Fondée en 1989, ADIVEC est une société de représentation
-                        et de négoce spécialisée dans les dérivés de produits agricoles et les matières premières naturelles.</p>
-                    <h2 class="mb-4">Nos secteurs d'activité</h2>
-                    <div class="row g-5 pt-2 mb-5">
-                        <div class="col-sm-6">
-                            <img class="img-fluid mb-4" src="{{ asset('img/product.png') }}" alt="">
+                    <h2 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h2>
+                    <p class="mb-2">Fondée en 1989, ADIVEC est une société de représentation
+                        et de négoce spécialisée dans les dérivés de produits agricoles et les matières premières
+                        naturelles.</p>
+                    <p class="mb-5">Vos besoins, nos priorités. Zéro standardisation, 100 % adaptation.</p>
+
+                    <h2 class="mb-3">Nos secteurs d'activité</h2>
+                    <div class="row pt-2 mb-5">
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/ble.png') }}" alt="" style="width: 60px">
                             <h5 class="mb-3">Alimentaire</h5>
-                            <span>Clita erat ipsum et lorem et sit, sed stet lorem sit clita</span>
+                            <span>
+                                Nous offrons des ingrédients répondant aux exigences
+                                de l’industrie agroalimentaire.
+                            </span>
                         </div>
-                        <div class="col-sm-6">
-                            <img class="img-fluid mb-4" src="{{ asset('img/animal.png') }}" alt="">
-                            <h5 class="mb-3">Feed</h5>
-                            <span>Clita erat ipsum et lorem et sit, sed stet lorem sit clita</span>
-                        </div>
-                        <div class="col-sm-6">
-                            <img class="img-fluid mb-4" src="{{ asset('img/service.png') }}" alt="">
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/pinceau.png') }}" alt="" style="width: 60px">
                             <h5 class="mb-3">Technique</h5>
-                            <span>Clita erat ipsum et lorem et sit, sed stet lorem sit clita</span>
+                            <span title=" utilisé dans le
+                                secteur des colles et adhesif, les papiers peints ou l’affichage. Adivec propose
+                                également des produits pour les différentes étapes de la production papetière.">
+                                Nous fournissons des solutions pour la fabrication de produit technique
+                            </span>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}" alt="" style="width: 60px">
+                            <h5 class="mb-3">Feed</h5>
+                            <span>Nous proposons une large gamme d’ingredients pour l’alimentation animal</span>
                         </div>
                     </div>
-                    <h2 class="mb-4">Notre démarche</h2>
-                    <p class="mb-4">Notre démarche se base sur l’analyse et la compréhension des besoins de nos clients
-                        afin de proposer une offre qui corresponde à leurs attentes techniques et budgétaires.</p>
-                    <a class="btn btn-secondary rounded-pill py-3 px-5" href="{{ path('app_contact') }}">Contactez-nous!</a>
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- About End -->
 {% endblock %}
