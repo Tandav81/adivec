@@ -19,38 +19,48 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    {{ form_row(form.company, {'attr': {'class': 'form-control'}}) }}
-{#                                    <input type="text" class="form-control" id="name" placeholder="Your Name">#}
-{#                                    <label for="name">Le nom de votre compagnie</label>#}
-{#                                      {{ form_label(form.company) }}
+                                    <div>
+                                        {{ form_label(form.company, 'Société') }}
+                                    </div>
+                                    <div>
                                         {{ form_widget(form.company, {'attr': {'class': 'form-control'}}) }}
-#}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-
-                                    {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
-{#                                    <input type="text" class="form-control" id="name" placeholder="Your Name">#}
-{#                                    <label for="name">Votre nom</label>#}
+                                    {{ form_label(form.nom, 'Votre nom') }}
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-{#                                    <input type="email" class="form-control" id="email" placeholder="Your Email">#}
-{#                                    <label for="email">Votre email</label>#}
+                                    {{ form_label(form.email, 'Votre email') }}
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_label(form.numTel, 'Votre numéro de téléphone') }}
+                                    {{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_label(form.codePostal, 'Votre code postal') }}
+                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    {{ form_row(form.message, {'attr': {'class': 'form-control'}}) }}
-{#                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 250px"></textarea>#}
-{#                                    <label for="message">Message</label>#}
+                                    {{ form_label(form.message, 'Votre message') }}
+                                    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-secondary rounded-pill py-3 px-5" type="submit" aria-labelledby="envoyer">Envoyer le message</button>
+                                <button class="btn btn-secondary rounded-pill py-3 px-5" type="submit"
+                                        aria-labelledby="envoyer">Envoyer le message
+                                </button>
                             </div>
                         </div>
                         {{ form_end(form) }}

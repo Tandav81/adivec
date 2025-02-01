@@ -23,7 +23,6 @@ class ProductRepository extends ServiceEntityRepository
             ->where('app.id = :val')
             ->setParameter('val', $applicationId)
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }

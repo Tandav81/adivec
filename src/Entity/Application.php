@@ -21,9 +21,12 @@ class Application
 
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $image = null;
-
+    
     #[ManyToMany(targetEntity: Product::class, mappedBy: 'applications')]
     private Collection $products;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $icone = null;
 
 
     public function __construct()
@@ -71,5 +74,17 @@ class Application
     public function __toString(): string
     {
         return $this->libelle;
+    }
+
+    public function getIcone(): ?string
+    {
+        return $this->icone;
+    }
+
+    public function setIcone(?string $icone): static
+    {
+        $this->icone = $icone;
+
+        return $this;
     }
 }

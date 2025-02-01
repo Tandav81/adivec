@@ -353,7 +353,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 0 45px rgba(0, 0, 0, .07);
-    height: 350px;
+    height: 300px;
 }
 
 .type-item {
@@ -631,5 +631,12 @@
 }
 .image-height {
     width: 100%;
-    max-height: 250px;
+    height: 200px;
+}
+
+.app-rows {
+    .app-pills {
+        width: 200px;
+        padding: 5px;
+    }
 }

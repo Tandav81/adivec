@@ -30,25 +30,24 @@
                 </div>
             </div>
 
+            <h2>Applications</h2>
+            <div class="d-flex app-rows mb-4 mt-2 align-items-center">
 
-            <div class="row gy-5 gx-4">
-
-                <h2>Applications</h2>
                 {% for application in product.applications %}
-                    <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
-                        <div class="col-lg-9 col-md-6">
-                            <div class="d-flex h-100">
-                                <p class="mb-4">{{ application.libelle }}</p>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-                <div class="col-lg-9 col-md-6">
-                    <div class="d-flex h-100">
-                        <p class="mb-4">{{ product.packaging }}</p>
+                    <div class="app-pills">
+                        <a href="{{ path('app_application', {'id': application.id}) }}"
+                           class="btn btn-primary rounded-pill animated slideInRight" style="width: 100%;">
+                            <img class="img-fluid mb-2" src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
+                                 alt="" style="width: 30px">
+                            <p>{{ application.libelle }}</p>
+                        </a>
                     </div>
-                </div>
+                {% endfor %}
 
+            </div>
+
+            <div class="d-flex">
+                <p class="mb-4">{{ product.packaging }}</p>
             </div>
         </div>
     </div>

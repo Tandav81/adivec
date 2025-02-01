@@ -129,7 +129,7 @@
                                 </div>
                                 <h5 class="mb-3">{{ new.title }}</h5>
                                 <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...') }}</p>
-                                <a class="btn btn-square rounded-circle" href=""><i
+                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {id: new.id}) }}"><i
                                             class="bi bi-chevron-double-right"></i></a>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Nos familles d'ingrédients</p>
-                <h1 class="mb-5">Découvrir nos solutions</h1>
+                <h1 class="mb-5">Découvrir nos ingrédients</h1>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 
@@ -176,7 +176,7 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">Nos applications</p>
+                <h1 class="mb-5">Découvrir nos applications</h1>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 

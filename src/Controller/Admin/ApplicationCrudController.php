@@ -19,6 +19,10 @@ class ApplicationCrudController extends AbstractCrudController
     {
         return [
             TextField::new('libelle'),
+            ImageField::new('icone')
+                ->setBasePath('uploads/images/application/icone')
+                ->setUploadDir('public/uploads/images/application/icone')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
             ImageField::new('image')
                 ->setBasePath('uploads/images/application')
                 ->setUploadDir('public/uploads/images/application')
