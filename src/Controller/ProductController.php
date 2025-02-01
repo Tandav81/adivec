@@ -28,8 +28,9 @@ class ProductController extends AbstractController
         $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $id]);
         $typesByFamily = $entityManager->getRepository(Type::class)->findBy(array('family' => $family));
         return $this->render('type/liste-type.html.twig', [
-            'typesByFamily' => $typesByFamily
-        ]);
+            'typesByFamily' => $typesByFamily,
+            'typeId' => $id
+            ]);
     }
 
     #[Route('/products/{typeId}', name: 'app_products_type')]
@@ -38,7 +39,8 @@ class ProductController extends AbstractController
     {
         $products = $entityManager->getRepository(Product::class)->findProductsByTypeId($typeId);
         return $this->render('product/liste-produit.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'typeId' => $typeId
         ]);
     }
 

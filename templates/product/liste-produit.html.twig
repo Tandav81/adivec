@@ -7,6 +7,13 @@
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
             <h1 class="display-3 text-white mb-4 animated slideInDown">Nos produits</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_familles') }}">Familles</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_application_page') }}">Applications</a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <!-- Page Header End -->
@@ -22,34 +29,52 @@
 
             <div class="container d-flex align-items-center justify-content-center flex-wrap">
                 {% for product in products %}
-                    <a href="{{ path('app_product_page', {'id': product.id} ) }}">
-                        <div class="box">
-                            <div class="body">
-                                <div class="imgContainer">
 
-                                    {% if product.image %}
-                                        <img class="img-fluid"
-                                             src="{{ asset('uploads/images/products/'~product.image) }}"
-                                             alt="famille alimentaire">
-                                    {% else %}
-                                        <img class="img-fluid"
-                                             src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
-                                             alt="famille alimentaire">
-                                    {% endif %}
-                                    <div class="texte-over-image">
-                                        <p class="fs-6">{{ product.packaging }}</p>
-                                        <p class="fs-6">{{ product.applications.toString() }}</p>
-                                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="lien-product" href="{{ path('app_product_page', {'id': product.id} ) }}">
+                            <div class="type-item">
 
+                                <div class="text-center p-4">
+                                    {{ product.nom }}
                                 </div>
-                                <div class="content d-flex flex-column align-items-center justify-content-center">
-                                    <div>
-                                        <h3 class="text-white fs-5">{{ product.nom }}</h3>
-                                    </div>
-                                </div>
+
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+
+                    {% set timedelay = timedelay + 0.2 %}
+
+
+
+                    {#                    #}
+                    {#                    <a href="{{ path('app_product_page', {'id': product.id} ) }}"> #}
+                    {#                        <div class="box"> #}
+                    {#                            <div class="body"> #}
+                    {#                                <div class="imgContainer"> #}
+
+                    {#                                    {% if product.image %} #}
+                    {#                                        <img class="img-fluid" #}
+                    {#                                             src="{{ asset('uploads/images/products/'~product.image) }}" #}
+                    {#                                             alt="famille alimentaire"> #}
+                    {#                                    {% else %} #}
+                    {#                                        <img class="img-fluid" #}
+                    {#                                             src="{{ asset('uploads/images/family/'~product.type.family.image) }}" #}
+                    {#                                             alt="famille alimentaire"> #}
+                    {#                                    {% endif %} #}
+                    {#                                    <div class="texte-over-image"> #}
+                    {#                                        <p class="fs-6">{{ product.packaging }}</p> #}
+                    {#                                        <p class="fs-6">{{ product.applications.toString() }}</p> #}
+                    {#                                    </div> #}
+
+                    {#                                </div> #}
+                    {#                                <div class="content d-flex flex-column align-items-center justify-content-center"> #}
+                    {#                                    <div> #}
+                    {#                                        <h3 class="text-white fs-5">{{ product.nom }}</h3> #}
+                    {#                                    </div> #}
+                    {#                                </div> #}
+                    {#                            </div> #}
+                    {#                        </div> #}
+                    {#                    </a> #}
                 {% endfor %}
             </div>
         </div>

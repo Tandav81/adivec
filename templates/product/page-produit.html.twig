@@ -7,6 +7,15 @@
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
             <h1 class="display-3 text-white mb-4 animated slideInDown">{{ product.type.name }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_familles') }}">Familles</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_types_family', { 'id' : product.type.id }) }}">Types</a></li>
+                </ol>
+            </nav>
+
         </div>
     </div>
     <!-- Page Header End -->
@@ -31,15 +40,17 @@
             </div>
 
             <h2>Applications</h2>
-            <div class="d-flex app-rows mb-4 mt-2 align-items-center">
+            <div class="d-flex app-rows mb-4 mt-2">
 
                 {% for application in product.applications %}
                     <div class="app-pills">
                         <a href="{{ path('app_application', {'id': application.id}) }}"
-                           class="btn btn-primary rounded-pill animated slideInRight" style="width: 100%;">
-                            <img class="img-fluid mb-2" src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
+                           class="btn rounded-pill animated slideInRight" style="width: 100%;"
+                           title="{{ application.libelle }}">
+                            <img class="img-fluid mb-2"
+                                 src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
                                  alt="" style="width: 30px">
-                            <p>{{ application.libelle }}</p>
+                            <p class="libelle-application">{{ application.libelle }}</p>
                         </a>
                     </div>
                 {% endfor %}

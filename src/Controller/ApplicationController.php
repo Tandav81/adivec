@@ -16,7 +16,6 @@ class ApplicationController extends AbstractController
     {
         $products = $entityManager->getRepository(Product::class)->findProductsByApplicationId($id);
         return $this->render('product/liste-produit.html.twig', [
-            'controller_name' => 'HomeController',
             'products' => $products,
         ]);
     }

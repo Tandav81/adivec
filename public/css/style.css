@@ -107,7 +107,7 @@
 .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free", serif;
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
@@ -181,6 +181,10 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+
+    .libelle-application {
+        display: none;
     }
 }
 
@@ -362,6 +366,10 @@
     overflow: hidden;
     box-shadow: 0 0 45px rgba(0, 0, 0, .07);
     margin: 10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:6rem;
 }
 
 .product-item .product-overlay {
@@ -408,7 +416,7 @@
 .testimonial-img::after {
     position: absolute;
     content: "\f10d";
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free", serif;
     font-weight: 900;
     font-size: 200px;
     color: #EEEEEE;
@@ -537,11 +545,11 @@
 /*}*/
 
 .image img {
-    transition: all 2s ease-in-out
+    transition: all 1s ease-in-out
 }
 
 .image:hover img {
-    transform: scale(2, 2);
+    transform: scale(1.2);
     cursor: pointer
 }
 
@@ -635,8 +643,7 @@
 }
 
 .app-rows {
-    .app-pills {
-        width: 200px;
-        padding: 5px;
-    }
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
 }

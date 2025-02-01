@@ -29,32 +29,36 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {{ form_label(form.nom, 'Votre nom') }}
-                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                    <div>  {{ form_label(form.nom, 'Votre nom') }}</div>
+                                    <div>{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}</div>
+
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {{ form_label(form.email, 'Votre email') }}
-                                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                    <div>{{ form_label(form.email, 'Votre email') }}</div>
+                                    <div>{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {{ form_label(form.numTel, 'Votre numéro de téléphone') }}
-                                    {{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}
+                                    <div>{{ form_label(form.numTel, 'Votre numéro de téléphone') }}</div>
+                                    <div>{{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    {{ form_label(form.codePostal, 'Votre code postal') }}
-                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
+                                    <div>{{ form_label(form.codePostal, 'Votre code postal') }}</div>
+                                    <div> {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}</div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    {{ form_label(form.message, 'Votre message') }}
-                                    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                                    <div>{{ form_label(form.message, 'Votre message') }}</div>
+                                    <div>{{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}</div>
+
+
                                 </div>
                             </div>
                             <div class="col-12">
