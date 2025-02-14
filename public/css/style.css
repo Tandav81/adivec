@@ -170,23 +170,7 @@
     border: 10px solid var(--primary);
 }
 
-@media (max-width: 768px) {
-    #header-carousel .carousel-item {
-        position: relative;
-        min-height: 450px;
-    }
-    
-    #header-carousel .carousel-item img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
 
-    .libelle-application {
-        display: none;
-    }
-}
 
 .page-header {
     background: url(../img/banner.jpg) center center no-repeat;
@@ -646,4 +630,66 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+
+/*barre de recherche*/
+.autocomplete-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0 solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    position: absolute;
+    width: 100%;
+}
+
+.autocomplete-results li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-results li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-bar {
+    transition: width 0.3s ease-in-out;
+    width: 40px;
+}
+
+.search-bar:focus {
+    width: 300px;
+}
+
+.loupe-right {
+    right: 10px !important;
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .libelle-application {
+        display: none;
+    }
+
+    .search-bar {
+        width: 100px;
+    }
+
+    .search-bar:focus {
+        width: 260px;
+    }
 }
