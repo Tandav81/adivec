@@ -668,10 +668,26 @@
     right: 10px !important;
 }
 
+.logo {
+    width: 150px;
+}
+
+.texte-produit {
+    padding-left: 50px;
+}
+
 @media (max-width: 768px) {
     #header-carousel .carousel-item {
         position: relative;
         min-height: 450px;
+    }
+
+    .fiche-produit {
+        flex-direction: column;
+    }
+
+    .texte-produit {
+        padding-left: 0;
     }
 
     #header-carousel .carousel-item img {
@@ -679,10 +695,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    .libelle-application {
-        display: none;
     }
 
     .search-bar {
@@ -694,6 +706,3 @@
     }
 }
 
-.logo {
-    width: 150px;
-}

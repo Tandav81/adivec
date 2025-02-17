@@ -24,42 +24,54 @@
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="pb-4 wow fadeInUp d-flex justify-content-between" data-wow-delay="0.1s">
-                <h1 class="mb-5" style="max-width: 800px;">{{ product.nom }}</h1>
-                <div class="col-auto">
+            <div class="pb-4 wow fadeInUp d-flex fiche-produit" data-wow-delay="0.1s">
+                <div class="col-auto" style="max-width: 50%">
                     {% if product.image %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/products/'~product.image) }}"
-                             alt="image produit" style="max-width: 200px;">
+                             alt="image-fiche-produit">
                     {% else %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
-                             alt="image famille" style="max-width: 200px;">
+                             alt="image-fiche-produit">
                     {% endif %}
+                </div>
+
+                <div class="texte-produit">
+                    <div class="d-flex app-rows mb-4 mt-2">
+                        <div>
+                            <h1 class="mb-5" style="max-width: 800px;">{{ product.nom }}</h1>
+                        </div>
+                        <div>
+                            <h2>Applications</h2>
+                        </div>
+
+                        {% for application in product.applications %}
+                            <a href="{{ path('app_application', {'id': application.id}) }}"
+                               class="btn rounded-pill animated slideInRight" style="width: 100%;"
+                               title="{{ application.libelle }}">
+                                <div class="app-pills d-flex">
+                                    <div>
+                                        <img class="img-fluid mb-2"
+                                             src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
+                                             alt="" style="width: 30px">
+                                    </div>
+                                    <div>
+                                        <p class="libelle-application">{{ application.libelle }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+
+                    </div>
+
+                    <h2>Packaging</h2>
+                    <div class="d-flex">
+                        <p class="mb-4">{{ product.packaging }}</p>
+                    </div>
                 </div>
             </div>
 
-            <h2>Applications</h2>
-            <div class="d-flex app-rows mb-4 mt-2">
-
-                {% for application in product.applications %}
-                    <div class="app-pills">
-                        <a href="{{ path('app_application', {'id': application.id}) }}"
-                           class="btn rounded-pill animated slideInRight" style="width: 100%;"
-                           title="{{ application.libelle }}">
-                            <img class="img-fluid mb-2"
-                                 src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
-                                 alt="" style="width: 30px">
-                            <p class="libelle-application">{{ application.libelle }}</p>
-                        </a>
-                    </div>
-                {% endfor %}
-
-            </div>
-
-            <div class="d-flex">
-                <p class="mb-4">{{ product.packaging }}</p>
-            </div>
         </div>
     </div>
     <!-- Service End -->
