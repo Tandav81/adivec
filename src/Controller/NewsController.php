@@ -13,7 +13,7 @@ class NewsController extends AbstractController
     #[Route('/news', name: 'app_news')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $news = $entityManager->getRepository(BlogPost::class)->findAll();
+        $news = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         return $this->render('news/index.html.twig', [
             'controller_name' => 'ServiceController',
             'news' => $news,
