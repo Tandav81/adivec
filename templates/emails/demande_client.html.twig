@@ -1,13 +1,14 @@
 <h1>Demande client</h1>
 
-<h3>
-    Un client voudrait être recontacter!
-</h3>
+<h3>Un client voudrait être recontacté!</h3>
+
 <p><strong>Voici ces informations : </strong></p>
 <p>Compagnie : {{ formdata.company }}</p>
+<p>Code Postal : {{ formdata.codePostal }}</p>
 <p>Nom : {{ formdata.nom }}</p>
 <p>Email : {{ formdata.email }}</p>
+<p>Téléphone : {{ formdata.numTel }}</p>
 
-<p>
-    {{ formdata.message }}
-</p>
+<h3>Message du client:</h3>
+
+<p>{{ formdata.message }}</p>

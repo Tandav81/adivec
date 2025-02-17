@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
@@ -22,7 +21,7 @@ class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $contactFormData = $form->getData();
             $message = (new TemplatedEmail())
-                ->from('mailpourenvoi@lafamilledavid.fr')
+                ->from('contactsite@adivec.fr')
                 ->to('contact@adivec.fr')
                 ->subject('Demande client via le site adivec')
                 ->htmlTemplate('emails/demande_client.html.twig')
