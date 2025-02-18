@@ -19,12 +19,9 @@ class ApplicationRepository extends ServiceEntityRepository
         /**
          * @return Application[] Returns an array of Application objects
          */
-        public function findAllSortedByTypeAndName(): array
+        public function findAll(): array
         {
             return $this->createQueryBuilder('a')
-                ->leftJoin('a.products', 'p')
-                ->leftJoin('p.type', 't')
-                ->orderBy('t.family', 'asc')
                 ->orderBy('a.libelle', 'ASC')
                 ->getQuery()
                 ->getResult()

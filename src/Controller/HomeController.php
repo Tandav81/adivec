@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         $news = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         $products = $entityManager->getRepository(Product::class)->findAll();
         $families = $entityManager->getRepository(Family::class)->findAll();
-        $applications = $entityManager->getRepository(Application::class)->findAllSortedByTypeAndName();
+        $applications = $entityManager->getRepository(Application::class)->findAll();
         $today = new \DateTime();
         $yearNow = $today->format('Y');
         $yearsExperience = $yearNow - 1989;

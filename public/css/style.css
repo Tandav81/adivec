@@ -682,6 +682,10 @@
         min-height: 450px;
     }
 
+    .texte-cadre-annee {
+        font-size: 70% !important;
+    }
+
     .fiche-produit {
         flex-direction: column;
     }
