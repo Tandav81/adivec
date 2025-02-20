@@ -33,7 +33,9 @@
                                     <img class="img-fluid rounded-circle"
                                          src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}">
                                 </div>
-                                <h5 class="mb-3">{{ new.title }}</h5>
+                                <div class="d-flex">
+                                    <h5 class="mb-3 titre-news">{{ new.title }}</h5>
+                                </div>
                                 <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...')}}</p>
                                 <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {id: new.id}) }}"><i
                                             class="bi bi-chevron-double-right"></i></a>

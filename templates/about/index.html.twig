@@ -82,4 +82,22 @@
         </div>
     </div>
     <!-- About End -->
+
+    <!-- Partenaires Logos Start -->
+    <div class="container-xxl py-5 mt-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
+        </div>
+        <div class="wow fadeInUp d-flex align-items-baseline justify-content-between" data-wow-delay="0.1s">
+            {% for logo in logos %}
+                <div class="logo">
+                    <img class="img-fluid animated infinite logos"
+                         src="{{ asset('uploads/images/logos/'~logo.logo) }}"
+                         alt="logos partenaire {{ logo.name }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Partenaires Logos End -->
+
 {% endblock %}

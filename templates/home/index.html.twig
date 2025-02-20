@@ -14,12 +14,11 @@
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-start">
-                                    <div class="col-lg-8 text-start">
+                                    <div class="col-lg-8 text-start" style="padding-left: 150px">
                                         <p class="fs-4 text-white">{{ slide.subtitle | raw }}</p>
                                         <h1 class="display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</h1>
                                         <a href="{{ path('app_about') }}"
-                                           class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Découvrez
-                                            nous</a>
+                                           class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Découvrez-nous</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,9 +67,9 @@
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <h2 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h2>
-                    <p class="mb-2">Fondée en 1989, Adivec propose des solutions ingrédients issues de matières premières naturelles,
+                    <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issues de matières premières naturelles,
                         conventionnelles ou bio, pour l’alimentation humaine, animale ainsi que des applications
-                        techniques.</p>
+                        techniques à destination des industriels français.</p>
                     <p class="mb-5">Vos besoins, nos priorités. Zéro standardisation, 100 % adaptation.</p>
 
                     <h2 class="mb-3">Nos secteurs d'activité</h2>
@@ -90,7 +89,7 @@
                             <span title=" utilisé dans le
                                 secteur des colles et adhesif, les papiers peints ou l’affichage. Adivec propose
                                 également des produits pour les différentes étapes de la production papetière.">
-                                Nous fournissons des solutions pour la fabrication de produits techniques
+                                Nous fournissons des solutions pour la fabrication de produits techniques.
                             </span>
                         </div>
 
@@ -98,7 +97,7 @@
                             <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}" alt=""
                                  style="width: 60px">
                             <h5 class="mb-3">Alimentation animale</h5>
-                            <span>Nous proposons une large gamme d’ingrédients pour l’alimentation des animaux de compagnies et d’élevages.</span>
+                            <span>Nous proposons une large gamme d’ingrédients pour l’alimentation des animaux de compagnie et d’élevage.</span>
                         </div>
                     </div>
 
@@ -129,7 +128,9 @@
                                     <img class="img-fluid rounded-circle"
                                          src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}">
                                 </div>
-                                <h5 class="mb-3">{{ new.title }}</h5>
+                                <div class="d-flex">
+                                    <h5 class="mb-3 titre-news">{{ new.title }}</h5>
+                                </div>
                                 <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...') }}</p>
                                 <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {id: new.id}) }}"><i
                                             class="bi bi-chevron-double-right"></i></a>

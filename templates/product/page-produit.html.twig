@@ -46,22 +46,24 @@
                             <h2>Applications</h2>
                         </div>
 
-                        {% for application in product.applications %}
-                            <a href="{{ path('app_application', {'id': application.id}) }}"
-                               class="btn rounded-pill animated slideInRight" style="width: 100%;"
-                               title="{{ application.libelle }}">
-                                <div class="app-pills d-flex">
-                                    <div>
-                                        <img class="img-fluid mb-2"
-                                             src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
-                                             alt="" style="width: 30px">
+                        <div>
+                            {% for application in product.applications %}
+                                <a href="{{ path('app_application', {'id': application.id}) }}"
+                                   class="btn rounded-pill animated slideInRight" style="width: 100%;"
+                                   title="{{ application.libelle }}">
+                                    <div class="app-pills d-flex">
+                                        <div>
+                                            <img class="img-fluid mb-2"
+                                                 src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
+                                                 alt="" style="width: 30px">
+                                        </div>
+                                        <div>
+                                            <p class="libelle-application">{{ application.libelle }}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="libelle-application">{{ application.libelle }}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endfor %}
+                                </a>
+                            {% endfor %}
+                        </div>
 
                     </div>
 

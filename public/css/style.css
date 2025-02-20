@@ -179,12 +179,14 @@
 
 .page-header .breadcrumb-item+.breadcrumb-item::before {
     color: var(--light);
+    font-weight: bold;
 }
 
 .page-header .breadcrumb-item,
 .page-header .breadcrumb-item a {
     font-size: 18px;
     color: var(--light);
+    font-weight: bold;
 }
 
 
@@ -627,9 +629,7 @@
 }
 
 .app-rows {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -669,7 +669,11 @@
 }
 
 .logo {
-    width: 150px;
+    width: 180px;
+}
+
+.titre-news {
+    text-align :center;
 }
 
 .texte-produit {
@@ -699,10 +703,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    .search-bar {
-        width: 100px;
     }
 
     .search-bar:focus {
