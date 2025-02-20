@@ -10,8 +10,7 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_familles') }}">Familles</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_application_page') }}">Applications</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'id' : family.id }) }}">{{ family.name }}</a></li>
                 </ol>
             </nav>
         </div>

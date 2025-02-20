@@ -664,6 +664,10 @@
     width: 300px;
 }
 
+.search-bar:not(:placeholder-shown) {
+    width: 300px;
+}
+
 .loupe-right {
     right: 10px !important;
 }
@@ -706,6 +710,10 @@
     }
 
     .search-bar:focus {
+        width: 260px;
+    }
+
+    .search-bar:not(:placeholder-shown) {
         width: 260px;
     }
 }

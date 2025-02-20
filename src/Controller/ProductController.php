@@ -27,6 +27,7 @@ class ProductController extends AbstractController
     {
         $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $id]);
         $typesByFamily = $entityManager->getRepository(Type::class)->findBy(array('family' => $family));
+
         return $this->render('type/liste-type.html.twig', [
             'typesByFamily' => $typesByFamily,
             'typeId' => $id
@@ -38,9 +39,12 @@ class ProductController extends AbstractController
                                        int $typeId) : Response
     {
         $products = $entityManager->getRepository(Product::class)->findProductsByTypeId($typeId);
+        $type = $entityManager->getRepository(Type::class)->findOneById($typeId);
+        $family = $entityManager->getRepository(Family::class)->findOneById($type->getFamily()->getId());
         return $this->render('product/liste-produit.html.twig', [
             'products' => $products,
-            'typeId' => $typeId
+            'typeId' => $typeId,
+            'family' => $family
         ]);
     }
 

@@ -90,19 +90,7 @@
     <a href="{{ path('app_home') }}" class="navbar-brand d-flex align-items-center" title="lien page accueil">
         <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="logo Adivec">
     </a>
-    <div class="container-search">
-        <div class="position-relative">
-            <input type="text"
-                   class="form-control rounded-pill search-bar pe-5"
-                   placeholder="Rechercher un produit ou une application..."
-                   aria-label="Rechercher un produit ou une application"
-                   id="searchInput">
-            <span class="position-absolute top-50 translate-middle-y loupe-right">
-                    <i class="bi bi-search"></i>
-                </span>
-            <ul id="autocompleteResults" class="autocomplete-results"></ul>
-        </div>
-    </div>
+
     <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-labelledby="menu">
         <span class="navbar-toggler-icon"></span>
@@ -117,7 +105,19 @@
             <a href="{{ path('app_contact') }}" class="nav-item nav-link">Contactez-nous</a>
         </div>
     </div>
-
+    <div class="container-search">
+        <div class="position-relative">
+            <input type="text"
+                   class="form-control rounded-pill search-bar pe-5"
+                   placeholder="Rechercher un produit ou une application..."
+                   aria-label="Rechercher un produit ou une application"
+                   id="searchInput">
+            <span class="position-absolute top-50 translate-middle-y loupe-right">
+                    <i class="bi bi-search"></i>
+                </span>
+            <ul id="autocompleteResults" class="autocomplete-results"></ul>
+        </div>
+    </div>
 </nav>
 <div class="col position-absolute">
     {% for message in app.flashes('success') %}

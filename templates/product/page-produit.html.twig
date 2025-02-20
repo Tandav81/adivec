@@ -10,9 +10,9 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_familles') }}">Familles</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'id' : product.type.family.id }) }}">{{ product.type.family.name }}</a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ path('app_types_family', { 'id' : product.type.id }) }}">Types</a></li>
+                                href="{{ path('app_products_type', { 'typeId' : product.type.id }) }}">{{ product.type.name }}</a></li>
                 </ol>
             </nav>
 
