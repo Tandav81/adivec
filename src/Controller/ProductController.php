@@ -26,7 +26,8 @@ class ProductController extends AbstractController
                                        int $id): Response
     {
         $family = $entityManager->getRepository(Family::class)->findOneBy(['id' => $id]);
-        $typesByFamily = $entityManager->getRepository(Type::class)->findBy(array('family' => $family));
+        $typesByFamily = $entityManager->getRepository(Type::class)
+            ->findBy(array('family' => $family), array('name' => 'ASC'));
 
         return $this->render('type/liste-type.html.twig', [
             'typesByFamily' => $typesByFamily,
