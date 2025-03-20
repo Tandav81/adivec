@@ -31,11 +31,11 @@
                     {% if product.image %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/products/'~product.image) }}"
-                             alt="image-fiche-produit">
+                             alt="image-fiche-produit {{ product.nom }}">
                     {% else %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
-                             alt="image-fiche-produit">
+                             alt="image-fiche-produit {{ product.type.family.name }}">
                     {% endif %}
                 </div>
 
@@ -57,7 +57,7 @@
                                         <div>
                                             <img class="img-fluid mb-2"
                                                  src="{{ asset('uploads/images/application/icone/'~application.icone) }}"
-                                                 alt="" style="width: 30px">
+                                                 alt="icone {{ application.libelle }}" style="width: 30px">
                                         </div>
                                         <div>
                                             <p class="libelle-application">{{ application.libelle }}</p>
