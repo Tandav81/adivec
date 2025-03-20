@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block seo %}
+    <meta name="description" content="{{ product.nom }}"/>
+{% endblock %}
 {% block title %}Page produit{% endblock %}
 
 {% block body %}
