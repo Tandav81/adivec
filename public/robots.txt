@@ -1,4 +1,3 @@
 User-agent : *
-Disallow:
 
 Sitemap: https://www.adivec.fr/sitemap.xml

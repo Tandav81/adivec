@@ -37,9 +37,7 @@ final class SitemapController extends AbstractController
             ];
 
             $urls[] = [
-                'loc' => $this->generateUrl('app_news', [
-                    'slug' => $article->getId(),
-                ]),
+                'loc' => $this->generateUrl('app_news/'.$article->getId()),
                 'image' => $images
             ];
         }
