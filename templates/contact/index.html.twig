@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
+    <link rel="canonical" href="https://www.adivec.fr/contact">
     <meta name="description" content="Contactez-nous"/>
 {% endblock %}
 {% block title %}Contactez-nous!{% endblock %}
@@ -62,7 +63,11 @@
 
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
+                                {{ form_row(form.captcha)}}
+                                {{ form_errors(form.captcha) }}
+                            </div>
+                            <div class="col-6">
                                 <button class="btn btn-secondary rounded-pill py-3 px-5" type="submit"
                                         aria-labelledby="envoyer">Envoyer le message
                                 </button>

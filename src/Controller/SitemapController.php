@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\BlogPost;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,7 @@ final class SitemapController extends AbstractController
         $urls[] = ['loc' => $this->generateUrl('app_familles')];
 
         $articles = $entityManager->getRepository(BlogPost::class)->findByVisibles();
+        $products = $entityManager->getRepository(Product::class)->findAll();
         // On ajoute les URLs dynamiques des articles dans le tableau
         foreach ($articles as $article) {
             $images = [
@@ -37,8 +39,21 @@ final class SitemapController extends AbstractController
             ];
 
             $urls[] = [
-                'loc' => $this->generateUrl('app_news', [
+                'loc' => $this->generateUrl('show_blog', [
                     'id' => $article->getId(),
+                ]),
+                'image' => $images
+            ];
+        }
+        foreach ($products as $product) {
+            $images = [
+                'loc' => '/uploads/images/products/' . $product->getImage(), // URL to image
+                'title' => $product->getNom()    // Optional, text describing the image
+            ];
+
+            $urls[] = [
+                'loc' => $this->generateUrl('app_product_page', [
+                    'id' => $product->getId(),
                 ]),
                 'image' => $images
             ];

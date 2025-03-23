@@ -30,11 +30,13 @@
         "symfony/ux-turbo": "^2.22",
         "symfony/validator": "7.1.*",
         "symfony/yaml": "7.1.*",
+        "symfonycasts/reset-password-bundle": "^1.23",
         "symfonycasts/verify-email-bundle": "^1.17",
         "twbs/bootstrap": "5.2.3",
         "twig/extra-bundle": "^3.13",
         "twig/string-extra": "^3.12",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "victor-prdh/recaptcha-bundle": "^2.0"
     },
     "config": {
         "allow-plugins": {

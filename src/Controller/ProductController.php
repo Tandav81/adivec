@@ -54,8 +54,12 @@ class ProductController extends AbstractController
                                        int $id) : Response
     {
         $product = $entityManager->getRepository(Product::class)->findById($id);
+        $canonical_url = $this->generateUrl('app_product_page', [
+            'id' => $product->getId(),
+        ]);
         return $this->render('product/page-produit.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'canonical_url' => $canonical_url
         ]);
     }
 }

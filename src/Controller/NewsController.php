@@ -24,9 +24,13 @@ class NewsController extends AbstractController
     public function showBlog(int $id, EntityManagerInterface $entityManager): Response
     {
         $new = $entityManager->getRepository(BlogPost::class)->find($id);
+        $canonical_url = $this->generateUrl('show_blog', [
+            'id' => $new->getId(),
+        ]);
         return $this->render('news/show.html.twig', [
             'controller_name' => 'ServiceController',
             'new' => $new,
+            'canonical_url' => $canonical_url
         ]);
     }
 }

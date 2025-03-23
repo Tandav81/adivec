@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block seo %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="description" content="{{ new.title }}"/>
+{% endblock %}
 {% block title %}{{ new.title }}{% endblock %}
 
 {% block body %}

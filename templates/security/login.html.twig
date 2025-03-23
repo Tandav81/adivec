@@ -10,21 +10,28 @@
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                Vous êtes enregistré en tant que  {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
             </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+        <div class="d-flex flex-column align-items-center">
+            <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
+            <div class="mb-4">
+                <label for="username">Email</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+            </div>
+            <div class="mb-4">
+                <label for="password">Mot de passe</label>
+                <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+            </div>
+            <a href="{{ path('app_forgot_password_request') }}">J'ai oublié mon mot de passe</a>
 
-        {#
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            {#
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html
 
@@ -32,10 +39,13 @@
                 <input type="checkbox" name="_remember_me" id="_remember_me">
                 <label for="_remember_me">Remember me</label>
             </div>
-        #}
+            #}
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
+            <button class="btn btn-lg btn-primary mt-4" type="submit">
+                Se connecter
+            </button>
+        </div>
+
+
     </form>
 {% endblock %}
