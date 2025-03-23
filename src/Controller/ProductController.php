@@ -31,7 +31,8 @@ class ProductController extends AbstractController
 
         return $this->render('type/liste-type.html.twig', [
             'typesByFamily' => $typesByFamily,
-            'typeId' => $id
+            'typeId' => $id,
+            'family'=>$family
             ]);
     }
 
@@ -45,7 +46,8 @@ class ProductController extends AbstractController
         return $this->render('product/liste-produit.html.twig', [
             'products' => $products,
             'typeId' => $typeId,
-            'family' => $family
+            'family' => $family,
+            'type'=>$type
         ]);
     }
 

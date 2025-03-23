@@ -44,7 +44,6 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Applications', 'fa fa-book', Application::class),
             MenuItem::linkToCrud('Produits', 'fa fa-book', Product::class),
             MenuItem::linkToCrud('Partenaires', 'fa fa-briefcase', LogoPartenaire::class),
-            MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class),
             MenuItem::linkToLogout('Logout', 'fa fa-exit'),
             ];
     }

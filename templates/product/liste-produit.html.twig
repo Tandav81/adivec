@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
-    <meta name="description" content="Nos produits"/>
+    {% if type is not null %}
+        <meta name="description" content="Nos produits pour {{ type.name }}"/>
+    {% else %}
+        <meta name="description" content="Nos produits"/>
+    {% endif %}
 {% endblock %}
-{% block title %}Nos produits{% endblock %}
+{% block title %}
+    {% if type is not null %}
+        Nos produits pour {{ type.name }}
+    {% else %}
+        Nos produits
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
@@ -12,7 +22,18 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'id' : family.id }) }}">{{ family.name }}</a></li>
+                    {% if family is not null %}
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_types_family', { 'id' : family.id }) }}">{{ family.name }}</a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_products_type', { 'typeId' : type.id }) }}">{{ type.name }}</a>
+                        </li>
+                    {% else %}
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_application_page') }}">Applications</a>
+                        </li>
+                    {% endif %}
                 </ol>
             </nav>
         </div>
@@ -45,37 +66,6 @@
 
                     {% set timedelay = timedelay + 0.2 %}
 
-
-
-                    {#                    #}
-                    {#                    <a href="{{ path('app_product_page', {'id': product.id} ) }}"> #}
-                    {#                        <div class="box"> #}
-                    {#                            <div class="body"> #}
-                    {#                                <div class="imgContainer"> #}
-
-                    {#                                    {% if product.image %} #}
-                    {#                                        <img class="img-fluid" #}
-                    {#                                             src="{{ asset('uploads/images/products/'~product.image) }}" #}
-                    {#                                             alt="famille alimentaire"> #}
-                    {#                                    {% else %} #}
-                    {#                                        <img class="img-fluid" #}
-                    {#                                             src="{{ asset('uploads/images/family/'~product.type.family.image) }}" #}
-                    {#                                             alt="famille alimentaire"> #}
-                    {#                                    {% endif %} #}
-                    {#                                    <div class="texte-over-image"> #}
-                    {#                                        <p class="fs-6">{{ product.packaging }}</p> #}
-                    {#                                        <p class="fs-6">{{ product.applications.toString() }}</p> #}
-                    {#                                    </div> #}
-
-                    {#                                </div> #}
-                    {#                                <div class="content d-flex flex-column align-items-center justify-content-center"> #}
-                    {#                                    <div> #}
-                    {#                                        <h3 class="text-white fs-5">{{ product.nom }}</h3> #}
-                    {#                                    </div> #}
-                    {#                                </div> #}
-                    {#                            </div> #}
-                    {#                        </div> #}
-                    {#                    </a> #}
                 {% endfor %}
             </div>
         </div>
