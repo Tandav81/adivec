@@ -17,17 +17,17 @@ final class SitemapController extends AbstractController
     {
         // Nous récupérons le nom d'hôte depuis l'URL
         $hostname = $request->getSchemeAndHttpHost();
-
         // On initialise un tableau pour lister les URLs
         $urls = [];
+        $date = "2025-03-23";
 
         // On ajoute les URLs "statiques"
-        $urls[] = ['loc' => $this->generateUrl('app_home')];
-        $urls[] = ['loc' => $this->generateUrl('app_about')];
-        $urls[] = ['loc' => $this->generateUrl('app_contact')];
-        $urls[] = ['loc' => $this->generateUrl('app_legal')];
-        $urls[] = ['loc' => $this->generateUrl('app_news')];
-        $urls[] = ['loc' => $this->generateUrl('app_familles')];
+        $urls[] = ['loc' => $this->generateUrl('app_home'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_about'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_contact'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_legal'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_news'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_familles'), 'lastmod' => $date];
 
         $articles = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         $products = $entityManager->getRepository(Product::class)->findAll();
@@ -42,7 +42,8 @@ final class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('show_blog', [
                     'id' => $article->getId(),
                 ]),
-                'image' => $images
+                'image' => $images,
+                'lastmod' => $date
             ];
         }
         foreach ($products as $product) {
@@ -55,7 +56,8 @@ final class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('app_product_page', [
                     'id' => $product->getId(),
                 ]),
-                'image' => $images
+                'image' => $images,
+                'lastmod' => $date
             ];
         }
         // Fabrication de la réponse XML
