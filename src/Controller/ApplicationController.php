@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Application;
 use App\Entity\Product;
+use App\Entity\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,11 @@ class ApplicationController extends AbstractController
     #[Route('/application/{id}', name: 'app_application')]
     public function index(int $id,EntityManagerInterface $entityManager): Response
     {
+        $application = $entityManager->getRepository(Application::class)->findOneById($id);
         $products = $entityManager->getRepository(Product::class)->findProductsByApplicationId($id);
         return $this->render('product/liste-produit.html.twig', [
             'products' => $products,
+            'application'=> $application
         ]);
     }
 

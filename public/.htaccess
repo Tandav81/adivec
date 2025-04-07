@@ -24,6 +24,22 @@ DirectoryIndex index.php
 
     RewriteEngine On
 
+    # ancienne adresse des acutalités d'adivec https://www.adivec.fr/Rub_42/Fr/Actualites.html
+    RewriteCond %{REQUEST_URI} ^/Rub_42/Fr/Actualites.html
+    RewriteRule ^.*$ /news [R=301,L]
+
+    # Redirection 301 de toutes les URLs qui commencent par /Rub_ vers /familles
+    RewriteCond %{REQUEST_URI} ^/Rub.+
+    RewriteRule ^.*$ /familles [R=301,L]
+
+    # Redirection 301 de toutes les URLs qui commencent par /Ress vers /familles
+    RewriteCond %{REQUEST_URI} ^/Ress.+
+    RewriteRule ^.*$ /familles [R=301,L]
+
+    # Redirection 301 de https://www.adivec.fr/?IdRubrique=30
+    RewriteCond %{REQUEST_URI} ^/?IdRubrique=30
+    RewriteRule ^.*$ / [R=301,L]
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
