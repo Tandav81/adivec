@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "easycorp/easyadmin-bundle": "^4.10",
+        "stof/doctrine-extensions-bundle": "^1.13",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "7.1.*",
         "symfony/console": "7.1.*",

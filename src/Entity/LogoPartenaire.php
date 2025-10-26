@@ -19,6 +19,9 @@ class LogoPartenaire
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lien = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,5 +49,22 @@ class LogoPartenaire
         $this->logo = $logo;
 
         return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(?string $lien): static
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? '';
     }
 }

@@ -64,13 +64,15 @@
                             <img class="img-fluid rounded" src="{{ asset('img/flour-bowl.png') }}" alt="bol de farine">
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.5s">
-                            <img class="img-fluid rounded" src="{{ asset('img/fecule-pomme-de-terre.png') }}" alt="bol de farine de pomme de terre">
+                            <img class="img-fluid rounded" src="{{ asset('img/fecule-pomme-de-terre.png') }}"
+                                 alt="bol de farine de pomme de terre">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <h2 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h2>
-                    <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issues de matières premières naturelles,
+                    <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issues de matières premières
+                        naturelles,
                         conventionnelles ou bio, pour l’alimentation humaine, animale ainsi que des applications
                         techniques à destination des industriels français.</p>
                     <p class="mb-5">Vos besoins, nos priorités. Zéro standardisation, 100 % adaptation.</p>
@@ -78,7 +80,8 @@
                     <h2 class="mb-3">Nos secteurs d'activité</h2>
                     <div class="row pt-2 mb-5">
                         <div class="col-sm-6 mt-2">
-                            <img class="img-fluid mb-2" src="{{ asset('img/ble.png') }}" alt="photo de blé" style="width: 60px">
+                            <img class="img-fluid mb-2" src="{{ asset('img/ble.png') }}" alt="photo de blé"
+                                 style="width: 60px">
                             <h5 class="mb-3">Alimentation humaine</h5>
                             <span>
                                 Nous offrons des ingrédients répondant aux exigences
@@ -87,7 +90,8 @@
                         </div>
 
                         <div class="col-sm-6 mt-2">
-                            <img class="img-fluid mb-2" src="{{ asset('img/pinceau.png') }}" alt="image de pinceau" style="width: 60px">
+                            <img class="img-fluid mb-2" src="{{ asset('img/pinceau.png') }}" alt="image de pinceau"
+                                 style="width: 60px">
                             <h5 class="mb-3">Technique</h5>
                             <span title=" utilisé dans le
                                 secteur des colles et adhesif, les papiers peints ou l’affichage. Adivec propose
@@ -97,7 +101,8 @@
                         </div>
 
                         <div class="col-sm-6 mt-2">
-                            <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}" alt="la nourriture pour animaux"
+                            <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}"
+                                 alt="la nourriture pour animaux"
                                  style="width: 60px">
                             <h5 class="mb-3">Alimentation animale</h5>
                             <span>Nous proposons une large gamme d’ingrédients pour l’alimentation des animaux de compagnie et d’élevage.</span>
@@ -218,13 +223,15 @@
         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
         </div>
-        <div class="wow fadeInUp d-flex align-items-baseline justify-content-between" data-wow-delay="0.1s">
+        <div class="wow fadeInUp d-flex align-items-baseline justify-content-center" data-wow-delay="0.1s">
             {% for logo in logos %}
-                <div class="logo">
-                    <img class="img-fluid animated infinite logos"
-                         src="{{ asset('uploads/images/logos/'~logo.logo) }}"
-                         alt="logos partenaire {{ logo.name }}">
-                </div>
+                <a href="{{ logo.lien }}" target="_blank">
+                    <div class="logo">
+                        <img class="img-fluid animated infinite logos"
+                             src="{{ asset('uploads/images/logos/'~logo.logo) }}"
+                             alt="logos partenaire {{ logo.name }}">
+                    </div>
+                </a>
             {% endfor %}
         </div>
     </div>

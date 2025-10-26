@@ -24,3 +24,6 @@ services:
             $targetDirectory: '%images_directory%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\Admin\:
+        resource: '../src/Controller/Admin'
+        tags: [ 'controller.service_arguments' ]

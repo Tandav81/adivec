@@ -23,7 +23,8 @@ class LogoPartenaireCrudController extends AbstractCrudController
             ImageField::new('logo')
                 ->setBasePath('uploads/images/logos')
                 ->setUploadDir('public/uploads/images/logos')
-                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
+            TextField::new('lien'),
         ];
     }
 }

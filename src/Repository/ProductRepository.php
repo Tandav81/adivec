@@ -22,7 +22,7 @@ class ProductRepository extends ServiceEntityRepository
             ->innerJoin('p.applications', 'app')
             ->where('app.id = :val')
             ->setParameter('val', $applicationId)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.position', 'ASC')
             ->getQuery()
             ->getResult();
     }
@@ -32,7 +32,7 @@ class ProductRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
                 ->andWhere('p.type = :type')
                 ->setParameter('type', $typeId)
-                ->orderBy('p.id', 'ASC')
+                ->orderBy('p.position', 'ASC')
                 ->getQuery()
                 ->getResult()
             ;

@@ -7,6 +7,7 @@ use App\Entity\BlogPost;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
 use App\Entity\Member;
+use App\Entity\Packaging;
 use App\Entity\Product;
 use App\Entity\Slide;
 use App\Entity\Type;
@@ -42,6 +43,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Types', 'fa fa-tags', Type::class),
             MenuItem::linkToCrud('Familles', 'fa fa-tags', Family::class),
             MenuItem::linkToCrud('Applications', 'fa fa-book', Application::class),
+            MenuItem::linkToCrud('Packagings', 'fa fa-book', Packaging::class),
             MenuItem::linkToCrud('Produits', 'fa fa-book', Product::class),
             MenuItem::linkToCrud('Partenaires', 'fa fa-briefcase', LogoPartenaire::class),
             MenuItem::linkToLogout('Logout', 'fa fa-exit'),

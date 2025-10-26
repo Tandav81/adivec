@@ -71,8 +71,16 @@
                     </div>
 
                     <h2>Packaging</h2>
+                    {% for packaging in product.packagings %}
                     <div class="d-flex">
-                        <p class="mb-4">{{ product.packaging }}</p>
+                        <p class="mb-4">{{ packaging }}</p>
+                    </div>
+                    {% endfor %}
+
+                    <div>
+                        <img class="img-fluid animated infinite logos"
+                             src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}"
+                             alt="logos partenaire {{ product.fournisseur.name }}">
                     </div>
                 </div>
             </div>
