@@ -75,19 +75,19 @@
 
     {% block javascripts %}
         <!-- JavaScript Libraries -->
-        <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
-        <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-        <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-        <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-        <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
-        <script src="{{ asset('lib/parallax/parallax.min.js') }}"></script>
-        <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+        <script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
+        <script src="{{ asset('lib/wow/wow.min.js') }}" defer></script>
+        <script src="{{ asset('lib/easing/easing.min.js') }}" defer></script>
+        <script src="{{ asset('lib/waypoints/waypoints.min.js') }}" defer></script>
+        <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}" defer></script>
+        <script src="{{ asset('lib/counterup/counterup.min.js') }}" defer></script>
+        <script src="{{ asset('lib/parallax/parallax.min.js') }}" defer></script>
+        <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}" defer></script>
 
         <!-- Template Javascript -->
-        <script src="{{ asset('js/main.js') }}"></script>
-        <script src="{{ asset('js/tools/search.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}" defer></script>
+        <script src="{{ asset('js/tools/search.js') }}" defer></script>
 
     {% endblock %}
 </head>
@@ -128,11 +128,11 @@
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
     <a href="{{ path('app_home') }}" class="navbar-brand d-flex align-items-center" title="lien page accueil">
-        <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="logo Adivec">
+        <img class="img-fluid" src="{{ asset('img/logo_adivec.png') }}" alt="logo Adivec" width="324" height="102">
     </a>
 
     <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-labelledby="menu">
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Ouvrir le menu de navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 

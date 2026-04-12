@@ -16,9 +16,9 @@ class SearchController extends AbstractController
     public function search(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $query = $request->query->get('q');
+        $query = mb_substr(trim($request->query->get('q', '')), 0, 100);
 
-        if (!$query) {
+        if (mb_strlen($query) < 2) {
             return $this->json([]);
         }
 
@@ -42,7 +42,7 @@ class SearchController extends AbstractController
                 'id' => $product->getId(),
                 'name' => $product->getNom(),
                 'type' => 'product',
-                'url' => $this->generateUrl('app_product_page', ['id' => $product->getId()]),
+                'url' => $this->generateUrl('app_product_page', ['slug' => $product->getSlug()]),
             ];
         }
 
@@ -51,7 +51,7 @@ class SearchController extends AbstractController
                 'id' => $application->getId(),
                 'name' => $application->getLibelle(),
                 'type' => 'application',
-                'url' => $this->generateUrl('app_application', ['id' => $application->getId()]),
+                'url' => $this->generateUrl('app_application', ['slug' => $application->getSlug()]),
             ];
         }
 

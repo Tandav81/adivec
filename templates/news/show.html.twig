@@ -31,7 +31,9 @@
   "author": {
     "@type": "Organization",
     "name": "ADIVEC"
-  }
+  },
+  "datePublished": "{{ new.createdAt ? new.createdAt|date('Y-m-d') : '' }}",
+  "dateModified": "{{ new.updatedAt ? new.updatedAt|date('Y-m-d') : (new.createdAt ? new.createdAt|date('Y-m-d') : '') }}"
 }
 </script>
 {% endblock %}

@@ -24,6 +24,8 @@
             {% endif %}
 
             <lastmod>{{ url.lastmod }}</lastmod>
+            <changefreq>{{ url.changefreq ?? 'monthly' }}</changefreq>
+            <priority>{{ url.priority ?? '0.5' }}</priority>
         </url>
     {% endfor %}
 

@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
-    {% if type is not null %}
-        <meta name="description" content="Nos produits pour {{ type.name }}"/>
-    {% elseif application is not null %}
-        <meta name="description" content="Nos produits pour {{ application.libelle }}"/>
-    {% else %}
-        <meta name="description" content="Nos produits"/>
-    {% endif %}
+    <link rel="canonical" href="{{ app.request.uri }}"/>
+    <meta name="description" content="{% if type is not null %}Découvrez les ingrédients naturels {{ type.name }} distribués par Adivec pour l'industrie agroalimentaire et technique.{% elseif application is not null %}Ingrédients naturels Adivec pour l'application {{ application.libelle }}. Amidons, gommes, fibres et bien d'autres.{% else %}Catalogue complet des ingrédients naturels distribués par Adivec.{% endif %}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ app.request.uri }}"/>
+    <meta property="og:title" content="{% if type is not null %}{{ type.name }} | ADIVEC{% elseif application is not null %}{{ application.libelle }} | ADIVEC{% else %}Nos produits | ADIVEC{% endif %}"/>
+    <meta property="og:description" content="{% if type is not null %}Ingrédients naturels {{ type.name }} pour l'industrie agroalimentaire et technique, distribués par Adivec.{% elseif application is not null %}Ingrédients naturels Adivec pour l'application {{ application.libelle }}. Solutions sur mesure pour l'industrie.{% else %}Catalogue complet des ingrédients naturels distribués par Adivec.{% endif %}"/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
 {% block title %}
     {% if type is not null %}

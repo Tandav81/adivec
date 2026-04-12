@@ -19,6 +19,38 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://www.adivec.fr"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ product.type.family.name }}",
+      "item": "https://www.adivec.fr/types/{{ product.type.family.slug }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ product.type.name }}",
+      "item": "https://www.adivec.fr/products/{{ product.type.slug }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "{{ product.nom }}",
+      "item": "{{ canonical_url }}"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "Product",
   "name": "{{ product.nom }}",
   "url": "{{ canonical_url }}",

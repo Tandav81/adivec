@@ -24,13 +24,13 @@ final class SitemapController extends AbstractController
         $today = (new \DateTime())->format('Y-m-d');
 
         // On ajoute les URLs "statiques"
-        $urls[] = ['loc' => $this->generateUrl('app_home'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_about'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_contact'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_legal'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_news'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_familles'), 'lastmod' => $today];
-        $urls[] = ['loc' => $this->generateUrl('app_application_page'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_home'),             'lastmod' => $today, 'changefreq' => 'weekly',  'priority' => '1.0'];
+        $urls[] = ['loc' => $this->generateUrl('app_familles'),         'lastmod' => $today, 'changefreq' => 'weekly',  'priority' => '0.9'];
+        $urls[] = ['loc' => $this->generateUrl('app_application_page'), 'lastmod' => $today, 'changefreq' => 'weekly',  'priority' => '0.9'];
+        $urls[] = ['loc' => $this->generateUrl('app_news'),             'lastmod' => $today, 'changefreq' => 'weekly',  'priority' => '0.8'];
+        $urls[] = ['loc' => $this->generateUrl('app_about'),            'lastmod' => $today, 'changefreq' => 'monthly', 'priority' => '0.7'];
+        $urls[] = ['loc' => $this->generateUrl('app_contact'),          'lastmod' => $today, 'changefreq' => 'monthly', 'priority' => '0.6'];
+        $urls[] = ['loc' => $this->generateUrl('app_legal'),            'lastmod' => $today, 'changefreq' => 'yearly',  'priority' => '0.3'];
 
         $articles = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         $products = $entityManager->getRepository(Product::class)->findAll();
@@ -52,6 +52,8 @@ final class SitemapController extends AbstractController
                 ]),
                 'image' => $images,
                 'lastmod' => $article->getUpdatedAt()?->format('Y-m-d') ?? $today,
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
             ];
         }
         foreach ($products as $product) {
@@ -73,6 +75,8 @@ final class SitemapController extends AbstractController
                 ]),
                 'image' => $images,
                 'lastmod' => $product->getUpdatedAt()?->format('Y-m-d') ?? $today,
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
             ];
         }
         // On ajoute les pages applications
@@ -84,7 +88,9 @@ final class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('app_application', [
                     'slug' => $application->getSlug(),
                 ]),
-                'lastmod' => $today
+                'lastmod' => $today,
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
             ];
         }
         // Fabrication de la réponse XML
