@@ -12,6 +12,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,6 +52,13 @@ class ProductCrudController extends AbstractCrudController
     {
         return [
             TextField::new('nom'),
+            SlugField::new('slug')
+                ->setTargetFieldName('nom')
+                ->onlyOnForms()
+                ->setHelp('Généré automatiquement à partir du nom. Modifiable si besoin.'),
+            TextareaField::new('description')
+                ->onlyOnForms()
+                ->setHelp('Description affichée sur la fiche produit et utilisée pour le référencement (SEO).'),
             AssociationField::new('fournisseur'),
             AssociationField::new('type'),
             AssociationField::new('applications')->onlyOnForms(),

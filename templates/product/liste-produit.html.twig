@@ -36,10 +36,10 @@
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
                     {% if family is not null %}
                         <li class="breadcrumb-item"><a
-                                    href="{{ path('app_types_family', { 'id' : family.id }) }}">{{ family.name }}</a>
+                                    href="{{ path('app_types_family', { 'slug' : family.slug }) }}">{{ family.name }}</a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                    href="{{ path('app_products_type', { 'typeId' : type.id }) }}">{{ type.name }}</a>
+                                    href="{{ path('app_products_type', { 'slug' : type.slug }) }}">{{ type.name }}</a>
                         </li>
                     {% else %}
                         <li class="breadcrumb-item"><a
@@ -65,7 +65,7 @@
                 {% for product in products %}
 
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="lien-product" href="{{ path('app_product_page', {'id': product.id} ) }}">
+                        <a class="lien-product" href="{{ path('app_product_page', {'slug': product.slug} ) }}">
                             <div class="type-item">
 
                                 <div class="text-center p-4">

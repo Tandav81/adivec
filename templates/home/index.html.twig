@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
     <link rel="canonical" href="https://www.adivec.fr">
-    <meta name="description" content="Page d'accueil"/>
+    <meta name="description" content="Adivec, fondée en 1989, distribue des ingrédients d'origine naturelle pour l'alimentation humaine, animale et les applications techniques. Amidons, gommes, protéines, fibres, colorants naturels."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.adivec.fr"/>
+    <meta property="og:title" content="ADIVEC – Ingrédients naturels pour l'industrie"/>
+    <meta property="og:description" content="Adivec distribue des ingrédients d'origine naturelle pour l'alimentation humaine, animale et les applications techniques depuis 1989."/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
-{% block title %}Accueil{% endblock %}
+{% block title %}ADIVEC – Ingrédients naturels pour l'industrie alimentaire{% endblock %}
+{% block title_suffix %}{% endblock %}
 
 {% block body %}
 
@@ -13,13 +20,13 @@
             <div class="carousel-inner">
                 {% for slide in slides %}
                     <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
-                        <img class="w-100" src="{{ asset('uploads/images/slides/'~slide.image) }}" alt="Image">
+                        <img class="w-100" src="{{ asset('uploads/images/slides/'~slide.image) }}" alt="{{ slide.title }}">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
                                         <p class="fs-4 text-white">{{ slide.subtitle | raw }}</p>
-                                        <h1 class="display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</h1>
+                                        <h2 class="display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</h2>
                                         <a href="{{ path('app_about') }}"
                                            class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Découvrez-nous</a>
                                     </div>
@@ -51,8 +58,8 @@
                     <div class="row g-2">
                         <div class="col-6 position-relative wow fadeIn" data-wow-delay="0.7s">
                             <div class="about-experience bg-secondary rounded animated slideInLeft">
-                                <h1 class="display-1 mb-0 text-primary">{{ yearsExperience }} </h1>
-                                <h2 class="text-primary">ans</h2>
+                                <p class="display-1 mb-0 text-primary fw-bold">{{ yearsExperience }} </p>
+                                <p class="h2 text-primary">ans</p>
                                 <small class="fs-5 fw-bold text-primary texte-cadre-annee">d'accompagnement</small>
                                 <small class="fs-5 fw-bold text-primary texte-cadre-annee">client</small>
                             </div>
@@ -70,7 +77,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h2 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h2>
+                    <h1 class="section-title bg-white text-start text-primary pe-3">Ingrédients naturels pour l'industrie</h1>
                     <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issus de matières premières
                         naturelles,
                         conventionnelles ou bio, pour l’alimentation humaine, animale ainsi que des applications
@@ -140,7 +147,7 @@
                                     <h5 class="mb-3 titre-news">{{ new.title }}</h5>
                                 </div>
                                 <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...') }}</p>
-                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {id: new.id}) }}"><i
+                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"><i
                                             class="bi bi-chevron-double-right"></i></a>
                             </div>
                         </div>
@@ -157,13 +164,13 @@
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Nos familles d'ingrédients</p>
-                <h1 class="mb-5">Découvrir nos ingrédients</h1>
+                <h2 class="mb-5">Découvrir nos ingrédients</h2>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 
                 {% for family in families %}
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="d-block h5" href="{{ path('app_types_family', {'id': family.id}) }}">
+                        <a class="d-block h5" href="{{ path('app_types_family', {'slug': family.slug}) }}" title="{{ family.name }}">
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"
@@ -171,8 +178,7 @@
                                          alt="{{ family.name }}">
                                 </div>
                                 <div class="text-center p-4">
-                                    <a class="d-block h5"
-                                       href="{{ path('app_types_family', {'id': family.id}) }}">{{ family.name }}</a>
+                                    <span class="d-block h5">{{ family.name }}</span>
                                 </div>
                             </div>
                         </a>
@@ -189,14 +195,14 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="mb-5">Découvrir nos applications</h1>
+                <h2 class="mb-5">Découvrir nos applications</h2>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 
                 {% for application in applications %}
 
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
+                        <a class="d-block h5" href="{{ path('app_application', {'slug': application.slug}) }}">
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Entity\Product;
+use App\Entity\Application;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,45 +20,71 @@ final class SitemapController extends AbstractController
         $hostname = $request->getSchemeAndHttpHost();
         // On initialise un tableau pour lister les URLs
         $urls = [];
-        $date = "2025-03-23";
+        // Date du jour pour les pages sans historique de modification
+        $today = (new \DateTime())->format('Y-m-d');
 
         // On ajoute les URLs "statiques"
-        $urls[] = ['loc' => $this->generateUrl('app_home'), 'lastmod' => $date];
-        $urls[] = ['loc' => $this->generateUrl('app_about'), 'lastmod' => $date];
-        $urls[] = ['loc' => $this->generateUrl('app_contact'), 'lastmod' => $date];
-        $urls[] = ['loc' => $this->generateUrl('app_legal'), 'lastmod' => $date];
-        $urls[] = ['loc' => $this->generateUrl('app_news'), 'lastmod' => $date];
-        $urls[] = ['loc' => $this->generateUrl('app_familles'), 'lastmod' => $date];
+        $urls[] = ['loc' => $this->generateUrl('app_home'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_about'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_contact'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_legal'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_news'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_familles'), 'lastmod' => $today];
+        $urls[] = ['loc' => $this->generateUrl('app_application_page'), 'lastmod' => $today];
 
         $articles = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         $products = $entityManager->getRepository(Product::class)->findAll();
+        $applications = $entityManager->getRepository(Application::class)->findAll();
+
         // On ajoute les URLs dynamiques des articles dans le tableau
         foreach ($articles as $article) {
+            if (!$article->getSlug()) {
+                continue;
+            }
             $images = [
-                'loc' => '/uploads/images/blog/' . $article->getImage(), // URL to image
-                'title' => $article->getTitle()    // Optional, text describing the image
+                'loc' => $hostname . '/uploads/images/blog/' . $article->getImage(),
+                'title' => $article->getTitle()
             ];
 
             $urls[] = [
                 'loc' => $this->generateUrl('show_blog', [
-                    'id' => $article->getId(),
+                    'slug' => $article->getSlug(),
                 ]),
                 'image' => $images,
-                'lastmod' => $date
+                'lastmod' => $article->getUpdatedAt()?->format('Y-m-d') ?? $today,
             ];
         }
         foreach ($products as $product) {
+            if (!$product->getSlug()) {
+                continue;
+            }
+            $imageFile = $product->getImage()
+                ? '/uploads/images/products/' . $product->getImage()
+                : '/uploads/images/family/' . $product->getType()->getFamily()->getImage();
+
             $images = [
-                'loc' => '/uploads/images/products/' . $product->getImage(), // URL to image
-                'title' => $product->getNom()    // Optional, text describing the image
+                'loc' => $hostname . $imageFile,
+                'title' => $product->getNom()
             ];
 
             $urls[] = [
                 'loc' => $this->generateUrl('app_product_page', [
-                    'id' => $product->getId(),
+                    'slug' => $product->getSlug(),
                 ]),
                 'image' => $images,
-                'lastmod' => $date
+                'lastmod' => $product->getUpdatedAt()?->format('Y-m-d') ?? $today,
+            ];
+        }
+        // On ajoute les pages applications
+        foreach ($applications as $application) {
+            if (!$application->getSlug()) {
+                continue;
+            }
+            $urls[] = [
+                'loc' => $this->generateUrl('app_application', [
+                    'slug' => $application->getSlug(),
+                ]),
+                'lastmod' => $today
             ];
         }
         // Fabrication de la réponse XML

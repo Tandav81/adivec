@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class NewsController extends AbstractController
 {
@@ -15,22 +16,36 @@ class NewsController extends AbstractController
     {
         $news = $entityManager->getRepository(BlogPost::class)->findByVisibles();
         return $this->render('news/index.html.twig', [
-            'controller_name' => 'ServiceController',
             'news' => $news,
         ]);
     }
 
-    #[Route('/news/{id}', name: 'show_blog')]
-    public function showBlog(int $id, EntityManagerInterface $entityManager): Response
+    // Redirection 301 : ancienne URL /news/{id} → nouvelle URL /news/{slug}
+    #[Route('/news/{id}', name: 'show_blog_legacy', requirements: ['id' => '\d+'])]
+    public function showBlogLegacy(int $id, EntityManagerInterface $entityManager): Response
     {
-        $new = $entityManager->getRepository(BlogPost::class)->find($id);
-        $canonical_url = $this->generateUrl('show_blog', [
-            'id' => $new->getId(),
-        ]);
+        $article = $entityManager->getRepository(BlogPost::class)->find($id);
+        if (!$article || !$article->getSlug()) {
+            throw $this->createNotFoundException();
+        }
+        return $this->redirectToRoute('show_blog', ['slug' => $article->getSlug()], 301);
+    }
+
+    #[Route('/news/{slug}', name: 'show_blog')]
+    public function showBlog(string $slug, EntityManagerInterface $entityManager): Response
+    {
+        $new = $entityManager->getRepository(BlogPost::class)->findOneBy(['slug' => $slug]);
+        if (!$new) {
+            throw $this->createNotFoundException();
+        }
+        $canonical_url = $this->generateUrl(
+            'show_blog',
+            ['slug' => $new->getSlug()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         return $this->render('news/show.html.twig', [
-            'controller_name' => 'ServiceController',
             'new' => $new,
-            'canonical_url' => $canonical_url
+            'canonical_url' => $canonical_url,
         ]);
     }
 }

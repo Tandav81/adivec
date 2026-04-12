@@ -32,7 +32,7 @@
                 {% for application in applications %}
 
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="d-block h5" href="{{ path('app_application', {'id': application.id}) }}">
+                        <a class="d-block h5" href="{{ path('app_application', {'slug': application.slug}) }}">
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"

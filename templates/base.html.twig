@@ -10,7 +10,7 @@
               content="ADIVEC est une société de représentation et de négoce spécialisée dans les dérivés de produits agricoles et les matières premières naturelles."/>
     {% endblock %}
 
-    <title>{% block title %}ADIVEC Produits transformés d'origine naturelle{% endblock %}</title>
+    <title>{% block title %}ADIVEC – Ingrédients naturels pour l'industrie{% endblock %}{% block title_suffix %} | ADIVEC{% endblock %}</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_adivec_seul.png') }}"/>
     {% block stylesheets %}
@@ -34,6 +34,43 @@
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+    {% endblock %}
+
+    {% block schema %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ADIVEC",
+      "url": "https://www.adivec.fr",
+      "logo": "https://www.adivec.fr/img/logo_adivec.png",
+      "description": "Société de représentation et de négoce spécialisée dans les ingrédients d'origine naturelle pour l'industrie agroalimentaire et technique.",
+      "foundingDate": "1989",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "10 bis rue de Lahire",
+        "addressLocality": "Orléans",
+        "postalCode": "45000",
+        "addressCountry": "FR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+33-2-38-24-15-50",
+        "contactType": "customer service",
+        "email": "contact@adivec.fr",
+        "availableLanguage": "French",
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/adivec/"
+      ]
+    }
+    </script>
     {% endblock %}
 
     {% block javascripts %}
@@ -148,7 +185,7 @@
 
                 </p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+33238241550">02 38 24 15 50</a></p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr"></a>contact@adivec.fr
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr">contact@adivec.fr</a>
                 </p>
                 <div class="d-flex pt-3">
                     <a class="btn btn-square rounded-circle me-2"

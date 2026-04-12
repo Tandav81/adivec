@@ -1,15 +1,46 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="description" content="{{ new.title }}"/>
+    <meta name="description" content="{{ new.description | striptags | u.truncate(155, '...') }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="{{ canonical_url }}"/>
+    <meta property="og:title" content="{{ new.title }} | ADIVEC"/>
+    <meta property="og:description" content="{{ new.description | striptags | u.truncate(155, '...') }}"/>
+    <meta property="og:image" content="https://www.adivec.fr/uploads/images/blog/{{ new.image }}"/>
+    <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
 {% block title %}{{ new.title }}{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ new.title }}",
+  "url": "{{ canonical_url }}",
+  "image": "https://www.adivec.fr/uploads/images/blog/{{ new.image }}",
+  "description": "{{ new.description | striptags | u.truncate(155, '...') }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ADIVEC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.adivec.fr/img/logo_adivec.png"
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "ADIVEC"
+  }
+}
+</script>
+{% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white mb-4 animated slideInDown">News</h1>
+            <p class="display-3 text-white mb-4 animated slideInDown fw-bold">News</p>
         </div>
     </div>
     <!-- Page Header End -->

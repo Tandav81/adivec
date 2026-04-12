@@ -1,3 +1,9 @@
-User-agent : *
+User-agent: *
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+Disallow: /search
+Allow: /
 
 Sitemap: https://www.adivec.fr/sitemap.xml

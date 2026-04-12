@@ -6,6 +6,7 @@ use App\Entity\BlogPost;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -21,6 +22,10 @@ class BlogPostCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            SlugField::new('slug')
+                ->setTargetFieldName('title')
+                ->onlyOnForms()
+                ->setHelp('Généré automatiquement à partir du titre.'),
             TextEditorField::new('description'),
             BooleanField::new('visible'),
             ImageField::new('image')

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -26,6 +27,10 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Gedmo\Slug(fields: ['nom'])]
+    #[ORM\Column(length: 191, unique: true, nullable: true)]
+    private ?string $slug = null;
+
     #[ManyToMany(targetEntity: Application::class, inversedBy: 'products')]
     #[JoinTable(name: 'products_application')]
     private Collection $applications;
@@ -46,6 +51,17 @@ class Product
     #[ORM\ManyToOne(targetEntity: LogoPartenaire::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?LogoPartenaire $fournisseur = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
 
     public function __construct() {
@@ -87,6 +103,18 @@ class Product
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -150,5 +178,27 @@ class Product
         $this->fournisseur = $fournisseur;
 
         return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

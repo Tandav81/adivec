@@ -32,7 +32,7 @@
                 {% for type in typesByFamily %}
 
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <a href="{{ path('app_products_type', {'typeId': type.id}) }}">
+                        <a href="{{ path('app_products_type', {'slug': type.slug}) }}">
                             <div class="type-item">
 
                                 <div class="text-center p-4">

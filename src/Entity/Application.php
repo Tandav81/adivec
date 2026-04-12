@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 class Application
@@ -18,6 +19,10 @@ class Application
 
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
+
+    #[Gedmo\Slug(fields: ['libelle'])]
+    #[ORM\Column(length: 191, unique: true, nullable: true)]
+    private ?string $slug = null;
 
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $image = null;
@@ -47,6 +52,18 @@ class Application
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

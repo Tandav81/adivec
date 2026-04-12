@@ -1,21 +1,62 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="description" content="{{ product.nom }}"/>
+    <meta name="description" content="{{ product.description ? product.description|striptags|u.truncate(155, '...') : 'Découvrez ' ~ product.nom ~ ', un ingrédient naturel distribué par Adivec. Contactez-nous pour un devis.' }}"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:url" content="{{ canonical_url }}"/>
+    <meta property="og:title" content="{{ product.nom }} | ADIVEC"/>
+    <meta property="og:description" content="Découvrez {{ product.nom }}, un ingrédient naturel distribué par Adivec. Applications : {% for app in product.applications %}{{ app.libelle }}{% if not loop.last %}, {% endif %}{% endfor %}."/>
+    {% if product.image %}
+        <meta property="og:image" content="https://www.adivec.fr/uploads/images/products/{{ product.image }}"/>
+    {% else %}
+        <meta property="og:image" content="https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}"/>
+    {% endif %}
+    <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
 {% block title %}{{ product.nom }}{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.nom }}",
+  "url": "{{ canonical_url }}",
+  {% if product.image %}
+  "image": "https://www.adivec.fr/uploads/images/products/{{ product.image }}",
+  {% else %}
+  "image": "https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}",
+  {% endif %}
+  "category": "{{ product.type.family.name }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "ADIVEC"
+  },
+  "offers": {
+    "@type": "Offer",
+    "seller": {
+      "@type": "Organization",
+      "name": "ADIVEC",
+      "url": "https://www.adivec.fr"
+    },
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+{% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white mb-4 animated slideInDown">{{ product.type.name }}</h1>
+            <p class="display-3 text-white mb-4 animated slideInDown fw-bold">{{ product.type.name }}</p>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'id' : product.type.family.id }) }}">{{ product.type.family.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'slug' : product.type.family.slug }) }}">{{ product.type.family.name }}</a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ path('app_products_type', { 'typeId' : product.type.id }) }}">{{ product.type.name }}</a></li>
+                                href="{{ path('app_products_type', { 'slug' : product.type.slug }) }}">{{ product.type.name }}</a></li>
                 </ol>
             </nav>
 
@@ -32,11 +73,11 @@
                     {% if product.image %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/products/'~product.image) }}"
-                             alt="image-fiche-produit {{ product.nom }}">
+                             alt="{{ product.nom }}">
                     {% else %}
                         <img class="img-fluid"
                              src="{{ asset('uploads/images/family/'~product.type.family.image) }}"
-                             alt="image-fiche-produit {{ product.type.family.name }}">
+                             alt="{{ product.type.family.name }}">
                     {% endif %}
                 </div>
 
@@ -51,7 +92,7 @@
 
                         <div>
                             {% for application in product.applications %}
-                                <a href="{{ path('app_application', {'id': application.id}) }}"
+                                <a href="{{ path('app_application', {'slug': application.slug}) }}"
                                    class="btn rounded-pill animated slideInRight" style="width: 100%;"
                                    title="{{ application.libelle }}">
                                     <div class="app-pills d-flex">
@@ -69,6 +110,13 @@
                         </div>
 
                     </div>
+
+                    {% if product.description %}
+                    <div class="product-description mt-3 mb-4">
+                        <h2>Description</h2>
+                        <p>{{ product.description }}</p>
+                    </div>
+                    {% endif %}
 
                     <h2>Packagings</h2>
                     {% for packaging in product.packagings %}
