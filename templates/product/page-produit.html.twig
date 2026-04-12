@@ -158,9 +158,11 @@
                     {% endfor %}
 
                     <div>
+                    {% if product.fournisseur.logo %}
                         <img class="img-fluid animated infinite logos"
                              src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}"
                              alt="logos partenaire {{ product.fournisseur.name }}">
+                    {% endif %}
                     </div>
                 </div>
             </div>

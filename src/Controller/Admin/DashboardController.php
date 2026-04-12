@@ -12,6 +12,7 @@ use App\Entity\Product;
 use App\Entity\Slide;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Repository\PageViewRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -20,10 +21,28 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(private readonly PageViewRepository $pageViewRepository) {}
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        $today     = new \DateTimeImmutable('today');
+        $week      = new \DateTimeImmutable('-7 days');
+        $month     = new \DateTimeImmutable('-30 days');
+
+        $visitsPerDay = $this->pageViewRepository->countPerDay(30);
+
         return $this->render('admin/my-dashboard.html.twig', [
+            'stats' => [
+                'today'          => $this->pageViewRepository->countSince($today),
+                'week'           => $this->pageViewRepository->countSince($week),
+                'month'          => $this->pageViewRepository->countSince($month),
+                'uniqueVisitors' => $this->pageViewRepository->countUniqueVisitors(30),
+            ],
+            'topPages'     => $this->pageViewRepository->topPages(30, 10),
+            'visitsPerDay' => $visitsPerDay,
+            'chartLabels'  => array_keys($visitsPerDay),
+            'chartData'    => array_values($visitsPerDay),
         ]);
     }
 

@@ -24,6 +24,9 @@ doctrine:
                 alias: App
         controller_resolver:
             auto_mapping: false
+        dql:
+            datetime_functions:
+                DATE: DoctrineExtensions\Query\Mysql\Date
 
 when@test:
     doctrine:
