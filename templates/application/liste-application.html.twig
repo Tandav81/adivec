@@ -37,7 +37,8 @@
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"
                                          src="{{ asset('uploads/images/application/'~application.image) }}"
-                                         alt="image {{ application.libelle }}">
+                                         alt="image {{ application.libelle }}"
+                                         loading="lazy">
                                 </div>
                                 <div class="text-center p-4">
                                     <span>{{ application.libelle }}</span>

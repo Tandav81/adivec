@@ -35,12 +35,12 @@
                         <div class="service-item d-flex h-100">
                             <div class="service-img">
                                 <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
-                                     alt="{{ new.title }}">
+                                     alt="{{ new.title }}" loading="lazy">
                             </div>
                             <div class="service-text p-5 pt-0">
                                 <div class="service-icon">
                                     <img class="img-fluid rounded-circle"
-                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}">
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}" loading="lazy">
                                 </div>
                                 <div class="d-flex">
                                     <h5 class="mb-3 titre-news">{{ new.title }}</h5>
