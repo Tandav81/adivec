@@ -1,36 +1,39 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="description" content="{{ product.description ? product.description|striptags|u.truncate(155, '...') : 'Découvrez ' ~ product.nom ~ ', un ingrédient naturel distribué par Adivec. Contactez-nous pour un devis.' }}"/>
+    <meta name="description"
+          content="{{ product.description ? product.description|striptags|u.truncate(155, '...') : 'Découvrez ' ~ product.nom ~ ', un ingrédient naturel distribué par Adivec. Contactez-nous pour un devis.' }}"/>
     <meta property="og:type" content="product"/>
     <meta property="og:url" content="{{ canonical_url }}"/>
     <meta property="og:title" content="{{ product.nom }} | ADIVEC"/>
-    <meta property="og:description" content="Découvrez {{ product.nom }}, un ingrédient naturel distribué par Adivec. Applications : {% for app in product.applications %}{{ app.libelle }}{% if not loop.last %}, {% endif %}{% endfor %}."/>
+    <meta property="og:description"
+          content="Découvrez {{ product.nom }}, un ingrédient naturel distribué par Adivec. Applications : {% for app in product.applications %}{{ app.libelle }}{% if not loop.last %}, {% endif %}{% endfor %}."/>
     {% if product.image %}
         <meta property="og:image" content="https://www.adivec.fr/uploads/images/products/{{ product.image }}"/>
     {% else %}
-        <meta property="og:image" content="https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}"/>
+        <meta property="og:image"
+              content="https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}"/>
     {% endif %}
     <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
 {% block title %}{{ product.nom }}{% endblock %}
 
 {% block schema %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "https://www.adivec.fr"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "{{ product.type.family.name }}",
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Accueil",
+              "item": "https://www.adivec.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "{{ product.type.family.name }}",
       "item": "https://www.adivec.fr/types/{{ product.type.family.slug }}"
     },
     {
@@ -47,35 +50,25 @@
     }
   ]
 }
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "{{ product.nom }}",
-  "url": "{{ canonical_url }}",
-  {% if product.image %}
-  "image": "https://www.adivec.fr/uploads/images/products/{{ product.image }}",
-  {% else %}
-  "image": "https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}",
-  {% endif %}
-  "category": "{{ product.type.family.name }}",
-  "brand": {
-    "@type": "Brand",
-    "name": "ADIVEC"
-  },
-  "offers": {
-    "@type": "Offer",
-    "seller": {
-      "@type": "Organization",
-      "name": "ADIVEC",
-      "url": "https://www.adivec.fr"
-    },
-    "availability": "https://schema.org/InStock",
-    "priceCurrency": "EUR"
-  }
-}
-</script>
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "{{ product.nom }}",
+          "url": "{{ canonical_url }}",
+          {% if product.image %}
+          "image": "https://www.adivec.fr/uploads/images/products/{{ product.image }}",
+          {% else %}
+          "image": "https://www.adivec.fr/uploads/images/family/{{ product.type.family.image }}",
+          {% endif %}
+          "category": "{{ product.type.family.name }}",
+          "brand": {
+            "@type": "Brand",
+            "name": "ADIVEC"
+          }
+        }
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -86,9 +79,12 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('app_types_family', { 'slug' : product.type.family.slug }) }}">{{ product.type.family.name }}</a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ path('app_products_type', { 'slug' : product.type.slug }) }}">{{ product.type.name }}</a></li>
+                                href="{{ path('app_types_family', { 'slug' : product.type.family.slug }) }}">{{ product.type.family.name }}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_products_type', { 'slug' : product.type.slug }) }}">{{ product.type.name }}</a>
+                    </li>
                 </ol>
             </nav>
 
@@ -144,25 +140,25 @@
                     </div>
 
                     {% if product.description %}
-                    <div class="product-description mt-3 mb-4">
-                        <h2>Description</h2>
-                        <p>{{ product.description }}</p>
-                    </div>
+                        <div class="product-description mt-3 mb-4">
+                            <h2>Description</h2>
+                            <p>{{ product.description }}</p>
+                        </div>
                     {% endif %}
 
                     <h2>Packagings</h2>
                     {% for packaging in product.packagings %}
-                    <div class="d-flex">
-                        <p class="mb-4">{{ packaging }}</p>
-                    </div>
+                        <div class="d-flex">
+                            <p class="mb-4">{{ packaging }}</p>
+                        </div>
                     {% endfor %}
 
                     <div>
-                    {% if product.fournisseur.logo %}
-                        <img class="img-fluid animated infinite logos"
-                             src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}"
-                             alt="logos partenaire {{ product.fournisseur.name }}">
-                    {% endif %}
+                        {% if product.fournisseur.logo %}
+                            <img class="img-fluid animated infinite logos"
+                                 src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}"
+                                 alt="logos partenaire {{ product.fournisseur.name }}">
+                        {% endif %}
                     </div>
                 </div>
             </div>
