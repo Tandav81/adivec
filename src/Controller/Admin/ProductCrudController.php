@@ -60,7 +60,10 @@ class ProductCrudController extends AbstractCrudController
                 ->onlyOnForms()
                 ->setHelp('Description affichée sur la fiche produit et utilisée pour le référencement (SEO).'),
             AssociationField::new('fournisseur'),
-            AssociationField::new('type'),
+            AssociationField::new('type', 'Catégorie principale'),
+            AssociationField::new('secondaryTypes', 'Autres catégories')
+                ->onlyOnForms()
+                ->setHelp('Le produit apparaît aussi dans ces catégories, avec la même fiche et la même URL (pas de doublon à créer).'),
             AssociationField::new('applications')->onlyOnForms(),
             AssociationField::new('packagings')->onlyOnForms(),
             ImageField::new('image')

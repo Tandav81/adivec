@@ -27,7 +27,8 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[Gedmo\Slug(fields: ['nom'])]
+    // updatable: false → renommer un produit ne change plus son URL (sinon page perdue sans redirection)
+    #[Gedmo\Slug(fields: ['nom'], updatable: false)]
     #[ORM\Column(length: 191, unique: true, nullable: true)]
     private ?string $slug = null;
 
@@ -38,6 +39,16 @@ class Product
     #[ORM\ManyToOne(targetEntity: "Type" ,inversedBy: "products")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
+
+    /**
+     * Autres catégories où le produit est aussi listé (ex. gomme de guar : alimentation humaine
+     * ET technique). Une seule fiche, une seule URL : évite les pages produits en double.
+     *
+     * @var Collection<int, Type>
+     */
+    #[ORM\ManyToMany(targetEntity: Type::class)]
+    #[ORM\JoinTable(name: 'product_secondary_type')]
+    private Collection $secondaryTypes;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -67,6 +78,29 @@ class Product
     public function __construct() {
         $this->applications = new ArrayCollection();
         $this->packagings = new ArrayCollection();
+        $this->secondaryTypes = new ArrayCollection();
+    }
+
+    /** @return Collection<int, Type> */
+    public function getSecondaryTypes(): Collection
+    {
+        return $this->secondaryTypes;
+    }
+
+    public function addSecondaryType(Type $type): static
+    {
+        if (!$this->secondaryTypes->contains($type)) {
+            $this->secondaryTypes->add($type);
+        }
+
+        return $this;
+    }
+
+    public function removeSecondaryType(Type $type): static
+    {
+        $this->secondaryTypes->removeElement($type);
+
+        return $this;
     }
 
 

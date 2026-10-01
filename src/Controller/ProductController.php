@@ -13,6 +13,47 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProductController extends AbstractController
 {
+    /**
+     * Anciennes URL de fiches produits → nouvelle URL (301). Migration Version20261001120000 :
+     * fusion des doublons alimentaire/technique, sauces soja déshydratées renommées,
+     * slugs aux accents mal translittérés (« prot-eine » → « proteine »).
+     */
+    public const SLUG_REDIRECTS = [
+        // Doublons fusionnés (la fiche principale est désormais listée dans les deux catégories)
+        'amidon-natif-de-ble-1' => 'amidon-natif-de-ble',
+        'gomme-de-guar-1' => 'gomme-de-guar',
+        'gomme-de-xanthane-1' => 'gomme-de-xanthane',
+        'fibre-de-pomme-de-terre-1' => 'fibre-de-pomme-de-terre',
+        'cire-d-abeille-1' => 'cire-d-abeille',
+        'cire-de-candelilla-1' => 'cire-de-candelilla',
+        'cire-de-carnauba-1' => 'cire-de-carnauba',
+        // Sauces soja déshydratées (produits distincts des versions liquides)
+        'sauce-soja-standard-1' => 'sauce-soja-standard-deshydratee',
+        'sauce-soja-sans-gluten-tamari-1' => 'sauce-soja-sans-gluten-tamari-deshydratee',
+        'sauce-soja-umami-elev-e-1' => 'sauce-soja-umami-eleve-deshydratee',
+        // Slugs corrigés
+        'sauce-soja-umami-elev-e' => 'sauce-soja-umami-eleve',
+        'carot-ene' => 'carotene',
+        'concentrat-de-prot-eine-de-pois' => 'concentrat-de-proteine-de-pois',
+        'exhausteur-de-go-ut-sauce-soja-sans-soja' => 'exhausteur-de-gout-sauce-soja-sans-soja',
+        'isolat-de-prot-eine-de-pois' => 'isolat-de-proteine-de-pois',
+        'l-ecithine-de-soja-bio' => 'lecithine-de-soja-bio',
+        'l-ecithine-de-tournesol-bio' => 'lecithine-de-tournesol-bio',
+        'l-ecithines-de-colza' => 'lecithines-de-colza',
+        'l-ecithines-de-soja' => 'lecithines-de-soja',
+        'l-ecithines-de-tournesol' => 'lecithines-de-tournesol',
+        'lut-eine' => 'luteine',
+        'prot-eine-de-bl-e' => 'proteine-de-ble',
+        'r-eglisse' => 'reglisse',
+        'sauce-soja-a-teneur-r-eduite-en-sel' => 'sauce-soja-a-teneur-reduite-en-sel',
+        'sauce-soja-sucr-ee' => 'sauce-soja-sucree',
+        'sauce-soja-taux-de-sel-r-eduit' => 'sauce-soja-taux-de-sel-reduit',
+    ];
+
+    /** Anciens identifiants numériques (/product/{id}) des fiches fusionnées. */
+    private const MERGED_IDS = [78 => 'amidon-natif-de-ble', 92 => 'gomme-de-guar', 93 => 'gomme-de-xanthane',
+        118 => 'fibre-de-pomme-de-terre', 96 => 'cire-d-abeille', 97 => 'cire-de-candelilla', 98 => 'cire-de-carnauba'];
+
     #[Route('/familles', name: 'app_familles')]
     public function showProduct(EntityManagerInterface $entityManager): Response
     {
@@ -84,6 +125,9 @@ class ProductController extends AbstractController
     {
         $product = $entityManager->getRepository(Product::class)->find($id);
         if (!$product || !$product->getSlug()) {
+            if (isset(self::MERGED_IDS[$id])) {
+                return $this->redirectToRoute('app_product_page', ['slug' => self::MERGED_IDS[$id]], 301);
+            }
             throw $this->createNotFoundException();
         }
         return $this->redirectToRoute('app_product_page', ['slug' => $product->getSlug()], 301);
@@ -94,6 +138,9 @@ class ProductController extends AbstractController
     {
         $product = $entityManager->getRepository(Product::class)->findOneBy(['slug' => $slug]);
         if (!$product) {
+            if (isset(self::SLUG_REDIRECTS[$slug])) {
+                return $this->redirectToRoute('app_product_page', ['slug' => self::SLUG_REDIRECTS[$slug]], 301);
+            }
             throw $this->createNotFoundException();
         }
         $canonical_url = $this->generateUrl(

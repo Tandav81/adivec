@@ -29,9 +29,12 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findProductsByTypeId(int $typeId): array
     {
+        // Catégorie principale OU catégorie secondaire (produit partagé alimentaire / technique)
         return $this->createQueryBuilder('p')
-                ->andWhere('p.type = :type')
+                ->leftJoin('p.secondaryTypes', 'st')
+                ->andWhere('p.type = :type OR st.id = :type')
                 ->setParameter('type', $typeId)
+                ->distinct()
                 ->orderBy('p.position', 'ASC')
                 ->getQuery()
                 ->getResult()
