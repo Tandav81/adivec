@@ -233,6 +233,13 @@
 
 
 /*** About ***/
+/* L'encart "années" reste toujours au-dessus des 3 photos, y compris pendant
+   les animations d'apparition (wow/animate.css) : sans z-index, une image en cours
+   d'animation (opacity < 1) crée un contexte d'empilement qui passe devant l'encart. */
+.about-experience-col {
+    z-index: 2;
+}
+
 .about-experience {
     position: absolute;
     width: 100%;
