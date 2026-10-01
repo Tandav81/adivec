@@ -123,7 +123,10 @@
                     {% if product.description %}
                         <div class="product-description mt-3 mb-4">
                             <h2>Description</h2>
-                            <p>{{ product.description }}</p>
+                            {# Paragraphes séparés par une ligne vide dans l'admin #}
+                            {% for paragraph in product.description|replace({"\r\n": "\n"})|split("\n\n") %}
+                                {% if paragraph|trim %}<p>{{ paragraph|trim|nl2br }}</p>{% endif %}
+                            {% endfor %}
                         </div>
                     {% endif %}
 
