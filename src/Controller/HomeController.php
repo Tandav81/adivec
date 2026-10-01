@@ -6,7 +6,6 @@ use App\Entity\Application;
 use App\Entity\BlogPost;
 use App\Entity\Family;
 use App\Entity\LogoPartenaire;
-use App\Entity\Product;
 use App\Entity\Slide;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,8 +19,7 @@ class HomeController extends AbstractController
     {
         $slides = $entityManager->getRepository(Slide::class)->findOneByDate();
         $logosPartenaires = $entityManager->getRepository(LogoPartenaire::class)->findAll();
-        $news = $entityManager->getRepository(BlogPost::class)->findByVisibles();
-        $products = $entityManager->getRepository(Product::class)->findAll();
+        $news = $entityManager->getRepository(BlogPost::class)->findByVisibles(3);
         $families = $entityManager->getRepository(Family::class)->findAll();
         $applications = $entityManager->getRepository(Application::class)->findAll();
         $today = new \DateTime();
@@ -34,7 +32,6 @@ class HomeController extends AbstractController
             'logos' => $logosPartenaires,
             'news' => $news,
             'yearsExperience' => $yearsExperience,
-            'products' => $products,
             'families' => $families,
             'applications' => $applications
         ]);

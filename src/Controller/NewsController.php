@@ -24,7 +24,7 @@ class NewsController extends AbstractController
     #[Route('/news/{id}', name: 'show_blog_legacy', requirements: ['id' => '\d+'])]
     public function showBlogLegacy(int $id, EntityManagerInterface $entityManager): Response
     {
-        $article = $entityManager->getRepository(BlogPost::class)->find($id);
+        $article = $entityManager->getRepository(BlogPost::class)->findOneBy(['id' => $id, 'visible' => true]);
         if (!$article || !$article->getSlug()) {
             throw $this->createNotFoundException();
         }
@@ -34,7 +34,7 @@ class NewsController extends AbstractController
     #[Route('/news/{slug}', name: 'show_blog')]
     public function showBlog(string $slug, EntityManagerInterface $entityManager): Response
     {
-        $new = $entityManager->getRepository(BlogPost::class)->findOneBy(['slug' => $slug]);
+        $new = $entityManager->getRepository(BlogPost::class)->findOneBy(['slug' => $slug, 'visible' => true]);
         if (!$new) {
             throw $this->createNotFoundException();
         }

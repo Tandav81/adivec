@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+{# ---- Variables SEO communes (meta, Open Graph, JSON-LD) ---- #}
+{% set ld_flags = constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_HEX_TAG') %}
+{% set seo_image = product.image
+    ? 'https://www.adivec.fr/uploads/images/products/' ~ product.image
+    : 'https://www.adivec.fr/uploads/images/family/' ~ product.type.family.image %}
+{% set seo_apps = product.applications|map(a => a.libelle|lower)|slice(0, 4)|join(', ') %}
+{% set seo_desc_auto = product.nom ~ ' (' ~ product.type.name ~ ') : ingrédient naturel distribué par Adivec'
+    ~ (seo_apps ? ' pour ' ~ seo_apps : '') ~ '. Fournisseur B2B depuis 1989, devis sur demande.' %}
+{% set seo_desc = (product.description ? product.description|seo_text : seo_desc_auto)|seo_truncate(155) %}
+{# Titre : « Produit – Type » (cf. App\Twig\SeoExtension::productTitle) #}
+{% set seo_title = product_seo_title(product) %}
+
+{% block seo %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="description" content="{{ seo_desc }}"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:url" content="{{ canonical_url }}"/>
+    <meta property="og:title" content="{{ seo_title }} | ADIVEC"/>
+    <meta property="og:description" content="{{ seo_desc }}"/>
+    <meta property="og:image" content="{{ seo_image }}"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
+{% block schema %}
+    {{ parent() }}
+    {# JSON-LD généré via json_encode : échappement correct des apostrophes et guillemets #}
+    {% set ld_breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': url('app_home')},
+            {'@type': 'ListItem', 'position': 2, 'name': product.type.family.name, 'item': url('app_types_family', {slug: product.type.family.slug})},
+            {'@type': 'ListItem', 'position': 3, 'name': product.type.name, 'item': url('app_products_type', {slug: product.type.slug})},
+            {'@type': 'ListItem', 'position': 4, 'name': product.nom, 'item': canonical_url}
+        ]
+    } %}
+    {# Pas d'« offers » : site vitrine sans prix (décision avril 2026). La marque est le fabricant partenaire. #}
+    {% set ld_product = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': product.nom,
+        'url': canonical_url,
+        'image': seo_image,
+        'description': seo_desc,
+        'category': product.type.family.name ~ ' > ' ~ product.type.name
+    } %}
+    {% if product.fournisseur and product.fournisseur.name %}
+        {% set ld_product = ld_product|merge({'brand': {'@type': 'Brand', 'name': product.fournisseur.name}}) %}
+    {% endif %}
+    <script type="application/ld+json">{{ ld_breadcrumb|json_encode(ld_flags)|raw }}</script>
+    <script type="application/ld+json">{{ ld_product|json_encode(ld_flags)|raw }}</script>
+{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <p class="h1 display-3 text-white mb-4 animated slideInDown">{{ product.type.name }}</p>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_types_family', { 'slug' : product.type.family.slug }) }}">{{ product.type.family.name }}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('app_products_type', { 'slug' : product.type.slug }) }}">{{ product.type.name }}</a>
+                    </li>
+                </ol>
+            </nav>
+
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="pb-4 wow fadeInUp d-flex fiche-produit" data-wow-delay="0.1s">
+                <div class="col-auto" style="max-width: 50%">
+                    {% if product.image %}
+                        <img class="img-fluid"
+                             src="{{ asset('uploads/images/products/'~product.image) }}" {{ img_dims('uploads/images/products/'~product.image) }}
+                             alt="{{ product.nom }}" loading="lazy">
+                    {% else %}
+                        <img class="img-fluid"
+                             src="{{ asset('uploads/images/family/'~product.type.family.image) }}" {{ img_dims('uploads/images/family/'~product.type.family.image) }}
+                             alt="{{ product.type.family.name }}" loading="lazy">
+                    {% endif %}
+                </div>
+
+                <div class="texte-produit">
+                    <div class="d-flex app-rows mb-4 mt-2">
+                        <div>
+                            <h1 class="mb-5" style="max-width: 800px;">{{ product.nom }}</h1>
+                        </div>
+                        <div>
+                            <h2>Applications</h2>
+                        </div>
+
+                        <div>
+                            {% for application in product.applications %}
+                                <a href="{{ path('app_application', {'slug': application.slug}) }}"
+                                   class="btn rounded-pill animated slideInRight" style="width: 100%;"
+                                   title="{{ application.libelle }}">
+                                    <div class="app-pills d-flex">
+                                        <div>
+                                            <img class="img-fluid mb-2"
+                                                 src="{{ asset('uploads/images/application/icone/'~application.icone) }}" {{ img_dims('uploads/images/application/icone/'~application.icone) }}
+                                                 alt="icone {{ application.libelle }}" style="width: 30px" loading="lazy">
+                                        </div>
+                                        <div>
+                                            <p class="libelle-application">{{ application.libelle }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    {% if product.description %}
+                        <div class="product-description mt-3 mb-4">
+                            <h2>Description</h2>
+                            <p>{{ product.description }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% set related_news = product.relatedNews|filter(n => n.visible) %}
+                    {% if related_news is not empty %}
+                        <div class="related-links mt-3 mb-4">
+                            <h2>Actualités liées</h2>
+                            <ul class="list-unstyled">
+                                {% for news in related_news %}
+                                    <li class="mb-2"><a href="{{ path('show_blog', {slug: news.slug}) }}">{{ news.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <h2>Packagings</h2>
+                    {% for packaging in product.packagings %}
+                        <div class="d-flex">
+                            <p class="mb-4">{{ packaging }}</p>
+                        </div>
+                    {% endfor %}
+
+                    <div>
+                        {% if product.fournisseur and product.fournisseur.logo %}
+                            <img class="img-fluid animated infinite logos"
+                                 src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}" {{ img_dims('uploads/images/logos/'~product.fournisseur.logo) }}
+                                 alt="logos partenaire {{ product.fournisseur.name }}" loading="lazy">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Service End -->
+{% endblock %}

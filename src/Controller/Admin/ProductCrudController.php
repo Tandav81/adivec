@@ -58,9 +58,13 @@ class ProductCrudController extends AbstractCrudController
                 ->setHelp('Généré automatiquement à partir du nom. Modifiable si besoin.'),
             TextareaField::new('description')
                 ->onlyOnForms()
-                ->setHelp('Description affichée sur la fiche produit et utilisée pour le référencement (SEO).'),
+                ->setNumOfRows(12)
+                ->setHelp('Affichée sur la fiche produit et reprise pour Google (les ~155 premiers caractères servent de meta description : commencer par ce qu\'est le produit). Séparer les paragraphes par une ligne vide.'),
             AssociationField::new('fournisseur'),
-            AssociationField::new('type'),
+            AssociationField::new('type', 'Catégorie principale'),
+            AssociationField::new('secondaryTypes', 'Autres catégories')
+                ->onlyOnForms()
+                ->setHelp('Le produit apparaît aussi dans ces catégories, avec la même fiche et la même URL (pas de doublon à créer).'),
             AssociationField::new('applications')->onlyOnForms(),
             AssociationField::new('packagings')->onlyOnForms(),
             ImageField::new('image')
