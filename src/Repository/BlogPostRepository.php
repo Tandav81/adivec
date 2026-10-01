@@ -19,15 +19,19 @@ class BlogPostRepository extends ServiceEntityRepository
         /**
          * @return BlogPost[] Returns an array of BlogPost objects
          */
-        public function findByVisibles(): array
+        public function findByVisibles(?int $limit = null): array
         {
-            return $this->createQueryBuilder('b')
+            $qb = $this->createQueryBuilder('b')
                 ->andWhere('b.visible = :val')
                 ->setParameter('val', true)
-                ->orderBy('b.id', 'ASC')
-                ->getQuery()
-                ->getResult()
-            ;
+                ->orderBy('b.createdAt', 'DESC')
+                ->addOrderBy('b.id', 'DESC');
+
+            if ($limit !== null) {
+                $qb->setMaxResults($limit);
+            }
+
+            return $qb->getQuery()->getResult();
         }
 
     //    public function findOneBySomeField($value): ?BlogPost

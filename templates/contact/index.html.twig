@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'partials/_icons.html.twig' as icons %}
 {% block seo %}
     <link rel="canonical" href="https://www.adivec.fr/contact">
     <meta name="description" content="Contactez Adivec pour toute demande d'information sur nos ingrédients naturels. Par téléphone au 02 38 24 15 50, par email ou via notre formulaire en ligne."/>
@@ -32,43 +33,43 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
+                                    {{ form_widget(form.company, {'attr': {'class': 'form-control', 'placeholder': 'Société'}}) }}
                                     {{ form_label(form.company, 'Société') }}
-                                    {{ form_widget(form.company, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.company) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
                                     {{ form_label(form.nom, 'Votre nom') }}
-                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.nom) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
                                     {{ form_label(form.email, 'Votre email') }}
-                                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.email) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
+                                    {{ form_widget(form.numTel, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
                                     {{ form_label(form.numTel, 'Votre numéro de téléphone') }}
-                                    {{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.numTel) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
+                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control', 'placeholder': 'Votre code postal'}}) }}
                                     {{ form_label(form.codePostal, 'Votre code postal') }}
-                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.codePostal) }}
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
+                                    {{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message', 'style': 'height: 160px'}}) }}
                                     {{ form_label(form.message, 'Votre message') }}
-                                    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.message) }}
                                 </div>
                             </div>
@@ -89,7 +90,7 @@
                     <h3 class="mb-4">Nos informations</h3>
                     <div class="d-flex border-bottom pb-3 mb-3">
                         <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
-                            <i class="fa fa-map-marker-alt text-body"></i>
+                            {{ icons.icon('map-marker', 'text-body') }}
                         </div>
                         <div class="ms-3">
                             <h6>Notre bureau</h6>
@@ -98,7 +99,7 @@
                     </div>
                     <div class="d-flex border-bottom pb-3 mb-3">
                         <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
-                            <i class="fa fa-phone-alt text-body"></i>
+                            {{ icons.icon('phone', 'text-body') }}
                         </div>
                         <div class="ms-3">
                             <h6>Appelez-nous</h6>
@@ -107,7 +108,7 @@
                     </div>
                     <div class="d-flex border-bottom-0 pb-3 mb-3">
                         <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
-                            <i class="fa fa-envelope text-body"></i>
+                            {{ icons.icon('envelope', 'text-body') }}
                         </div>
                         <div class="ms-3">
                             <h6>Envoyez-nous un email</h6>
@@ -122,7 +123,7 @@
                                  alt="Carte de localisation Adivec – 10 bis rue de Lahire, 45000 Orléans"
                                  style="width:100%; height:100%; object-fit:cover;">
                             <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45); display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; gap:8px;">
-                                <i class="fa fa-map-marker-alt" style="font-size:2rem;"></i>
+                                {{ icons.icon('map-marker', '', '2rem') }}
                                 <span style="font-size:0.95rem; text-align:center; padding:0 16px;">Cliquez pour afficher la carte<br><small style="opacity:.8">(connexion à Google Maps)</small></span>
                             </div>
                         </div>

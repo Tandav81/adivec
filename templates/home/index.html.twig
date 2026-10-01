@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'partials/_icons.html.twig' as icons %}
 {% block seo %}
     <link rel="canonical" href="https://www.adivec.fr">
     <meta name="description" content="Adivec, fondée en 1989, distribue des ingrédients d'origine naturelle pour l'alimentation humaine, animale et les applications techniques. Amidons, gommes, protéines, fibres, colorants naturels."/>
@@ -135,21 +136,25 @@
                 {% for new in news %}
                     <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="{{ timedelay }}s">
                         <div class="service-item d-flex h-100">
+                            {% if new.image %}
                             <div class="service-img">
                                 <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
-                                     alt="{{ new.title }}">
+                                     alt="{{ new.title }}" loading="lazy">
                             </div>
+                            {% endif %}
                             <div class="service-text p-5 pt-0">
+                                {% if new.image %}
                                 <div class="service-icon">
                                     <img class="img-fluid rounded-circle"
-                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}">
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}" loading="lazy">
                                 </div>
+                                {% endif %}
                                 <div class="d-flex">
                                     <h5 class="mb-3 titre-news">{{ new.title }}</h5>
                                 </div>
                                 <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...') }}</p>
-                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"><i
-                                            class="bi bi-chevron-double-right"></i></a>
+                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"
+                                   title="Lire : {{ new.title }}">{{ icons.icon('chevron-double-right') }}</a>
                             </div>
                         </div>
                     </div>

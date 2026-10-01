@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable{% endblock %}
+{% block seo %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 fw-bold">Page introuvable</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container-xxl py-5">
+        <div class="container text-center" style="max-width: 640px;">
+            <p class="section-title bg-white text-center text-primary px-3">Erreur 404</p>
+            <p class="mb-4">La page que vous cherchez n'existe pas ou a été déplacée. Elle a peut-être changé d'adresse lors de la refonte du site.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a class="btn btn-primary py-3 px-5" href="{{ path('app_home') }}">Retour à l'accueil</a>
+                <a class="btn btn-outline-primary py-3 px-5" href="{{ path('app_familles') }}">Voir nos produits</a>
+                <a class="btn btn-outline-primary py-3 px-5" href="{{ path('app_contact') }}">Nous contacter</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

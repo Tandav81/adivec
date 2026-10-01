@@ -1,0 +1,33 @@
+/* Bouton « Mettre en avant » + aperçu du surlignage dans l'éditeur Trix (back-office).
+   Les !important sont nécessaires : la feuille field-text-editor.css d'EasyAdmin est chargée
+   après celle-ci et force width/text-indent sur .trix-button--icon. */
+trix-toolbar .trix-button-group .trix-button--icon-highlight {
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 .6rem !important;
+    font-size: .8rem;
+    font-weight: 600;
+    text-indent: 0 !important;
+    white-space: nowrap;
+    background: rgba(140, 197, 31, .25) !important;
+    color: inherit;
+}
+trix-toolbar .trix-button-group .trix-button--icon-highlight::before {
+    content: none !important;
+}
+trix-toolbar .trix-button-group .trix-button--icon-highlight.trix-active {
+    background: #8cc51f !important;
+    color: #fff;
+}
+trix-editor mark {
+    background: rgba(140, 197, 31, .3);
+    padding: .05em .3em;
+    border-radius: 3px;
+}
+trix-editor h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-left: 4px solid #8cc51f;
+    padding-left: .5rem;
+    margin: 1rem 0 .5rem;
+}

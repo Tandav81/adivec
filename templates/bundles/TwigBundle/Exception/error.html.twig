@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Une erreur est survenue{% endblock %}
+{% block seo %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 fw-bold">Une erreur est survenue</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container-xxl py-5">
+        <div class="container text-center" style="max-width: 640px;">
+            <p class="section-title bg-white text-center text-primary px-3">Erreur {{ status_code }}</p>
+            <p class="mb-4">Désolé, une erreur technique nous empêche d'afficher cette page. Vous pouvez réessayer dans quelques instants ou revenir à l'accueil.</p>
+            <a class="btn btn-primary py-3 px-5" href="{{ path('app_home') }}">Retour à l'accueil</a>
+        </div>
+    </div>
+{% endblock %}

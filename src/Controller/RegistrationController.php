@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
@@ -23,7 +24,10 @@ class RegistrationController extends AbstractController
     {
     }
 
+    // Réservé aux administrateurs connectés : sert à créer un compte, dont les droits
+    // sont ensuite ajustés en base (ou via le CRUD Utilisateurs).
     #[Route('/register', name: 'app_register')]
+    #[IsGranted('ROLE_ADMIN')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
                              EntityManagerInterface $entityManager): Response
     {
@@ -46,9 +50,9 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('mailpourenvoi@lafamilledavid.fr', 'Admin email'))
+                    ->from(new Address('contactsite@adivec.fr', 'Adivec'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Confirmez votre adresse e-mail')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
@@ -84,7 +88,7 @@ class RegistrationController extends AbstractController
         $user->setVerified(true);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse e-mail a été vérifiée.');
 
         return $this->redirectToRoute('app_home');
     }

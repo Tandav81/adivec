@@ -1,3 +1,4 @@
+{% import 'partials/_icons.html.twig' as icons %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,9 +21,7 @@
         <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Open+Sans:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Open+Sans:wght@400;500;600&display=swap"></noscript>
 
-        <!-- Icon Font Stylesheet -->
-        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/font_bootstrap-icon.css') }}" rel="stylesheet">
+        <!-- Icônes : SVG inline via templates/partials/_icons.html.twig (plus aucune police d'icônes à charger) -->
 
         <!-- Libraries Stylesheet -->
         <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
@@ -103,13 +102,13 @@
                    href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"
                    target="_blank"
                    title="lien linkedin Adivec">
-                    <i class="fab fa-linkedin-in"></i>
+                    {{ icons.icon('linkedin', '', '1em', 'Adivec sur LinkedIn') }}
                 </a>
             </div>
         </div>
         <div class="col-lg-6 text-end">
             <div class="h-100 d-inline-flex align-items-center text-dark py-2 px-4 phone">
-                <span class="me-2 fw-semi-bold"><i class="fa fa-phone-alt me-2"></i>Appelez-nous:</span>
+                <span class="me-2 fw-semi-bold">{{ icons.icon('phone', 'me-2') }}Appelez-nous:</span>
                 <a href="tel:+33238241550" title="numéro de téléphone Adivec">02 38 24 15 50</a>
             </div>
         </div>
@@ -146,7 +145,7 @@
                    aria-label="Rechercher un produit ou une application"
                    id="searchInput">
             <span class="position-absolute top-50 translate-middle-y loupe-right">
-                    <i class="bi bi-search"></i>
+                    {{ icons.icon('search') }}
                 </span>
             <ul id="autocompleteResults" class="autocomplete-results"></ul>
         </div>
@@ -171,20 +170,21 @@
                 <h5 class="text-white mb-4">Notre bureau</h5>
                 <p class="mb-2">
                     <a href="https://maps.app.goo.gl/bdN2JzJaGxAWqyRu9" target="blank">
-                        <i class="fa fa-map-marker-alt me-3"></i>
+                        {{ icons.icon('map-marker', 'me-3') }}
                         10 bis rue de Lahire
                         <p class="align-adress">45000 Orléans</p>
                     </a>
 
                 </p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+33238241550">02 38 24 15 50</a></p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:contact@adivec.fr">contact@adivec.fr</a>
+                <p class="mb-2">{{ icons.icon('phone', 'me-3') }}<a href="tel:+33238241550">02 38 24 15 50</a></p>
+                <p class="mb-2">{{ icons.icon('envelope', 'me-3') }}<a href="mailto:contact@adivec.fr">contact@adivec.fr</a>
                 </p>
                 <div class="d-flex pt-3">
                     <a class="btn btn-square rounded-circle me-2"
                        target="_blank"
-                       href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr"><i
-                                class="fab fa-linkedin-in"></i></a>
+                       rel="noopener"
+                       title="lien linkedin Adivec"
+                       href="https://www.linkedin.com/company/adivec/?originalSubdomain=fr">{{ icons.icon('linkedin', '', '1em', 'Adivec sur LinkedIn') }}</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -225,8 +225,7 @@
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top" title="Back to Top"><i
-            class="bi bi-arrow-up"></i></a>
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top" title="Back to Top">{{ icons.icon('arrow-up') }}</a>
 
 
 </body>

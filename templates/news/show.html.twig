@@ -56,15 +56,18 @@
                 <h1 class="mb-5">{{ new.title }}</h1>
             </div>
             <div class="row gy-5 gx-4">
+                {% if new.image %}
                 <div class="col-auto">
                     <div class="service-img">
                         <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
                              alt="{{ new.title }}" loading="lazy">
                     </div>
                 </div>
+                {% endif %}
                 <div class="col-lg-9 col-md-6 pt-5 ">
-                    <div class="service-item d-flex h-100">
-                        <p class="mb-4">{{ new.description |raw }}</p>
+                    {# .news-content : conteneur bloc (pas de <p>) pour accepter les titres/listes générés par l'éditeur #}
+                    <div class="service-item h-100">
+                        <div class="news-content mb-4">{{ new.description|raw }}</div>
                     </div>
                 </div>
             </div>

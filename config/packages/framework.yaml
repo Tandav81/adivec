@@ -6,6 +6,12 @@ framework:
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 
+    # Versioning des assets : incrémenter à chaque déploiement modifiant css/js/images
+    # (asset('css/style.css') -> /css/style.css?v4). Permet le cache long côté navigateur.
+    assets:
+        version: 'v4'
+        version_format: '%%s?%%s'
+
     #esi: true
     #fragments: true
 

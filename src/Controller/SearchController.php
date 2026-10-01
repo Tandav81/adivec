@@ -22,16 +22,21 @@ class SearchController extends AbstractController
             return $this->json([]);
         }
 
+        // Échappe les jokers SQL saisis par l'utilisateur (% et _)
+        $like = '%' . addcslashes($query, '%_') . '%';
+
         // Recherche dans les produits et les applications
         $products = $entityManager->getRepository(Product::class)->createQueryBuilder('p')
             ->where('p.nom LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('query', $like)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
 
         $applications = $entityManager->getRepository(Application::class)->createQueryBuilder('a')
             ->where('a.libelle LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('query', $like)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
 

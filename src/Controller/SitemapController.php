@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\BlogPost;
 use App\Entity\Product;
 use App\Entity\Application;
+use App\Entity\Family;
+use App\Entity\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,10 +43,10 @@ final class SitemapController extends AbstractController
             if (!$article->getSlug()) {
                 continue;
             }
-            $images = [
+            $images = $article->getImage() ? [
                 'loc' => $hostname . '/uploads/images/blog/' . $article->getImage(),
                 'title' => $article->getTitle()
-            ];
+            ] : null;
 
             $urls[] = [
                 'loc' => $this->generateUrl('show_blog', [
@@ -60,14 +62,15 @@ final class SitemapController extends AbstractController
             if (!$product->getSlug()) {
                 continue;
             }
+            $familyImage = $product->getType()?->getFamily()?->getImage();
             $imageFile = $product->getImage()
                 ? '/uploads/images/products/' . $product->getImage()
-                : '/uploads/images/family/' . $product->getType()->getFamily()->getImage();
+                : ($familyImage ? '/uploads/images/family/' . $familyImage : null);
 
-            $images = [
+            $images = $imageFile ? [
                 'loc' => $hostname . $imageFile,
                 'title' => $product->getNom()
-            ];
+            ] : null;
 
             $urls[] = [
                 'loc' => $this->generateUrl('app_product_page', [
@@ -75,6 +78,29 @@ final class SitemapController extends AbstractController
                 ]),
                 'image' => $images,
                 'lastmod' => $product->getUpdatedAt()?->format('Y-m-d') ?? $today,
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+            ];
+        }
+        // Pages familles (/types/{slug}) et types (/products/{slug})
+        foreach ($entityManager->getRepository(Family::class)->findAll() as $family) {
+            if (!$family->getSlug()) {
+                continue;
+            }
+            $urls[] = [
+                'loc' => $this->generateUrl('app_types_family', ['slug' => $family->getSlug()]),
+                'lastmod' => $today,
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+            ];
+        }
+        foreach ($entityManager->getRepository(Type::class)->findAll() as $type) {
+            if (!$type->getSlug()) {
+                continue;
+            }
+            $urls[] = [
+                'loc' => $this->generateUrl('app_products_type', ['slug' => $type->getSlug()]),
+                'lastmod' => $today,
                 'changefreq' => 'monthly',
                 'priority' => '0.8',
             ];
