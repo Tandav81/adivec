@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BlogPostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,6 +23,43 @@ class BlogPost
     #[Gedmo\Slug(fields: ['title'])]
     #[ORM\Column(length: 191, unique: true, nullable: true)]
     private ?string $slug = null;
+
+    /**
+     * Produits cités dans l'article : liens « Produits associés » sous l'article et
+     * « Actualités liées » sur les fiches produits (maillage interne).
+     *
+     * @var Collection<int, Product>
+     */
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'relatedNews')]
+    #[ORM\JoinTable(name: 'blog_post_product')]
+    private Collection $relatedProducts;
+
+    public function __construct()
+    {
+        $this->relatedProducts = new ArrayCollection();
+    }
+
+    /** @return Collection<int, Product> */
+    public function getRelatedProducts(): Collection
+    {
+        return $this->relatedProducts;
+    }
+
+    public function addRelatedProduct(Product $product): static
+    {
+        if (!$this->relatedProducts->contains($product)) {
+            $this->relatedProducts->add($product);
+        }
+
+        return $this;
+    }
+
+    public function removeRelatedProduct(Product $product): static
+    {
+        $this->relatedProducts->removeElement($product);
+
+        return $this;
+    }
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;

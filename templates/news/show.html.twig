@@ -79,6 +79,16 @@
                     <div class="service-item h-100">
                         <div class="news-content mb-4">{{ new.description|raw }}</div>
                     </div>
+                    {% if new.relatedProducts is not empty %}
+                        <section class="related-links mt-5" aria-labelledby="produits-associes">
+                            <h2 id="produits-associes" class="h4 mb-3">Produits associés</h2>
+                            <ul class="list-unstyled d-flex flex-wrap gap-2">
+                                {% for product in new.relatedProducts %}
+                                    <li><a class="btn btn-outline-primary rounded-pill" href="{{ path('app_product_page', {slug: product.slug}) }}">{{ product.nom }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                    {% endif %}
                 </div>
             </div>
         </div>

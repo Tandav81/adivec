@@ -9,7 +9,7 @@ framework:
     # Versioning des assets : incrémenter à chaque déploiement modifiant css/js/images
     # (asset('css/style.css') -> /css/style.css?v4). Permet le cache long côté navigateur.
     assets:
-        version: 'v6'
+        version: 'v7'
         version_format: '%%s?%%s'
 
     #esi: true

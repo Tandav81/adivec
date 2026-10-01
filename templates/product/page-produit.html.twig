@@ -127,6 +127,18 @@
                         </div>
                     {% endif %}
 
+                    {% set related_news = product.relatedNews|filter(n => n.visible) %}
+                    {% if related_news is not empty %}
+                        <div class="related-links mt-3 mb-4">
+                            <h2>Actualités liées</h2>
+                            <ul class="list-unstyled">
+                                {% for news in related_news %}
+                                    <li class="mb-2"><a href="{{ path('show_blog', {slug: news.slug}) }}">{{ news.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
                     <h2>Packagings</h2>
                     {% for packaging in product.packagings %}
                         <div class="d-flex">

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\BlogPost;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -43,6 +44,10 @@ class BlogPostCrudController extends AbstractCrudController
                 ])
                 ->setHelp('Utilisez « Titre de section » pour structurer l\'article, « Gras » ou « Mettre en avant » pour les mots-clés.'),
             BooleanField::new('visible'),
+            AssociationField::new('relatedProducts', 'Produits associés')
+                ->onlyOnForms()
+                ->autocomplete()
+                ->setHelp('Fiches produits citées dans l\'article : liens croisés article ↔ fiches (référencement).'),
             DateTimeField::new('createdAt', 'Date de publication')
                 ->setHelp('Laisser vide pour utiliser la date de création. Affichée sur l\'article et transmise à Google.'),
             ImageField::new('image')

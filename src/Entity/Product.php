@@ -50,6 +50,14 @@ class Product
     #[ORM\JoinTable(name: 'product_secondary_type')]
     private Collection $secondaryTypes;
 
+    /**
+     * Actualités qui citent ce produit (côté inverse de BlogPost::$relatedProducts).
+     *
+     * @var Collection<int, BlogPost>
+     */
+    #[ORM\ManyToMany(targetEntity: BlogPost::class, mappedBy: 'relatedProducts')]
+    private Collection $relatedNews;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
@@ -79,6 +87,13 @@ class Product
         $this->applications = new ArrayCollection();
         $this->packagings = new ArrayCollection();
         $this->secondaryTypes = new ArrayCollection();
+        $this->relatedNews = new ArrayCollection();
+    }
+
+    /** @return Collection<int, BlogPost> */
+    public function getRelatedNews(): Collection
+    {
+        return $this->relatedNews;
     }
 
     /** @return Collection<int, Type> */
