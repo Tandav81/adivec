@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+{% import 'partials/_icons.html.twig' as icons %}
+{% block seo %}
+    <link rel="canonical" href="https://www.adivec.fr/news">
+    <meta name="description" content="Actualités et articles d'Adivec sur les ingrédients naturels, les tendances de l'industrie agroalimentaire et les innovations en matières premières."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.adivec.fr/news"/>
+    <meta property="og:title" content="Actualités | ADIVEC"/>
+    <meta property="og:description" content="Suivez les actualités d'Adivec : tendances du marché des ingrédients naturels, nouveaux produits, innovations agroalimentaires."/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}Actualités – Ingrédients naturels et agroalimentaire{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <p class="h1 display-3 text-white mb-4 animated slideInDown">News</p>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">News</p>
+                <h1 class="mb-5">Nouvelles autour d'Adivec</h1>
+            </div>
+            <div class="row gy-5 gx-4">
+                {% set timedelay = 0.1 %}
+                {% for new in news %}
+                    <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="{{ timedelay }}s">
+                        <div class="service-item d-flex h-100">
+                            {% if new.image %}
+                            <div class="service-img">
+                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
+                                     alt="{{ new.title }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <div class="service-text p-5 pt-0">
+                                {% if new.image %}
+                                <div class="service-icon">
+                                    <img class="img-fluid rounded-circle"
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }} alt="{{ new.title }}" loading="lazy">
+                                </div>
+                                {% endif %}
+                                <div class="d-flex">
+                                    <h5 class="mb-3 titre-news">{{ new.title }}</h5>
+                                </div>
+                                <p class="mb-4">{{ new.description|striptags|u.truncate(140, '...') }}</p>
+                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"
+                                   title="Lire : {{ new.title }}">{{ icons.icon('chevron-double-right') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+                {#                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.3s"> #}
+                {#                    <div class="service-item d-flex h-100"> #}
+                {#                        <div class="service-img"> #}
+                {#                            <img class="img-fluid" src="img/service-2.jpg" alt=""> #}
+                {#                        </div> #}
+                {#                        <div class="service-text p-5 pt-0"> #}
+                {#                            <div class="service-icon"> #}
+                {#                                <img class="img-fluid rounded-circle" src="img/service-2.jpg" alt=""> #}
+                {#                            </div> #}
+                {#                            <h5 class="mb-3">Breeding & Veterinary</h5> #}
+                {#                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p> #}
+                {#                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
+                {#                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.5s"> #}
+                {#                    <div class="service-item d-flex h-100"> #}
+                {#                        <div class="service-img"> #}
+                {#                            <img class="img-fluid" src="img/service-3.jpg" alt=""> #}
+                {#                        </div> #}
+                {#                        <div class="service-text p-5 pt-0"> #}
+                {#                            <div class="service-icon"> #}
+                {#                                <img class="img-fluid rounded-circle" src="img/service-3.jpg" alt=""> #}
+                {#                            </div> #}
+                {#                            <h5 class="mb-3">Care & Milking</h5> #}
+                {#                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p> #}
+                {#                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+{% import 'partials/_icons.html.twig' as icons %}
+{% block seo %}
+    <link rel="canonical" href="https://www.adivec.fr/contact">
+    <meta name="description" content="Contactez Adivec pour toute demande d'information sur nos ingrédients naturels. Par téléphone au 02 38 24 15 50, par email ou via notre formulaire en ligne."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.adivec.fr/contact"/>
+    <meta property="og:title" content="Contactez-nous | ADIVEC"/>
+    <meta property="og:description" content="Contactez Adivec au 02 38 24 15 50 ou via notre formulaire pour toute demande sur nos ingrédients naturels."/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}Contact – Fournisseur d'ingrédients naturels{% endblock %}
+
+{% block body %}
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Contactez-nous</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="h3 mb-4">Besoin de contacter Adivec ?</h1>
+                    <p>Utilisez le formulaire ci-dessous!</p>
+                    <div>
+                        {{ form_start(form) }}
+                        {% if not form.vars.valid and form.vars.submitted %}
+                            <div class="alert alert-danger mb-3">
+                                Veuillez corriger les erreurs ci-dessous avant d'envoyer le formulaire.
+                            </div>
+                        {% endif %}
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.company, {'attr': {'class': 'form-control', 'placeholder': 'Société'}}) }}
+                                    {{ form_label(form.company, 'Société') }}
+                                    {{ form_errors(form.company) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
+                                    {{ form_label(form.nom, 'Votre nom') }}
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
+                                    {{ form_label(form.email, 'Votre email') }}
+                                    {{ form_errors(form.email) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.numTel, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
+                                    {{ form_label(form.numTel, 'Votre numéro de téléphone') }}
+                                    {{ form_errors(form.numTel) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.codePostal, {'attr': {'class': 'form-control', 'placeholder': 'Votre code postal'}}) }}
+                                    {{ form_label(form.codePostal, 'Votre code postal') }}
+                                    {{ form_errors(form.codePostal) }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message', 'style': 'height: 160px'}}) }}
+                                    {{ form_label(form.message, 'Votre message') }}
+                                    {{ form_errors(form.message) }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                {{ form_row(form.captcha)}}
+                                {{ form_errors(form.captcha) }}
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-secondary rounded-pill py-3 px-5" type="submit"
+                                        aria-labelledby="envoyer">Envoyer le message
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <h3 class="mb-4">Nos informations</h3>
+                    <div class="d-flex border-bottom pb-3 mb-3">
+                        <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
+                            {{ icons.icon('map-marker', 'text-body') }}
+                        </div>
+                        <div class="ms-3">
+                            <h6>Notre bureau</h6>
+                            <span>10 bis rue de Lahire, 45000 Orléans</span>
+                        </div>
+                    </div>
+                    <div class="d-flex border-bottom pb-3 mb-3">
+                        <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
+                            {{ icons.icon('phone', 'text-body') }}
+                        </div>
+                        <div class="ms-3">
+                            <h6>Appelez-nous</h6>
+                            <span>02 38 24 15 50</span>
+                        </div>
+                    </div>
+                    <div class="d-flex border-bottom-0 pb-3 mb-3">
+                        <div class="flex-shrink-0 btn-square bg-secondary rounded-circle">
+                            {{ icons.icon('envelope', 'text-body') }}
+                        </div>
+                        <div class="ms-3">
+                            <h6>Envoyez-nous un email</h6>
+                            <span>contact@adivec.fr</span>
+                        </div>
+                    </div>
+
+
+                        {# Carte Google Maps : chargée uniquement au clic (conformité RGPD / CNIL) #}
+                        <div id="map-wrapper" style="position: relative; width: 100%; height: 300px; cursor: pointer; border-radius: 4px; overflow: hidden;" onclick="loadMap(this)" title="Cliquer pour afficher la carte Google Maps">
+                            <img src="{{ asset('img/adivecMap.png') }}" {{ img_dims('img/adivecMap.png') }}
+                                 alt="Carte de localisation Adivec – 10 bis rue de Lahire, 45000 Orléans"
+                                 style="width:100%; height:100%; object-fit:cover;">
+                            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45); display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; gap:8px;">
+                                {{ icons.icon('map-marker', '', '2rem') }}
+                                <span style="font-size:0.95rem; text-align:center; padding:0 16px;">Cliquez pour afficher la carte<br><small style="opacity:.8">(connexion à Google Maps)</small></span>
+                            </div>
+                        </div>
+                        <iframe id="map-iframe" width="100%" height="300" style="border:0; display:none; border-radius:4px;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade" title="Carte Adivec – 10 bis rue de Lahire, Orléans"
+                                data-src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=fr&amp;q=10%20bis%20rue%20de%20lahire,%2045000%20Orl%C3%A9ans+(Adivec)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                        </iframe>
+                        <script>
+                        function loadMap(wrapper) {
+                            var iframe = document.getElementById('map-iframe');
+                            iframe.src = iframe.getAttribute('data-src');
+                            iframe.style.display = 'block';
+                            wrapper.style.display = 'none';
+                        }
+                        </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+{% endblock %}

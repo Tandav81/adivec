@@ -1,0 +1,842 @@
+/********** Template CSS **********/
+:root {
+    --primary: #8cc51f;
+    --secondary: #689d1c;
+    --light: #F7F7F7;
+    --dark: #404A3D;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.fw-medium {
+    font-weight: 600 !important;
+}
+
+.fw-semi-bold {
+    font-weight: 500 !important;
+}
+
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+    transition: .5s;
+    font-weight: 500;
+}
+
+.btn-primary,
+.btn-outline-primary:hover {
+    color: var(--light);
+}
+
+.btn-secondary,
+.btn-outline-secondary:hover {
+    color: var(--dark);
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+
+/*** Navbar ***/
+.navbar.sticky-top {
+    top: -100px;
+    transition: .5s;
+}
+
+.navbar .navbar-nav .nav-link {
+    margin-right: 35px;
+    padding: 25px 0;
+    color: var(--dark);
+    font-size: 18px;
+    font-weight: 500;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav .nav-link  {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navbar .navbar-nav {
+        border-top: 1px solid #EEEEEE;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        border: none;
+        margin-top: 0;
+        top: 150%;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}
+
+
+/*** Header ***/
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, .1);
+    z-index: 1;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 15%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: var(--primary);
+    border: 10px solid var(--primary);
+}
+
+
+
+.page-header {
+    background: url(../img/banner.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.page-header .breadcrumb-item+.breadcrumb-item::before {
+    color: var(--light);
+    font-weight: bold;
+}
+
+.page-header .breadcrumb-item,
+.page-header .breadcrumb-item a {
+    font-size: 18px;
+    color: var(--light);
+    font-weight: bold;
+}
+
+
+/*** Section Title ***/
+.section-title {
+    font-size:20px;
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section-title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 80px);
+    height: 2px;
+    top: 5px;
+    left: -40px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title::after {
+    position: absolute;
+    content: "";
+    width: calc(100% + 120px);
+    height: 2px;
+    bottom: 6px;
+    left: -60px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title.text-start::before {
+    width: calc(100% + 40px);
+    left: 0;
+}
+
+.section-title.text-start::after {
+    width: calc(100% + 60px);
+    left: 0;
+}
+
+
+/*** About ***/
+/* L'encart "années" reste toujours au-dessus des 3 photos, y compris pendant
+   les animations d'apparition (wow/animate.css) : sans z-index, une image en cours
+   d'animation (opacity < 1) crée un contexte d'empilement qui passe devant l'encart. */
+.about-experience-col {
+    z-index: 2;
+}
+
+.about-experience {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: -45px;
+    bottom: -45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/*** Service ***/
+.service-item {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+}
+
+.service-item .service-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.service-item .service-img img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.service-item .service-img::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.service-item .service-img::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    transition: .5s ease-out;
+    z-index: 2;
+}
+
+.service-item:hover .service-img::after {
+    width: 0;
+    left: auto;
+    right: 0;
+}
+
+.service-item .service-text .service-icon {
+    width: 140px;
+    height: 140px;
+    padding: 15px;
+    margin-top: -70px;
+    margin-bottom: 40px;
+    background: #FFFFFF;
+    border-radius: 140px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0, 0, 0, .1);
+}
+
+.service-item .service-text h5,
+.service-item .service-text p {
+    transition: .5s;
+}
+
+.service-item:hover .service-text h5,
+.service-item:hover .service-text p {
+    color: #FFFFFF;
+}
+
+.service-item .service-text .btn {
+    color: var(--secondary);
+    background: #FFFFFF;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .25);
+}
+
+.service-item .service-text .btn:hover {
+    color: var(--dark);
+    background: var(--secondary);
+}
+
+
+/*** Product ***/
+.product-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    height: 300px;
+}
+
+.type-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    margin: 10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:6rem;
+}
+
+.product-item .product-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    padding-top: 60px;
+    transition: .5s;
+}
+
+.product-item:hover .product-overlay {
+    opacity: 1;
+    padding-top: 0;
+}
+
+
+/*** Team ***/
+.team-item {
+    position: relative;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+}
+
+.team-item .btn {
+    border-color: transparent;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+}
+
+
+/*** Testimonial ***/
+.testimonial-img {
+    position: relative;
+    min-height: 400px;
+}
+
+.testimonial-img::after {
+    position: absolute;
+    content: "\f10d";
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: 900;
+    font-size: 200px;
+    color: #EEEEEE;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.testimonial-img img {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+.testimonial-img img:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.testimonial-img img:nth-child(2) {
+    top: 60%;
+    left: 20%;
+}
+
+.testimonial-img img:nth-child(3) {
+    top: 20%;
+    left: 60%;
+}
+
+.testimonial-img img:nth-child(4) {
+    bottom: 0;
+    right: 0;
+}
+
+.testimonial-img img .animated.pulse {
+    animation-duration: 2s;
+}
+
+.testimonial-carousel .owl-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+.testimonial-carousel .owl-nav {
+    margin-top: 30px;
+    display: flex;
+}
+
+.testimonial-carousel .owl-nav .owl-prev,
+.testimonial-carousel .owl-nav .owl-next {
+    margin-right: 15px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    border-radius: 45px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+    font-size: 22px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-nav .owl-prev:hover,
+.testimonial-carousel .owl-nav .owl-next:hover {
+    background: var(--secondary);
+    color: var(--dark);
+}
+
+
+/*** Footer ***/
+.footer {
+    background: var(--primary);
+}
+
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    color: var(--light);
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.display-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.copyright {
+    background: var(--secondary);
+}
+
+.topbar {
+    background: var(--secondary);
+}
+
+.phone {
+    background: var(--primary);
+}
+
+.align-adress {
+    margin-left: 2rem;
+}
+
+/*.famille {*/
+/*    height: 400px;*/
+/*}*/
+
+.image img {
+    transition: all 1s ease-in-out
+}
+
+.image:hover img {
+    transform: scale(1.2);
+    cursor: pointer
+}
+
+.btnHeigth {
+    height:80px;
+}
+
+/* flibox */
+
+.container .box{
+    position: relative;
+    width: 200px;
+    height: 150px;
+    margin: 20px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.container .box .body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: 0.9s ease;
+}
+
+
+
+.container .box .body .imgContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+}
+
+.container .box .body .imgContainer img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+.container .box .body .content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    background: var(--secondary);
+}
+
+.container .box:hover .body{
+    transform: rotateY(180deg);
+}
+
+.container .box .body .content div{
+    transform-style: preserve-3d;
+    padding: 20px;
+    transform: translateZ(100px);
+}
+
+.container .box .body .content div h3{
+    letter-spacing: 1px;
+}
+
+.texte-over-image {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #0a0a0a !important;
+}
+.image {
+    display: flex;
+    justify-content: center;
+}
+.image-height {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.image-height img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-rows {
+    flex-direction: column;
+}
+
+
+/*barre de recherche*/
+.autocomplete-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0 solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    position: absolute;
+    width: 100%;
+}
+
+.autocomplete-results li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-results li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-bar {
+    transition: width 0.3s ease-in-out;
+    width: 40px;
+}
+
+.search-bar:focus {
+    width: 300px;
+}
+
+.search-bar:not(:placeholder-shown) {
+    width: 300px;
+}
+
+.loupe-right {
+    right: 10px !important;
+}
+
+.logo {
+    width: 180px;
+    padding-right: 20px;
+}
+
+.titre-news {
+    text-align :center;
+}
+
+.texte-produit {
+    padding-left: 50px;
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    .texte-cadre-annee {
+        font-size: 70% !important;
+    }
+
+    .fiche-produit {
+        flex-direction: column;
+    }
+
+    .texte-produit {
+        padding-left: 0;
+    }
+
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .search-bar:focus {
+        width: 260px;
+    }
+
+    .search-bar:not(:placeholder-shown) {
+        width: 260px;
+    }
+}
+
+/* Prévention du layout shift (CLS) pour les images dynamiques */
+#header-carousel .carousel-item img {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    object-fit: cover;
+}
+
+.fiche-produit .col-auto img {
+    aspect-ratio: 1;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+
+/* ==========================================================================
+   Contenu riche des news (HTML produit par l'éditeur Trix du back-office)
+   ========================================================================== */
+.news-content {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    word-wrap: break-word;
+}
+
+/* Titres : l'éditeur génère des <h2> (h1 pour les anciennes news).
+   Le H1 de la page reste le titre de la news → rendu identique, taille intermédiaire. */
+.news-content h1,
+.news-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--dark);
+    margin: 1.75rem 0 .75rem;
+    padding-left: .75rem;
+    border-left: 4px solid var(--primary);
+}
+.news-content h1:first-child,
+.news-content h2:first-child {
+    margin-top: 0;
+}
+.news-content h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 1.5rem 0 .5rem;
+}
+
+.news-content div,
+.news-content p {
+    margin-bottom: 1rem;
+}
+
+/* Mise en avant de mots-clés */
+.news-content strong,
+.news-content b {
+    font-weight: 700;
+    color: var(--primary);
+}
+.news-content mark,
+.news-content .highlight {
+    background: rgba(140, 197, 31, .18);
+    color: inherit;
+    padding: .05em .3em;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.news-content a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.news-content ul,
+.news-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.news-content li { margin-bottom: .35rem; }
+.news-content ul li::marker { color: var(--primary); }
+
+.news-content blockquote {
+    margin: 1.25rem 0;
+    padding: .75rem 1.25rem;
+    border-left: 4px solid var(--primary);
+    background: #f8f9fa;
+    font-style: italic;
+}
+
+.news-content pre {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.news-content img,
+.news-content figure {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+.news-content figcaption { display: none; }
+
+/* Images avec width/height (fonction Twig img_dims) : les attributs donnent les proportions
+   au navigateur (pas de décalage au chargement), la hauteur reste automatique.
+   :where() = spécificité nulle, toute règle existante (.image-height…) garde la priorité. */
+:where(img[width][height]) {
+    height: auto;
+}

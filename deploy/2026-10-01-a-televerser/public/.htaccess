@@ -1,0 +1,133 @@
+# Use the front controller as index file. It serves as a fallback solution when
+# every other rewrite/redirect fails (e.g. in an aliased environment without
+# mod_rewrite). Additionally, this reduces the matching process for the
+# start page (path "/") because otherwise Apache will apply the rewriting rules
+# to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
+DirectoryIndex index.php
+
+# By default, Apache does not evaluate symbolic links if you did not enable this
+# feature in your server configuration. Uncomment the following line if you
+# install assets as symlinks or if you experience problems related to symlinks
+# when compiling LESS/Sass/CoffeScript assets.
+# Options +SymLinksIfOwnerMatch
+
+# Disabling MultiViews prevents unwanted negotiation, e.g. "/index" should not resolve
+# to the front controller "/index.php" but be rewritten to "/index.php/index".
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+</IfModule>
+
+# Mise en cache des fichiers statiques.
+# CSS/JS : 1 an (URLs versionnées via framework.assets.version, ex. style.css?v5).
+# Images : 30 jours (les images de /img appelées depuis le CSS ne sont pas versionnées).
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/gif "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/x-icon "access plus 30 days"
+    ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+# Même chose via mod_headers : mod_expires n'est pas actif chez l'hébergeur (constaté le 01/10/2026,
+# aucun en-tête Expires/Cache-Control renvoyé sur les fichiers statiques).
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|woff2?|ttf)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+    <FilesMatch "\.(jpe?g|png|gif|webp|svg|ico|mp4)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    # Les images peuvent être servies en JPEG/PNG ou en WebP selon le navigateur (voir plus bas)
+    <FilesMatch "\.(jpe?g|png|webp)$">
+        Header merge Vary Accept
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    # This Option needs to be enabled for RewriteRule, otherwise it will show an error like
+    # 'Options FollowSymLinks or SymLinksIfOwnerMatch is off which implies that RewriteRule directive is forbidden'
+    Options +SymLinksIfOwnerMatch
+
+    RewriteEngine On
+
+    # ancienne adresse des acutalités d'adivec https://www.adivec.fr/Rub_42/Fr/Actualites.html
+    RewriteCond %{REQUEST_URI} ^/Rub_42/Fr/Actualites.html
+    RewriteRule ^.*$ /news [R=301,L]
+
+    # Redirection 301 de toutes les URLs qui commencent par /Rub_ vers /familles
+    RewriteCond %{REQUEST_URI} ^/Rub.+
+    RewriteRule ^.*$ /familles [R=301,L]
+
+    # Redirection 301 de toutes les URLs qui commencent par /Ress vers /familles
+    RewriteCond %{REQUEST_URI} ^/Ress.+
+    RewriteRule ^.*$ /familles [R=301,L]
+
+    # Redirection 301 de https://www.adivec.fr/?IdRubrique=30
+    RewriteCond %{REQUEST_URI} ^/?IdRubrique=30
+    RewriteRule ^.*$ / [R=301,L]
+
+    # Images : sert la version WebP (photo.jpg.webp, générée à côté de l'original) aux navigateurs
+    # qui l'acceptent. L'URL reste photo.jpg : rien à changer dans les templates ni dans le CSS.
+    # Sans fichier .webp (ou navigateur ancien), l'original est servi normalement.
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME}.webp -f
+    RewriteRule ^(.+\.(?:jpe?g|png))$ $1.webp [NC,T=image/webp,L]
+
+    # Determine the RewriteBase automatically and set it as environment variable.
+    # If you are using Apache aliases to do mass virtual hosting or installed the
+    # project in a subdirectory, the base path will be prepended to allow proper
+    # resolution of the index.php file and to redirect to the correct URI. It will
+    # work in environments without path prefix as well, providing a safe, one-size
+    # fits all solution. But as you do not need it in this case, you can comment
+    # the following 2 lines to eliminate the overhead.
+    RewriteCond %{REQUEST_URI}::$0 ^(/.+)/(.*)::\2$
+    RewriteRule .* - [E=BASE:%1]
+
+    # Sets the HTTP_AUTHORIZATION header removed by Apache
+    RewriteCond %{HTTP:Authorization} .+
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
+
+    # Redirect to URI without front controller to prevent duplicate content
+    # (with and without `/index.php`). Only do this redirect on the initial
+    # rewrite by Apache and not on subsequent cycles. Otherwise we would get an
+    # endless redirect loop (request -> rewrite to front controller ->
+    # redirect -> request -> ...).
+    # So in case you get a "too many redirects" error or you always get redirected
+    # to the start page because your Apache does not expose the REDIRECT_STATUS
+    # environment variable, you have 2 choices:
+    # - disable this feature by commenting the following 2 lines or
+    # - use Apache >= 2.3.9 and replace all L flags by END flags and remove the
+    #   following RewriteCond (best solution)
+    RewriteCond %{ENV:REDIRECT_STATUS} =""
+    RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
+
+    # If the requested filename exists, simply serve it.
+    # We only want to let Apache serve files and not directories.
+    # Rewrite all other queries to the front controller.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ %{ENV:BASE}/index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # When mod_rewrite is not available, we instruct a temporary redirect of
+        # the start page to the front controller explicitly so that the website
+        # and the generated links can still be used.
+        RedirectMatch 307 ^/$ /index.php/
+        # RedirectTemp cannot be used instead
+    </IfModule>
+</IfModule>

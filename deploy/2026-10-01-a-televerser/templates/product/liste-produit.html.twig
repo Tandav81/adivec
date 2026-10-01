@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+{# Ce template sert aux pages type (/products/…) et application (/application/…) : variables optionnelles #}
+{% set type = type ?? null %}
+{% set application = application ?? null %}
+{% set family = family ?? null %}
+{% block seo %}
+    {# URL canonique sans paramètres de requête (utm_…) #}
+    {% set canonical = url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    <link rel="canonical" href="{{ canonical }}"/>
+    <meta name="description" content="{% if type is not null %}{{ type.name }} pour {{ type.family.name == 'Technique' ? 'les applications techniques' : "l'" ~ type.family.name|lower }} : {{ products|length }} ingrédients naturels distribués par Adivec, fournisseur B2B depuis 1989.{% elseif application is not null %}Ingrédients naturels Adivec pour l'application {{ application.libelle }}. Amidons, gommes, fibres et bien d'autres.{% else %}Catalogue complet des ingrédients naturels distribués par Adivec.{% endif %}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ canonical }}"/>
+    <meta property="og:title" content="{% if type is not null %}{{ type.name }} – {{ type.family.name }} | ADIVEC{% elseif application is not null %}{{ application.libelle }} | ADIVEC{% else %}Nos produits | ADIVEC{% endif %}"/>
+    <meta property="og:description" content="{% if type is not null %}Ingrédients naturels {{ type.name }} pour l'industrie agroalimentaire et technique, distribués par Adivec.{% elseif application is not null %}Ingrédients naturels Adivec pour l'application {{ application.libelle }}. Solutions sur mesure pour l'industrie.{% else %}Catalogue complet des ingrédients naturels distribués par Adivec.{% endif %}"/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{# Titre sur une ligne (contrôle des espaces) ; la famille distingue les types homonymes
+   (ex. « Amidons natifs » en alimentation humaine et en technique). #}
+{% block title -%}
+    {%- if type is not null -%}
+        {{ type.name }} – {{ type.family.name }}
+    {%- elseif application is not null -%}
+        {%- set app_title = 'Ingrédients naturels pour ' ~ application.libelle|lower -%}
+        {{ app_title|length <= 56 ? app_title : ('Ingrédients pour ' ~ application.libelle|lower)|seo_truncate(56) }}
+    {%- else -%}
+        Nos produits
+    {%- endif -%}
+{%- endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 animated slideInDown">
+                {% if type is not null %}
+                    Nos produits pour {{ type.name }}
+                    <span class="d-block fs-3 mt-2">{{ type.family.name }}</span>
+                {% elseif application is not null %}
+                    Nos produits pour {{ application.libelle }}
+                {% else %}
+                    Nos produits
+                {% endif %}
+            </h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                    {% if family is not null %}
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_types_family', { 'slug' : family.slug }) }}">{{ family.name }}</a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_products_type', { 'slug' : type.slug }) }}">{{ type.name }}</a>
+                        </li>
+                    {% else %}
+                        <li class="breadcrumb-item"><a
+                                    href="{{ path('app_application_page') }}">Applications</a>
+                        </li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+
+        <div class="container">
+
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Nos produits</p>
+            </div>
+
+            <div class="container d-flex align-items-center justify-content-center flex-wrap">
+                {% for product in products %}
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="lien-product" href="{{ path('app_product_page', {'slug': product.slug} ) }}">
+                            <div class="type-item">
+
+                                <div class="text-center p-4">
+                                    {{ product.nom }}
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Product End -->
+{% endblock %}

@@ -1,0 +1,252 @@
+{% extends 'base.html.twig' %}
+{% import 'partials/_icons.html.twig' as icons %}
+{% block seo %}
+    <link rel="canonical" href="https://www.adivec.fr">
+    <meta name="description" content="Depuis 1989, Adivec distribue des ingrédients naturels pour l'industrie : amidons, gommes, protéines, fibres, colorants pour l'agroalimentaire et la technique."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.adivec.fr"/>
+    <meta property="og:title" content="ADIVEC – Ingrédients naturels pour l'industrie"/>
+    <meta property="og:description" content="Adivec distribue des ingrédients d'origine naturelle pour l'alimentation humaine, animale et les applications techniques depuis 1989."/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}ADIVEC – Ingrédients naturels pour l'industrie alimentaire{% endblock %}
+{% block title_suffix %}{% endblock %}
+
+{% block body %}
+
+    <!-- Carousel Start -->
+    <div class="container-fluid px-0 mb-5">
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for slide in slides %}
+                    <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+                        <img class="w-100" src="{{ asset('uploads/images/slides/'~slide.image) }}" {{ img_dims('uploads/images/slides/'~slide.image) }} alt="{{ slide.title }}"
+                             {% if loop.index0 == 0 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <p class="fs-4 text-white">{{ slide.subtitle | raw }}</p>
+                                        <p class="h1 display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</p>
+                                        <a href="{{ path('app_about') }}"
+                                           class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Découvrez-nous</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                    data-bs-slide="prev" aria-labelledby="précédent">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                    data-bs-slide="next" aria-labelledby="suivant">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="row g-2">
+                        <div class="col-6 position-relative about-experience-col wow fadeIn" data-wow-delay="0.7s">
+                            <div class="about-experience bg-secondary rounded">
+                                <p class="display-1 mb-0 text-primary fw-bold">{{ yearsExperience }} </p>
+                                <p class="h2 text-primary">ans</p>
+                                <small class="fs-5 fw-bold text-primary texte-cadre-annee">d'accompagnement</small>
+                                <small class="fs-5 fw-bold text-primary texte-cadre-annee">client</small>
+                            </div>
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.1s">
+                            <img class="img-fluid rounded" src="{{ asset('img/service-1.jpg') }}" alt="photo de champs" width="3000" height="3000" loading="lazy">
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.3s">
+                            <img class="img-fluid rounded" src="{{ asset('img/flour-bowl.png') }}" alt="bol de farine" width="1333" height="1333" loading="lazy">
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.5s">
+                            <img class="img-fluid rounded" src="{{ asset('img/fecule-pomme-de-terre.png') }}"
+                                 alt="bol de farine de pomme de terre" width="1024" height="1024" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="section-title bg-white text-start text-primary pe-3">Ingrédients naturels pour l'industrie</h1>
+                    <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issus de matières premières
+                        naturelles,
+                        conventionnelles ou bio, pour l’alimentation humaine, animale ainsi que des applications
+                        techniques à destination des industriels français.</p>
+                    <p class="mb-5">Vos besoins, nos priorités. Zéro standardisation, 100 % adaptation.</p>
+
+                    <h2 class="mb-3">Nos secteurs d'activité</h2>
+                    <div class="row pt-2 mb-5">
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/ble.png') }}" alt="photo de blé"
+                                 width="60" height="60" loading="lazy">
+                            <h5 class="mb-3">Alimentation humaine</h5>
+                            <span>
+                                Nous offrons des ingrédients répondant aux exigences
+                                de l’industrie agroalimentaire.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/pinceau.png') }}" alt="image de pinceau"
+                                 width="60" height="60" loading="lazy">
+                            <h5 class="mb-3">Technique</h5>
+                            <span title=" utilisé dans le
+                                secteur des colles et adhesif, les papiers peints ou l’affichage. Adivec propose
+                                également des produits pour les différentes étapes de la production papetière.">
+                                Nous fournissons des solutions pour la fabrication de produits techniques.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}"
+                                 alt="la nourriture pour animaux"
+                                 width="60" height="60" loading="lazy">
+                            <h5 class="mb-3">Alimentation animale</h5>
+                            <span>Nous proposons une large gamme d’ingrédients pour l’alimentation des animaux de compagnie et d’élevage.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- News Start -->
+    <div class="container-fluid banner my-5 py-5" data-parallax="scroll" data-image-src="img/banner.jpg">
+
+        <div class="container">
+            <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">News</p>
+            </div>
+            <div class="row gy-5 gx-4">
+                {% set timedelay = 0.1 %}
+                {% for new in news %}
+                    <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="{{ timedelay }}s">
+                        <div class="service-item d-flex h-100">
+                            {% if new.image %}
+                            <div class="service-img">
+                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
+                                     alt="{{ new.title }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <div class="service-text p-5 pt-0">
+                                {% if new.image %}
+                                <div class="service-icon">
+                                    <img class="img-fluid rounded-circle"
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }} alt="{{ new.title }}" loading="lazy">
+                                </div>
+                                {% endif %}
+                                <div class="d-flex">
+                                    <h5 class="mb-3 titre-news">{{ new.title }}</h5>
+                                </div>
+                                <p class="mb-4">{{ new.description|striptags|u.truncate(120, '…', false) }}</p>
+                                <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"
+                                   title="Lire : {{ new.title }}">{{ icons.icon('chevron-double-right') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- News End -->
+
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="section-title bg-white text-center text-primary px-3">Nos familles d'ingrédients</p>
+                <h2 class="mb-5">Découvrir nos ingrédients</h2>
+            </div>
+            <div class="row gx-4 d-flex justify-content-around">
+
+                {% for family in families %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="d-block h5" href="{{ path('app_types_family', {'slug': family.slug}) }}" title="{{ family.name }}">
+                            <div class="product-item">
+                                <div class="position-relative famille image">
+                                    <img class="img-fluid image-height"
+                                         src="{{ asset('uploads/images/family/'~family.image) }}" {{ img_dims('uploads/images/family/'~family.image) }}
+                                         alt="{{ family.name }}">
+                                </div>
+                                <div class="text-center p-4">
+                                    <span class="d-block h5">{{ family.name }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- Product End -->
+
+    <!-- Applications Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h2 class="mb-5">Découvrir nos applications</h2>
+            </div>
+            <div class="row gx-4 d-flex justify-content-around">
+
+                {% for application in applications %}
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="d-block h5" href="{{ path('app_application', {'slug': application.slug}) }}">
+                            <div class="product-item">
+                                <div class="position-relative famille image">
+                                    <img class="img-fluid image-height"
+                                         src="{{ asset('uploads/images/application/'~application.image) }}" {{ img_dims('uploads/images/application/'~application.image) }}
+                                         alt="image {{ application.libelle }}">
+                                </div>
+                                <div class="text-center p-4">
+                                    <span>{{ application.libelle }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% set timedelay = timedelay + 0.2 %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- Applications End -->
+
+    <!-- Partenaires Logos Start -->
+    <div class="container-xxl py-5 mt-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
+        </div>
+        <div class="wow fadeInUp d-flex align-items-baseline justify-content-center" data-wow-delay="0.1s">
+            {% for logo in logos %}
+                <a href="{{ logo.lien }}" target="_blank">
+                    <div class="logo">
+                        <img class="img-fluid animated infinite logos"
+                             src="{{ asset('uploads/images/logos/'~logo.logo) }}" {{ img_dims('uploads/images/logos/'~logo.logo) }}
+                             alt="logos partenaire {{ logo.name }}">
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Partenaires Logos End -->
+
+{% endblock %}

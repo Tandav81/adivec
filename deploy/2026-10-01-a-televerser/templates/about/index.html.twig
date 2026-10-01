@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block seo %}
+    <link rel="canonical" href="https://www.adivec.fr/about">
+    <meta name="description" content="Fondée en 1989 à Orléans, Adivec est une société de négoce d'ingrédients d'origine naturelle pour l'industrie agroalimentaire et technique."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.adivec.fr/about"/>
+    <meta property="og:title" content="Notre histoire – Adivec depuis 1989"/>
+    <meta property="og:description" content="Fondée en 1989, Adivec distribue des ingrédients naturels pour l'industrie agroalimentaire, animale et technique depuis plus de 35 ans."/>
+    <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}Notre histoire – Adivec depuis 1989{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white mb-4 animated slideInDown">Nous découvrir</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="row g-2">
+                        <div class="col-6 position-relative wow fadeIn" data-wow-delay="0.7s">
+                            <div class="about-experience bg-secondary rounded animated slideInLeft">
+                                <p class="h1 display-1 mb-0 text-primary">{{ yearsExperience }}</p>
+                                <p class="h2 text-primary">ans</p>
+                                <small class="fs-5 fw-bold text-primary texte-cadre-annee">d'accompagnement</small>
+                                <small class="fs-5 fw-bold text-primary texte-cadre-annee">client</small>
+                            </div>
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.1s">
+                            <img class="img-fluid rounded" src="{{ asset('img/service-1.jpg') }}" {{ img_dims('img/service-1.jpg') }} alt="image de champs" loading="lazy">
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.3s">
+                            <img class="img-fluid rounded" src="{{ asset('img/flour-bowl.png') }}" {{ img_dims('img/flour-bowl.png') }} alt="image de farine" loading="lazy">
+                        </div>
+                        <div class="col-6 wow fadeIn" data-wow-delay="0.5s">
+                            <img class="img-fluid rounded" src="{{ asset('img/fecule-pomme-de-terre.png') }}" {{ img_dims('img/fecule-pomme-de-terre.png') }} alt="image farine de pomme de terre" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h2 class="section-title bg-white text-start text-primary pe-3">Notre histoire</h2>
+                    <p class="mb-2">Fondée en 1989, Adivec propose des ingrédients issus de matières premières naturelles,
+                        conventionnelles ou bio, pour l’alimentation humaine, animale ainsi que des applications
+                        techniques à destination des industriels français.</p>
+                    <p class="mb-5">Vos besoins, nos priorités. Zéro standardisation, 100 % adaptation.</p>
+
+                    <h2 class="mb-3">Nos secteurs d'activité</h2>
+                    <div class="row pt-2 mb-5">
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/ble.png') }}" {{ img_dims('img/ble.png') }} alt="image de blé" style="width: 60px" loading="lazy">
+                            <h5 class="mb-3">Alimentation humaine</h5>
+                            <span>
+                                Nous offrons des ingrédients répondant aux exigences
+                                de l’industrie agroalimentaire.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/pinceau.png') }}" {{ img_dims('img/pinceau.png') }} alt="image de pinceau" style="width: 60px" loading="lazy">
+                            <h5 class="mb-3">Technique</h5>
+                            <span title=" utilisé dans le
+                                secteur des colles et adhesif, les papiers peints ou l’affichage. Adivec propose
+                                également des produits pour les différentes étapes de la production papetière.">
+                                Nous fournissons des solutions pour la fabrication de produits techniques.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-6 mt-2">
+                            <img class="img-fluid mb-2" src="{{ asset('img/la-nourriture-pour-animaux.png') }}" {{ img_dims('img/la-nourriture-pour-animaux.png') }} alt="illustration de nourriture pour animaux"
+                                 style="width: 60px" loading="lazy">
+                            <h5 class="mb-3">Alimentation animale</h5>
+                            <span>Nous proposons une large gamme d’ingrédients pour l’alimentation des animaux de compagnie et d’élevage.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Partenaires Logos Start -->
+    <div class="container-xxl py-5 mt-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Partenaires</p>
+        </div>
+        <div class="wow fadeInUp d-flex align-items-baseline justify-content-between" data-wow-delay="0.1s">
+            {% for logo in logos %}
+                <div class="logo">
+                    <img class="img-fluid animated infinite logos"
+                         src="{{ asset('uploads/images/logos/'~logo.logo) }}" {{ img_dims('uploads/images/logos/'~logo.logo) }}
+                         alt="logos partenaire {{ logo.name }}" loading="lazy">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Partenaires Logos End -->
+
+{% endblock %}

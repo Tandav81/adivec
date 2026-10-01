@@ -1,0 +1,113 @@
+MISE EN PRODUCTION ADIVEC – SEO du 01/10/2026
+==============================================
+
+Ce dossier contient UNIQUEMENT les fichiers ajoutés ou modifiés depuis la version en ligne
+(déployée le 02/09/2026), rangés exactement comme sur le serveur.
+Aucun fichier n'est à supprimer. Pas de nouvelle dépendance Composer (vendor/ inchangé).
+
+ÉTAPES
+------
+1. Sauvegarder la base de prod (phpMyAdmin > Exporter) et, par sécurité, les dossiers
+   src/, templates/, config/ et public/.htaccess du serveur.
+2. Base de données EN PREMIER (l'ancien code fonctionne avec la nouvelle base, l'inverse non :
+   téléverser le code avant provoquerait des erreurs 500 le temps de la migration).
+   Exécuter « 2026-10-01-migrations-prod.sql » dans phpMyAdmin (onglet SQL).
+   (Alternative si la console Symfony est disponible sur le serveur : téléverser d'abord
+   le seul dossier migrations/, lancer  php bin/console doctrine:migrations:migrate,
+   puis passer à l'étape 3. Ne pas faire les deux.)
+3. Téléverser TOUT le contenu de « 2026-10-01-a-televerser/ » à la racine du site
+   (là où se trouvent src/, templates/, public/…) en écrasant les fichiers existants.
+   → 334 fichiers, ~23 Mo.
+4. Vider le cache : php bin/console cache:clear --env=prod
+   (ou supprimer le dossier var/cache/prod/ par FTP).
+5. Vérifier :
+   - https://www.adivec.fr/product/gomme-de-guar-1  → doit rediriger vers /product/gomme-de-guar
+   - https://www.adivec.fr/sitemap.xml               → 168 URL
+   - une image : dans Chrome, outils dev > Réseau > img/flour-bowl.png → Type « webp »
+6. Search Console : renvoyer le sitemap.
+
+DÉTAIL DES FICHIERS
+-------------------
+
+Code PHP (src/) – 12 fichier(s)
+  src/Command/GenerateWebpCommand.php
+  src/Controller/Admin/BlogPostCrudController.php
+  src/Controller/Admin/ProductCrudController.php
+  src/Controller/ProductController.php
+  src/Controller/SitemapController.php
+  src/Entity/BlogPost.php
+  src/Entity/Product.php
+  src/EventSubscriber/WebpOnAdminSaveSubscriber.php
+  src/Repository/ProductRepository.php
+  src/Service/WebpGenerator.php
+  src/Twig/ImageExtension.php
+  src/Twig/SeoExtension.php
+
+Templates (templates/) – 14 fichier(s)
+  templates/about/index.html.twig
+  templates/application/liste-application.html.twig
+  templates/base.html.twig
+  templates/contact/index.html.twig
+  templates/family/liste-famille.html.twig
+  templates/home/index.html.twig
+  templates/legal/cgv.html.twig
+  templates/legal/mentions-legales.html.twig
+  templates/news/index.html.twig
+  templates/news/show.html.twig
+  templates/product/liste-produit.html.twig
+  templates/product/page-produit.html.twig
+  templates/sitemap/index.html.twig
+  templates/type/liste-type.html.twig
+
+Configuration (config/) – 1 fichier(s)
+  config/packages/framework.yaml
+
+Migrations (migrations/) – 5 fichier(s)
+  migrations/Version20260412000000.php
+  migrations/Version20261001090000.php
+  migrations/Version20261001120000.php
+  migrations/Version20261001120100.php
+  migrations/Version20261001130000.php
+
+Fichiers publics (public/, hors images) – 3 fichier(s)
+  public/.htaccess
+  public/css/style.css
+  public/js/main.js
+
+Images WebP du thème (public/img/) – 33 fichier(s)
+  public/img/adivecMap.png.webp
+  public/img/animal.png.webp
+  public/img/award.png.webp
+  public/img/banner-1.jpg.webp
+  public/img/banner-2.jpg.webp
+  public/img/banner-3.jpg.webp
+  public/img/banner.jpg.webp
+  public/img/ble.png.webp
+  public/img/blé.jpg.webp
+  public/img/carousel-1.jpg.webp
+  public/img/carousel-2.jpg.webp
+  public/img/client.png.webp
+  public/img/ecocert.jpg.webp
+  public/img/experience.png.webp
+  public/img/famille1.jpg.webp
+  public/img/fecule-pomme-de-terre.png.webp
+  public/img/flour-bowl.png.webp
+  public/img/gallery-2.jpg.webp
+  public/img/la-nourriture-pour-animaux.png.webp
+  public/img/logo_adivec.png.webp
+  public/img/logo_adivec_seul.png.webp
+  public/img/pinceau.png.webp
+  public/img/product.png.webp
+  public/img/service-1.jpg.webp
+  public/img/service-2.jpg.webp
+  public/img/service-3.jpg.webp
+  public/img/service.png.webp
+  public/img/team-2.jpg.webp
+  public/img/testimonial-1.jpg.webp
+  public/img/testimonial-2.jpg.webp
+  public/img/testimonial-3.jpg.webp
+  public/img/testimonial-4.jpg.webp
+  public/img/épices.jpg.webp
+
+Images WebP des contenus (public/uploads/images/) – 266 fichier(s)
+  (une version .webp à côté de chaque photo produit, application, news, slide, logo)
