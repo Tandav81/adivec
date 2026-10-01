@@ -16,7 +16,7 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white mb-4 animated slideInDown">News</h1>
+            <p class="h1 display-3 text-white mb-4 animated slideInDown">News</p>
         </div>
     </div>
     <!-- Page Header End -->
@@ -36,7 +36,7 @@
                         <div class="service-item d-flex h-100">
                             {% if new.image %}
                             <div class="service-img">
-                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
+                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
                                      alt="{{ new.title }}" loading="lazy">
                             </div>
                             {% endif %}
@@ -44,7 +44,7 @@
                                 {% if new.image %}
                                 <div class="service-icon">
                                     <img class="img-fluid rounded-circle"
-                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}" loading="lazy">
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }} alt="{{ new.title }}" loading="lazy">
                                 </div>
                                 {% endif %}
                                 <div class="d-flex">

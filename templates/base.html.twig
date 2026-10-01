@@ -10,6 +10,8 @@
         <meta name="description"
               content="ADIVEC est une société de représentation et de négoce spécialisée dans les dérivés de produits agricoles et les matières premières naturelles."/>
     {% endblock %}
+    {# Twitter / X : reprend og:title, og:description et og:image de chaque page #}
+    <meta name="twitter:card" content="summary_large_image"/>
 
     <title>{% block title %}ADIVEC – Ingrédients naturels pour l'industrie{% endblock %}{% block title_suffix %} | ADIVEC{% endblock %}</title>
     <!-- Favicon-->
@@ -167,14 +169,13 @@
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
-                <h5 class="text-white mb-4">Notre bureau</h5>
+                <p class="h5 text-white mb-4">Notre bureau</p>
                 <p class="mb-2">
-                    <a href="https://maps.app.goo.gl/bdN2JzJaGxAWqyRu9" target="blank">
+                    <a href="https://maps.app.goo.gl/bdN2JzJaGxAWqyRu9" target="_blank" rel="noopener">
                         {{ icons.icon('map-marker', 'me-3') }}
                         10 bis rue de Lahire
-                        <p class="align-adress">45000 Orléans</p>
+                        <span class="d-block align-adress">45000 Orléans</span>
                     </a>
-
                 </p>
                 <p class="mb-2">{{ icons.icon('phone', 'me-3') }}<a href="tel:+33238241550">02 38 24 15 50</a></p>
                 <p class="mb-2">{{ icons.icon('envelope', 'me-3') }}<a href="mailto:contact@adivec.fr">contact@adivec.fr</a>
@@ -188,7 +189,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <h5 class="text-white mb-4">Liens rapides</h5>
+                <p class="h5 text-white mb-4">Liens rapides</p>
                 <a class="btn btn-link" href="{{ path('app_about') }}">Découvrir</a>
                 <a class="btn btn-link" href="{{ path('app_contact') }}">Nous contacter</a>
                 <a class="btn btn-link" href="{{ path('app_news') }}">Nos news</a>
@@ -196,9 +197,9 @@
                 <a class="btn btn-link" href="{{ path('app_cgv') }}">CGV</a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <h5 class="text-white mb-4">Heures d'ouvertures</h5>
+                <p class="h5 text-white mb-4">Heures d'ouverture</p>
                 <p class="mb-1">Lundi - Vendredi</p>
-                <h6 class="text-light">08:00 - 18:00</h6>
+                <p class="h6 text-light">08:00 - 18:00</p>
             </div>
         </div>
     </div>

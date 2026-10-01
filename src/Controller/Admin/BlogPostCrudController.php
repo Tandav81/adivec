@@ -6,6 +6,7 @@ use App\Entity\BlogPost;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -42,6 +43,8 @@ class BlogPostCrudController extends AbstractCrudController
                 ])
                 ->setHelp('Utilisez « Titre de section » pour structurer l\'article, « Gras » ou « Mettre en avant » pour les mots-clés.'),
             BooleanField::new('visible'),
+            DateTimeField::new('createdAt', 'Date de publication')
+                ->setHelp('Laisser vide pour utiliser la date de création. Affichée sur l\'article et transmise à Google.'),
             ImageField::new('image')
                 ->setBasePath('uploads/images/blog')
                 ->setUploadDir('public/uploads/images/blog')

@@ -109,6 +109,17 @@ class BlogPost
         return $this->createdAt;
     }
 
+    /**
+     * Date de publication modifiable dans l'admin (sert au schema Article et au tri des news).
+     * Laissée vide à la création, elle est remplie automatiquement par Timestampable.
+     */
+    public function setCreatedAt(?\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;

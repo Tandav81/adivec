@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block seo %}
     <link rel="canonical" href="https://www.adivec.fr/types/{{ family.slug }}"/>
-    <meta name="description" content="Découvrez les types d'ingrédients naturels {{ family.name }} distribués par Adivec : solutions sur mesure pour l'industrie agroalimentaire, animale et technique."/>
+    <meta name="description" content="{{ ('Ingrédients naturels ' ~ (family.name == 'Technique' ? 'techniques' : 'pour l\'' ~ family.name|lower) ~ ' : ' ~ typesByFamily|slice(0, 4)|map(t => t.name|lower)|join(', ') ~ '… distribués par Adivec, fournisseur B2B depuis 1989.')|seo_truncate(158) }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://www.adivec.fr/types/{{ family.slug }}"/>
     <meta property="og:title" content="{{ family.name }} – Types d'ingrédients | ADIVEC"/>
@@ -9,7 +9,7 @@
     <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
     <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
-{% block title %}{{ family.name }} – Types d'ingrédients naturels | ADIVEC{% endblock %}
+{% block title %}{{ family.name }} – Types d'ingrédients naturels{% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
@@ -32,7 +32,7 @@
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Nos types d'ingrédients</p>
-                <h1 class="mb-5">Découvrir nos solutions</h1>
+                <h2 class="mb-5">Découvrir nos solutions</h2>
             </div>
             <div class="row gx-4 d-flex justify-content-around">
 
@@ -50,7 +50,6 @@
                         </a>
                     </div>
 
-                    {% set timedelay = timedelay + 0.2 %}
                 {% endfor %}
             </div>
         </div>

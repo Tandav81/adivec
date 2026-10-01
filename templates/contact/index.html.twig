@@ -10,7 +10,7 @@
     <meta property="og:image" content="https://www.adivec.fr/img/logo_adivec.png"/>
     <meta property="og:site_name" content="ADIVEC"/>
 {% endblock %}
-{% block title %}Contactez-nous{% endblock %}
+{% block title %}Contact – Fournisseur d'ingrédients naturels{% endblock %}
 
 {% block body %}
     <!-- Contact Start -->
@@ -21,7 +21,7 @@
             </div>
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h3 class="mb-4">Besoin de nous contacter?</h3>
+                    <h1 class="h3 mb-4">Besoin de contacter Adivec ?</h1>
                     <p>Utilisez le formulaire ci-dessous!</p>
                     <div>
                         {{ form_start(form) }}
@@ -119,7 +119,7 @@
 
                         {# Carte Google Maps : chargée uniquement au clic (conformité RGPD / CNIL) #}
                         <div id="map-wrapper" style="position: relative; width: 100%; height: 300px; cursor: pointer; border-radius: 4px; overflow: hidden;" onclick="loadMap(this)" title="Cliquer pour afficher la carte Google Maps">
-                            <img src="{{ asset('img/adivecMap.png') }}"
+                            <img src="{{ asset('img/adivecMap.png') }}" {{ img_dims('img/adivecMap.png') }}
                                  alt="Carte de localisation Adivec – 10 bis rue de Lahire, 45000 Orléans"
                                  style="width:100%; height:100%; object-fit:cover;">
                             <div style="position:absolute; inset:0; background:rgba(0,0,0,0.45); display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; gap:8px;">

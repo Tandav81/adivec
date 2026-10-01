@@ -16,7 +16,8 @@ final class Version20260412000000 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE page_view (
+        // IF NOT EXISTS : la table a été créée en prod sans passer par cette migration
+        $this->addSql('CREATE TABLE IF NOT EXISTS page_view (
             id INT AUTO_INCREMENT NOT NULL,
             url VARCHAR(191) NOT NULL,
             visited_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\',

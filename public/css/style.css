@@ -833,3 +833,10 @@
     margin: 1rem 0;
 }
 .news-content figcaption { display: none; }
+
+/* Images avec width/height (fonction Twig img_dims) : les attributs donnent les proportions
+   au navigateur (pas de décalage au chargement), la hauteur reste automatique.
+   :where() = spécificité nulle, toute règle existante (.image-height…) garde la priorité. */
+:where(img[width][height]) {
+    height: auto;
+}

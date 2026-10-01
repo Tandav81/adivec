@@ -17,22 +17,43 @@ DirectoryIndex index.php
     Options -MultiViews
 </IfModule>
 
-# Mise en cache longue des fichiers statiques (les URLs sont versionnées via framework.assets.version)
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+</IfModule>
+
+# Mise en cache des fichiers statiques.
+# CSS/JS : 1 an (URLs versionnées via framework.assets.version, ex. style.css?v5).
+# Images : 30 jours (les images de /img appelées depuis le CSS ne sont pas versionnées).
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType text/javascript "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/ttf "access plus 1 year"
-    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/gif "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/x-icon "access plus 30 days"
+    ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+# Même chose via mod_headers : mod_expires n'est pas actif chez l'hébergeur (constaté le 01/10/2026,
+# aucun en-tête Expires/Cache-Control renvoyé sur les fichiers statiques).
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|woff2?|ttf)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+    <FilesMatch "\.(jpe?g|png|gif|webp|svg|ico|mp4)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    # Les images peuvent être servies en JPEG/PNG ou en WebP selon le navigateur (voir plus bas)
+    <FilesMatch "\.(jpe?g|png|webp)$">
+        Header merge Vary Accept
+    </FilesMatch>
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -57,6 +78,14 @@ DirectoryIndex index.php
     # Redirection 301 de https://www.adivec.fr/?IdRubrique=30
     RewriteCond %{REQUEST_URI} ^/?IdRubrique=30
     RewriteRule ^.*$ / [R=301,L]
+
+    # Images : sert la version WebP (photo.jpg.webp, générée à côté de l'original) aux navigateurs
+    # qui l'acceptent. L'URL reste photo.jpg : rien à changer dans les templates ni dans le CSS.
+    # Sans fichier .webp (ou navigateur ancien), l'original est servi normalement.
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME}.webp -f
+    RewriteRule ^(.+\.(?:jpe?g|png))$ $1.webp [NC,T=image/webp,L]
 
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the

@@ -1,48 +1,55 @@
 {% extends 'base.html.twig' %}
+{% set ld_flags = constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_HEX_TAG') %}
+{% set seo_desc = new.description|seo_text|seo_truncate(155) %}
+{% set seo_image = new.image ? 'https://www.adivec.fr/uploads/images/blog/' ~ new.image : 'https://www.adivec.fr/img/logo_adivec.png' %}
+{# Titres d'actualités parfois très longs (jusqu'à ~120 caractères) : coupés au mot pour la balise <title> #}
+{% set seo_title = new.title|seo_truncate(65) %}
+
 {% block seo %}
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="description" content="{{ new.description | striptags | u.truncate(155, '...') }}"/>
+    <meta name="description" content="{{ seo_desc }}"/>
     <meta property="og:type" content="article"/>
     <meta property="og:url" content="{{ canonical_url }}"/>
-    <meta property="og:title" content="{{ new.title }} | ADIVEC"/>
-    <meta property="og:description" content="{{ new.description | striptags | u.truncate(155, '...') }}"/>
-    <meta property="og:image" content="https://www.adivec.fr/uploads/images/blog/{{ new.image }}"/>
+    <meta property="og:title" content="{{ new.title }}"/>
+    <meta property="og:description" content="{{ seo_desc }}"/>
+    <meta property="og:image" content="{{ seo_image }}"/>
     <meta property="og:site_name" content="ADIVEC"/>
+    {% if new.createdAt %}
+        <meta property="article:published_time" content="{{ new.createdAt|date('c') }}"/>
+    {% endif %}
 {% endblock %}
-{% block title %}{{ new.title }}{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
+{# Suffixe « | ADIVEC » seulement s'il reste de la place (titres d'actualités souvent longs) #}
+{% block title_suffix %}{% if seo_title|length <= 56 %} | ADIVEC{% endif %}{% endblock %}
 
 {% block schema %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "{{ new.title }}",
-  "url": "{{ canonical_url }}",
-  "image": "https://www.adivec.fr/uploads/images/blog/{{ new.image }}",
-  "description": "{{ new.description | striptags | u.truncate(155, '...') }}",
-  "publisher": {
-    "@type": "Organization",
-    "name": "ADIVEC",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.adivec.fr/img/logo_adivec.png"
-    }
-  },
-  "author": {
-    "@type": "Organization",
-    "name": "ADIVEC"
-  },
-  "datePublished": "{{ new.createdAt ? new.createdAt|date('Y-m-d') : '' }}",
-  "dateModified": "{{ new.updatedAt ? new.updatedAt|date('Y-m-d') : (new.createdAt ? new.createdAt|date('Y-m-d') : '') }}"
-}
-</script>
+    {{ parent() }}
+    {% set ld_article = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': new.title|seo_truncate(110),
+        'url': canonical_url,
+        'mainEntityOfPage': canonical_url,
+        'image': seo_image,
+        'description': seo_desc,
+        'publisher': {'@type': 'Organization', 'name': 'ADIVEC', 'logo': {'@type': 'ImageObject', 'url': 'https://www.adivec.fr/img/logo_adivec.png'}},
+        'author': {'@type': 'Organization', 'name': 'ADIVEC', 'url': 'https://www.adivec.fr'}
+    } %}
+    {# Dates : jamais de chaîne vide (schema invalide) — on omet le champ si la date est inconnue #}
+    {% if new.createdAt %}
+        {% set ld_article = ld_article|merge({
+            'datePublished': new.createdAt|date('c'),
+            'dateModified': (new.updatedAt ?? new.createdAt)|date('c')
+        }) %}
+    {% endif %}
+    <script type="application/ld+json">{{ ld_article|json_encode(ld_flags)|raw }}</script>
 {% endblock %}
 
 {% block body %}
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <p class="display-3 text-white mb-4 animated slideInDown fw-bold">News</p>
+            <p class="h1 display-3 text-white mb-4 animated slideInDown">News</p>
         </div>
     </div>
     <!-- Page Header End -->
@@ -53,13 +60,16 @@
         <div class="container">
             <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">News</p>
-                <h1 class="mb-5">{{ new.title }}</h1>
+                <h1 class="mb-3">{{ new.title }}</h1>
+                {% if new.createdAt %}
+                    <p class="text-muted mb-5">Publié le <time datetime="{{ new.createdAt|date('Y-m-d') }}">{{ new.createdAt|date('d/m/Y') }}</time></p>
+                {% endif %}
             </div>
             <div class="row gy-5 gx-4">
                 {% if new.image %}
                 <div class="col-auto">
                     <div class="service-img">
-                        <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
+                        <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
                              alt="{{ new.title }}" loading="lazy">
                     </div>
                 </div>

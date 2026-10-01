@@ -2,7 +2,7 @@
 {% import 'partials/_icons.html.twig' as icons %}
 {% block seo %}
     <link rel="canonical" href="https://www.adivec.fr">
-    <meta name="description" content="Adivec, fondée en 1989, distribue des ingrédients d'origine naturelle pour l'alimentation humaine, animale et les applications techniques. Amidons, gommes, protéines, fibres, colorants naturels."/>
+    <meta name="description" content="Depuis 1989, Adivec distribue des ingrédients naturels pour l'industrie : amidons, gommes, protéines, fibres, colorants pour l'agroalimentaire et la technique."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://www.adivec.fr"/>
     <meta property="og:title" content="ADIVEC – Ingrédients naturels pour l'industrie"/>
@@ -21,14 +21,14 @@
             <div class="carousel-inner">
                 {% for slide in slides %}
                     <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
-                        <img class="w-100" src="{{ asset('uploads/images/slides/'~slide.image) }}" alt="{{ slide.title }}"
+                        <img class="w-100" src="{{ asset('uploads/images/slides/'~slide.image) }}" {{ img_dims('uploads/images/slides/'~slide.image) }} alt="{{ slide.title }}"
                              {% if loop.index0 == 0 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
                                         <p class="fs-4 text-white">{{ slide.subtitle | raw }}</p>
-                                        <h2 class="display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</h2>
+                                        <p class="h1 display-1 text-white mb-5 animated slideInRight">{{ slide.title }}</p>
                                         <a href="{{ path('app_about') }}"
                                            class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Découvrez-nous</a>
                                     </div>
@@ -138,7 +138,7 @@
                         <div class="service-item d-flex h-100">
                             {% if new.image %}
                             <div class="service-img">
-                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}"
+                                <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
                                      alt="{{ new.title }}" loading="lazy">
                             </div>
                             {% endif %}
@@ -146,13 +146,13 @@
                                 {% if new.image %}
                                 <div class="service-icon">
                                     <img class="img-fluid rounded-circle"
-                                         src="{{ asset('uploads/images/blog/'~new.image) }}" alt="{{ new.title }}" loading="lazy">
+                                         src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }} alt="{{ new.title }}" loading="lazy">
                                 </div>
                                 {% endif %}
                                 <div class="d-flex">
                                     <h5 class="mb-3 titre-news">{{ new.title }}</h5>
                                 </div>
-                                <p class="mb-4">{{ new.description |striptags|u.truncate(25, '...') }}</p>
+                                <p class="mb-4">{{ new.description|striptags|u.truncate(120, '…', false) }}</p>
                                 <a class="btn btn-square rounded-circle" href="{{ path('show_blog', {slug: new.slug}) }}"
                                    title="Lire : {{ new.title }}">{{ icons.icon('chevron-double-right') }}</a>
                             </div>
@@ -180,7 +180,7 @@
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"
-                                         src="{{ asset('uploads/images/family/'~family.image) }}"
+                                         src="{{ asset('uploads/images/family/'~family.image) }}" {{ img_dims('uploads/images/family/'~family.image) }}
                                          alt="{{ family.name }}">
                                 </div>
                                 <div class="text-center p-4">
@@ -212,7 +212,7 @@
                             <div class="product-item">
                                 <div class="position-relative famille image">
                                     <img class="img-fluid image-height"
-                                         src="{{ asset('uploads/images/application/'~application.image) }}"
+                                         src="{{ asset('uploads/images/application/'~application.image) }}" {{ img_dims('uploads/images/application/'~application.image) }}
                                          alt="image {{ application.libelle }}">
                                 </div>
                                 <div class="text-center p-4">
@@ -240,7 +240,7 @@
                 <a href="{{ logo.lien }}" target="_blank">
                     <div class="logo">
                         <img class="img-fluid animated infinite logos"
-                             src="{{ asset('uploads/images/logos/'~logo.logo) }}"
+                             src="{{ asset('uploads/images/logos/'~logo.logo) }}" {{ img_dims('uploads/images/logos/'~logo.logo) }}
                              alt="logos partenaire {{ logo.name }}">
                     </div>
                 </a>
