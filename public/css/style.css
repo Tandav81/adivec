@@ -750,7 +750,8 @@
 /* ==========================================================================
    Page actualité (templates/news/show.html.twig) : article + colonne latérale
    ========================================================================== */
-.news-page {
+.news-page,
+.product-page {
     --news-ink: #4a5446;      /* texte courant : plus foncé que le gris du thème */
     --news-green: #4f7d14;    /* vert lisible sur blanc pour les liens (le #8cc51f est trop clair) */
 }
@@ -987,6 +988,134 @@
     line-height: 1.35;
 }
 .news-mini small { color: #6c757d; }
+
+/* ==========================================================================
+   Fiche produit (templates/product/page-produit.html.twig)
+   Réutilise .article-breadcrumb, .article-kicker et .article-title des actualités.
+   ========================================================================== */
+/* Proportions d'origine (certaines « photos » produit sont des logos, ex. Ecocert : pas de recadrage) */
+.product-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+.product-page .article-kicker:hover { background: rgba(140, 197, 31, .24); }
+
+.product-maker {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: #6c757d;
+    font-size: .95rem;
+    margin-bottom: 1.5rem;
+}
+.product-maker img {
+    width: auto;
+    height: 28px;
+    max-width: 160px;
+    object-fit: contain;
+}
+
+.product-description {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--news-ink);
+    margin-bottom: 1.25rem;
+}
+.product-description p { margin-bottom: 1rem; }
+
+.product-label {
+    font-family: "Open Sans", sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #6c757d;
+    margin-bottom: .6rem;
+}
+.product-pack {
+    padding: .4rem .9rem;
+    border-radius: 50rem;
+    background: rgba(140, 197, 31, .14);
+    color: var(--dark);
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.product-section { margin-top: 3rem; }
+.product-section-first {
+    padding-top: 2rem;
+    border-top: 1px solid #e6eadf;
+}
+.product-section-title {
+    font-size: 1.35rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.product-app {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    height: 100%;
+    padding: .8rem 1rem;
+    background: #fff;
+    border: 1px solid #e6eadf;
+    border-radius: 10px;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: .95rem;
+    line-height: 1.3;
+    text-decoration: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+.product-app:hover,
+.product-app:focus-visible {
+    color: var(--dark);
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(64, 74, 61, .08);
+}
+.product-app img {
+    flex: none;
+    width: 34px;
+    height: 34px;
+}
+
+.product-card {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .06);
+    color: var(--dark);
+    text-decoration: none;
+    transition: box-shadow .2s;
+}
+.product-card:hover {
+    color: var(--dark);
+    box-shadow: 0 8px 30px rgba(64, 74, 61, .16);
+}
+.product-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.product-card span {
+    display: block;
+    padding: .85rem 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.product-news {
+    color: var(--news-green);
+    font-weight: 600;
+    text-decoration: none;
+}
+.product-news:hover { text-decoration: underline; }
 
 /* Images avec width/height (fonction Twig img_dims) : les attributs donnent les proportions
    au navigateur (pas de décalage au chargement), la hauteur reste automatique.

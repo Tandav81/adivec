@@ -151,6 +151,7 @@ class ProductController extends AbstractController
         return $this->render('product/page-produit.html.twig', [
             'product' => $product,
             'canonical_url' => $canonical_url,
+            'same_range' => $entityManager->getRepository(Product::class)->findSameRange($product, 4),
         ]);
     }
 }

@@ -41,6 +41,25 @@ class ProductRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Autres produits de la même catégorie principale (bloc « Dans la même gamme » de la fiche produit).
+     *
+     * @return Product[]
+     */
+    public function findSameRange(Product $product, int $limit = 4): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.type = :type')
+            ->andWhere('p != :product')
+            ->setParameter('type', $product->getType())
+            ->setParameter('product', $product)
+            ->orderBy('p.position', 'ASC')
+            ->addOrderBy('p.id', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findById(int $id)
     {
         return $this->createQueryBuilder('p')
