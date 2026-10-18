@@ -1,0 +1,39 @@
+MISE EN PRODUCTION ADIVEC – Fiches produits du 18/10/2026 (branche fix/page-produit)
+=================================================================================
+
+- Nouvelle mise en page des fiches produits (photo + informations côte à côte,
+  applications, « Dans la même gamme », actualités liées, boutons devis / fiche technique).
+- Suppression du balisage schema.org « Product » (alerte Search Console « Fiches de
+  marchand » : réservé aux sites qui vendent en ligne avec un prix).
+- Page contact : message pré-rempli quand on arrive depuis une fiche produit.
+
+Point de départ : la prod est identique à la branche fix/page-actualite
+(refonte des actualités, style.css?v8 – vérifié le 18/10).
+Ce dossier contient UNIQUEMENT les 6 fichiers modifiés depuis, rangés comme sur le serveur.
+Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Composer.
+
+ÉTAPES
+------
+1. Par sécurité, télécharger depuis le serveur les 6 fichiers qui vont être écrasés.
+2. Téléverser TOUT le contenu de « 2026-10-18-fiche-produit-a-televerser/ » à la racine
+   du site (là où se trouvent src/, templates/, public/…) en écrasant les fichiers existants.
+3. Vider le cache – OBLIGATOIRE : supprimer le contenu de var/cache/prod/ par FTP
+   (ou php bin/console cache:clear --env=prod).
+4. Vérifier :
+   - https://www.adivec.fr/product/sauce-soja-standard : photo à gauche, logo Kikkoman,
+     étiquettes de conditionnement, boutons, « Dans la même gamme » ;
+   - code source (Ctrl+U) : style.css?v9, et plus aucun "@type":"Product" ;
+   - clic sur « Demander un devis » : le message du formulaire est pré-rempli ;
+   - une fiche sans fabricant ni photo (la page doit s'afficher normalement).
+   En cas d'erreur 500 : remettre les 6 fichiers sauvegardés et vider var/cache/prod/.
+5. Search Console : rapport « Fiches de marchand » (et/ou « Extraits de produits »)
+   → « Valider la correction ».
+
+FICHIERS (6)
+------------
+  config/packages/framework.yaml           modifié (version des assets v8 → v9)
+  public/css/style.css                     modifié
+  src/Controller/ContactController.php     modifié
+  src/Controller/ProductController.php     modifié
+  src/Repository/ProductRepository.php     modifié
+  templates/product/page-produit.html.twig modifié
