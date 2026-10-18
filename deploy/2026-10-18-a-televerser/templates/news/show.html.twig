@@ -86,7 +86,7 @@
                 {% if new.image %}
                     <figure class="article-cover mb-5">
                         {# Image principale : pas de lazy-loading (visible dès l'arrivée sur la page) #}
-                        <img src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
+                        <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
                              alt="{{ new.title }}" fetchpriority="high">
                     </figure>
                 {% endif %}

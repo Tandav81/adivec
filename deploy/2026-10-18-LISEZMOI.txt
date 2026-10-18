@@ -5,13 +5,13 @@ Correctif « Produits associés » qui débordait sur le footer + nouvelle mise 
 des actualités (article + colonne latérale : produits cités, devis, « À lire aussi »).
 
 La prod est aujourd'hui identique à la branche main (merge de seo/audit-2026-09).
-Ce dossier contient UNIQUEMENT les 6 fichiers modifiés ou ajoutés depuis, rangés
+Ce dossier contient UNIQUEMENT les 7 fichiers modifiés ou ajoutés depuis, rangés
 exactement comme sur le serveur.
 Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Composer.
 
 ÉTAPES
 ------
-1. Par sécurité, télécharger depuis le serveur les 4 fichiers qui vont être écrasés
+1. Par sécurité, télécharger depuis le serveur les 5 fichiers qui vont être écrasés
    (liste ci-dessous, marqués « modifié »).
 2. Téléverser TOUT le contenu de « 2026-10-18-a-televerser/ » à la racine du site
    (là où se trouvent src/, templates/, public/…) en écrasant les fichiers existants.
@@ -23,12 +23,23 @@ Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Compos
      avec un trait vert, rien ne déborde sur le footer ;
    - la même page sur téléphone : la colonne passe sous l'article ;
    - https://www.adivec.fr/news/club-pai (actualité avec liste à puces).
-   En cas de page blanche ou d'erreur 500 : remettre les 4 fichiers sauvegardés,
+   En cas de page blanche ou d'erreur 500 : remettre les 5 fichiers sauvegardés,
    supprimer les 2 nouveaux, vider à nouveau var/cache/prod/.
-5. Navigateur : Ctrl+F5 pour recharger style.css (il est mis en cache par le navigateur).
+   - code source de la page (Ctrl+U) : style.css doit être appelé en « style.css?v8 ».
+   Si la page s'affiche sans mise en forme (colonne de droite sur l'image, pas d'encart
+   gris), c'est que l'ancien style.css est servi : vérifier que framework.yaml a bien
+   été téléversé et que le cache var/cache/prod/ a été vidé.
 
-FICHIERS (6)
+POURQUOI framework.yaml ?
+-------------------------
+style.css est mis en cache 1 an par les navigateurs (.htaccess). Son URL porte un numéro
+de version (assets.version dans framework.yaml) : passé de v7 à v8 pour forcer tous les
+navigateurs à recharger la nouvelle feuille de style. À incrémenter à chaque déploiement
+qui modifie un fichier CSS ou JS.
+
+FICHIERS (7)
 ------------
+  config/packages/framework.yaml           modifié (version des assets v7 → v8)
   public/css/style.css                     modifié
   src/Controller/NewsController.php        modifié
   src/Repository/BlogPostRepository.php    modifié
