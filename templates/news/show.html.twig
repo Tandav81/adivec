@@ -43,6 +43,16 @@
         }) %}
     {% endif %}
     <script type="application/ld+json">{{ ld_article|json_encode(ld_flags)|raw }}</script>
+    {% set ld_breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': url('app_home')},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Actualités', 'item': url('app_news')},
+            {'@type': 'ListItem', 'position': 3, 'name': new.title|seo_truncate(110), 'item': canonical_url}
+        ]
+    } %}
+    <script type="application/ld+json">{{ ld_breadcrumb|json_encode(ld_flags)|raw }}</script>
 {% endblock %}
 
 {% block body %}
@@ -54,45 +64,90 @@
     </div>
     <!-- Page Header End -->
 
+    {# Mise en page « article + colonne latérale » : l'article à gauche, à droite (sous l'article
+       sur mobile) les produits cités, l'appel à devis et les autres actualités. #}
+    <div class="container pb-5 news-page">
+        <nav class="article-breadcrumb" aria-label="Fil d’Ariane">
+            <a href="{{ path('app_home') }}">Accueil</a><span aria-hidden="true">›</span><a href="{{ path('app_news') }}">Actualités</a><span aria-hidden="true">›</span><span aria-current="page">{{ new.title|seo_truncate(60) }}</span>
+        </nav>
 
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">News</p>
-                <h1 class="mb-3">{{ new.title }}</h1>
-                {% if new.createdAt %}
-                    <p class="text-muted mb-5">Publié le <time datetime="{{ new.createdAt|date('Y-m-d') }}">{{ new.createdAt|date('d/m/Y') }}</time></p>
-                {% endif %}
-            </div>
-            <div class="row gy-5 gx-4">
+        <div class="row g-4 g-lg-5">
+            <article class="col-lg-8">
+                <span class="article-kicker">Actualité</span>
+                <h1 class="article-title">{{ new.title }}</h1>
+                <p class="article-meta mb-4">
+                    {% if new.createdAt %}
+                        <time datetime="{{ new.createdAt|date('Y-m-d') }}">Publié le {{ new.createdAt|date('d/m/Y') }}</time>
+                        <span aria-hidden="true">·</span>
+                    {% endif %}
+                    <span>{{ new.description|reading_time }} min de lecture</span>
+                </p>
+
                 {% if new.image %}
-                <div class="col-auto">
-                    <div class="service-img">
-                        <img class="img-fluid" src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
-                             alt="{{ new.title }}" loading="lazy">
-                    </div>
-                </div>
+                    <figure class="article-cover mb-5">
+                        {# Image principale : pas de lazy-loading (visible dès l'arrivée sur la page) #}
+                        <img src="{{ asset('uploads/images/blog/'~new.image) }}" {{ img_dims('uploads/images/blog/'~new.image) }}
+                             alt="{{ new.title }}" fetchpriority="high">
+                    </figure>
                 {% endif %}
-                <div class="col-lg-9 col-md-6 pt-5 ">
-                    {# .news-content : conteneur bloc (pas de <p>) pour accepter les titres/listes générés par l'éditeur #}
-                    <div class="service-item h-100">
-                        <div class="news-content mb-4">{{ new.description|raw }}</div>
-                    </div>
+
+                {# news_html : le HTML de l'éditeur Trix (un bloc découpé par des <br>) est restructuré
+                   en paragraphes, intertitres et listes — voir App\Service\NewsHtmlFormatter #}
+                <div class="news-content">{{ new.description|news_html }}</div>
+
+                <p class="mt-5 mb-0"><a class="article-back" href="{{ path('app_news') }}">← Toutes les actualités</a></p>
+            </article>
+
+            <aside class="col-lg-4">
+                <div class="news-aside">
                     {% if new.relatedProducts is not empty %}
-                        <section class="related-links mt-5" aria-labelledby="produits-associes">
-                            <h2 id="produits-associes" class="h4 mb-3">Produits associés</h2>
-                            <ul class="list-unstyled d-flex flex-wrap gap-2">
+                        <section class="news-aside-box" aria-labelledby="produits-associes">
+                            <h2 id="produits-associes" class="h5 mb-3">Produits cités</h2>
+                            <ul class="list-unstyled d-grid gap-2 mb-0">
                                 {% for product in new.relatedProducts %}
-                                    <li><a class="btn btn-outline-primary rounded-pill" href="{{ path('app_product_page', {slug: product.slug}) }}">{{ product.nom }}</a></li>
+                                    {% set thumb = product.image
+                                        ? 'uploads/images/products/' ~ product.image
+                                        : 'uploads/images/family/' ~ product.type.family.image %}
+                                    <li>
+                                        <a class="product-chip" href="{{ path('app_product_page', {slug: product.slug}) }}">
+                                            <img src="{{ asset(thumb) }}" alt="" width="56" height="56" loading="lazy">
+                                            <span class="product-chip-name">{{ product.nom }}</span>
+                                            <span class="product-chip-arrow" aria-hidden="true">→</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                    {% endif %}
+
+                    <section class="news-cta" aria-labelledby="news-cta-title">
+                        <p id="news-cta-title" class="h5">Un projet de formulation ?</p>
+                        <p>Nos équipes vous conseillent et vous envoient échantillons et fiches techniques.</p>
+                        <a class="btn btn-primary rounded-pill px-4" href="{{ path('app_contact') }}">Demander un devis</a>
+                    </section>
+
+                    {% if other_news is not empty %}
+                        <section class="mt-4" aria-labelledby="a-lire-aussi">
+                            <h2 id="a-lire-aussi" class="h5 mb-3">À lire aussi</h2>
+                            <ul class="list-unstyled mb-0">
+                                {% for item in other_news %}
+                                    <li class="mb-3">
+                                        <a class="news-mini" href="{{ path('show_blog', {slug: item.slug}) }}">
+                                            {% if item.image %}
+                                                <img src="{{ asset('uploads/images/blog/'~item.image) }}" alt="" width="84" height="64" loading="lazy">
+                                            {% endif %}
+                                            <span>
+                                                <span class="news-mini-title">{{ item.title }}</span>
+                                                {% if item.createdAt %}<small>{{ item.createdAt|date('d/m/Y') }}</small>{% endif %}
+                                            </span>
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </section>
                     {% endif %}
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
-    <!-- Service End -->
-
 {% endblock %}

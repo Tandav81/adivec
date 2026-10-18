@@ -46,6 +46,7 @@ class NewsController extends AbstractController
         return $this->render('news/show.html.twig', [
             'new' => $new,
             'canonical_url' => $canonical_url,
+            'other_news' => $entityManager->getRepository(BlogPost::class)->findLatestVisibleExcept($new, 3),
         ]);
     }
 }

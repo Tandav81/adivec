@@ -34,6 +34,25 @@ class BlogPostRepository extends ServiceEntityRepository
             return $qb->getQuery()->getResult();
         }
 
+        /**
+         * Dernières actualités visibles, sauf celle passée en paramètre (bloc « À lire aussi »).
+         *
+         * @return BlogPost[]
+         */
+        public function findLatestVisibleExcept(BlogPost $exclude, int $limit = 3): array
+        {
+            return $this->createQueryBuilder('b')
+                ->andWhere('b.visible = :val')
+                ->andWhere('b != :exclude')
+                ->setParameter('val', true)
+                ->setParameter('exclude', $exclude)
+                ->orderBy('b.createdAt', 'DESC')
+                ->addOrderBy('b.id', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+        }
+
     //    public function findOneBySomeField($value): ?BlogPost
     //    {
     //        return $this->createQueryBuilder('b')
