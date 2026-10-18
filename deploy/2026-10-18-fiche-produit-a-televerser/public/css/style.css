@@ -104,15 +104,6 @@
     color: var(--primary);
 }
 
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free", serif;
-    font-weight: 900;
-    vertical-align: middle;
-    margin-left: 8px;
-}
-
 @media (max-width: 991.98px) {
     .navbar .navbar-nav .nav-link  {
         margin-right: 0;
@@ -406,19 +397,6 @@
     min-height: 400px;
 }
 
-.testimonial-img::after {
-    position: absolute;
-    content: "\f10d";
-    font-family: "Font Awesome 5 Free", serif;
-    font-weight: 900;
-    font-size: 200px;
-    color: #EEEEEE;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-}
-
 .testimonial-img img {
     position: absolute;
     width: 100px;
@@ -498,12 +476,18 @@
     transition: .3s;
 }
 
+/* Chevron dessiné en CSS : la police d'icônes n'est plus chargée (icônes en SVG inline
+   depuis l'audit SEO), l'ancien caractère "\f105" s'affichait en rectangle vide. */
 .footer .btn.btn-link::before {
-    position: relative;
-    content: "\f105";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-right: 10px;
+    content: "";
+    display: inline-block;
+    width: .45em;
+    height: .45em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    vertical-align: .12em;
+    margin-right: 12px;
 }
 
 .footer .btn.btn-link:hover {

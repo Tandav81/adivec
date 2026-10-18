@@ -6,6 +6,8 @@ MISE EN PRODUCTION ADIVEC – Fiches produits du 18/10/2026 (branche fix/page-pr
 - Suppression du balisage schema.org « Product » (alerte Search Console « Fiches de
   marchand » : réservé aux sites qui vendent en ligne avec un prix).
 - Page contact : message pré-rempli quand on arrive depuis une fiche produit.
+- Pied de page : les puces de « Liens rapides » s'affichaient en rectangle vide
+  (ancienne police d'icônes plus chargée) → chevron dessiné en CSS.
 
 Point de départ : la prod est identique à la branche fix/page-actualite
 (refonte des actualités, style.css?v8 – vérifié le 18/10).
@@ -22,7 +24,8 @@ Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Compos
 4. Vérifier :
    - https://www.adivec.fr/product/sauce-soja-standard : photo à gauche, logo Kikkoman,
      étiquettes de conditionnement, boutons, « Dans la même gamme » ;
-   - code source (Ctrl+U) : style.css?v9, et plus aucun "@type":"Product" ;
+   - code source (Ctrl+U) : style.css?v10, et plus aucun "@type":"Product" ;
+   - pied de page : chevrons « › » devant Découvrir, Nous contacter… (plus de rectangle) ;
    - clic sur « Demander un devis » : le message du formulaire est pré-rempli ;
    - une fiche sans fabricant ni photo (la page doit s'afficher normalement).
    En cas d'erreur 500 : remettre les 6 fichiers sauvegardés et vider var/cache/prod/.
@@ -31,7 +34,7 @@ Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Compos
 
 FICHIERS (6)
 ------------
-  config/packages/framework.yaml           modifié (version des assets v8 → v9)
+  config/packages/framework.yaml           modifié (version des assets v8 → v10)
   public/css/style.css                     modifié
   src/Controller/ContactController.php     modifié
   src/Controller/ProductController.php     modifié
