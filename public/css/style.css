@@ -462,8 +462,20 @@
 
 
 /*** Footer ***/
+/* Lisibilité (WCAG AA, contraste ≥ 4,5:1) : le blanc sur le vert clair --primary (#8cc51f)
+   ne donnait que 2:1 → fond vert foncé (#4f7d14, 4,9:1 avec le blanc) et tout le texte en blanc. */
 .footer {
-    background: var(--primary);
+    background: #4f7d14;
+    color: #fff;
+}
+.footer p,
+.footer a {
+    color: #fff;
+}
+.footer a:hover,
+.footer a:focus-visible {
+    color: #fff;
+    text-decoration: underline;
 }
 
 .footer .btn.btn-link {
@@ -490,8 +502,11 @@
     margin-right: 12px;
 }
 
+.footer .btn.btn-link {
+    color: #fff;
+}
 .footer .btn.btn-link:hover {
-    color: var(--light);
+    color: #fff;
     letter-spacing: 1px;
     box-shadow: none;
 }
@@ -501,8 +516,14 @@
     justify-content: center;
 }
 
+/* Bandeau copyright : fond encore plus foncé (#3f6510, 6,8:1 avec le blanc).
+   !important nécessaire pour passer devant l'utilitaire Bootstrap .text-body du template. */
 .copyright {
-    background: var(--secondary);
+    background: #3f6510;
+}
+.copyright.text-body,
+.copyright a {
+    color: #fff !important;
 }
 
 .topbar {
