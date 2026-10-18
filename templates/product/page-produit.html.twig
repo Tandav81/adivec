@@ -83,54 +83,52 @@
                     </p>
                 {% endif %}
 
-                {% if product.description %}
+                {# Lecture « en un coup d'œil » : ce qu'est le produit (1er paragraphe en chapeau),
+                   puis ses utilisations (applications), puis le reste de la description. #}
+                {% set paragraphs = product.description
+                    ? product.description|replace({"\r\n": "\n"})|split("\n\n")|map(p => p|trim)|filter(p => p is not empty)
+                    : [] %}
+                {% if paragraphs is not empty %}
+                    <p class="product-lead">{{ paragraphs|first|nl2br }}</p>
+                {% endif %}
+
+                {% if product.applications is not empty %}
+                    <h2 class="product-label">Utilisations</h2>
+                    <ul class="list-unstyled row g-2 mb-4">
+                        {% for application in product.applications %}
+                            <li class="col-sm-6">
+                                <a class="product-app" href="{{ path('app_application', {slug: application.slug}) }}">
+                                    {% if application.icone %}
+                                        <img src="{{ asset('uploads/images/application/icone/'~application.icone) }}" alt="" width="34" height="34" loading="lazy">
+                                    {% endif %}
+                                    <span>{{ application.libelle }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if paragraphs|length > 1 %}
                     <div class="product-description">
-                        {# Paragraphes séparés par une ligne vide dans l'admin #}
-                        {% for paragraph in product.description|replace({"\r\n": "\n"})|split("\n\n") %}
-                            {% if paragraph|trim %}<p>{{ paragraph|trim|nl2br }}</p>{% endif %}
+                        {% for paragraph in paragraphs|slice(1) %}
+                            <p>{{ paragraph|nl2br }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
 
                 {% if product.packagings is not empty %}
                     <h2 class="product-label">Conditionnements</h2>
-                    <ul class="list-unstyled d-flex flex-wrap gap-2 mb-4">
+                    <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
                         {% for packaging in product.packagings %}
                             <li class="product-pack">{{ packaging }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
-
-                {# nofollow : la page contact a sa propre URL canonique, inutile de faire explorer ces variantes #}
-                <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-primary rounded-pill px-4 py-2" rel="nofollow"
-                       href="{{ path('app_contact', {produit: product.slug}) }}">Demander un devis</a>
-                    <a class="btn btn-outline-dark rounded-pill px-4 py-2" rel="nofollow"
-                       href="{{ path('app_contact', {produit: product.slug, demande: 'fiche'}) }}">Fiche technique / échantillon</a>
-                </div>
             </div>
         </div>
 
-        {% if product.applications is not empty %}
-            <section class="product-section product-section-first" aria-labelledby="applications">
-                <h2 id="applications" class="product-section-title">Applications</h2>
-                <ul class="list-unstyled row g-3 mb-0">
-                    {% for application in product.applications %}
-                        <li class="col-sm-6 col-lg-4">
-                            <a class="product-app" href="{{ path('app_application', {slug: application.slug}) }}">
-                                {% if application.icone %}
-                                    <img src="{{ asset('uploads/images/application/icone/'~application.icone) }}" alt="" width="34" height="34" loading="lazy">
-                                {% endif %}
-                                <span>{{ application.libelle }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
-
         {% if same_range is not empty %}
-            <section class="product-section" aria-labelledby="meme-gamme">
+            <section class="product-section product-section-first" aria-labelledby="meme-gamme">
                 <h2 id="meme-gamme" class="product-section-title">Dans la même gamme</h2>
                 <ul class="list-unstyled row g-3 g-lg-4 mb-0">
                     {% for item in same_range %}

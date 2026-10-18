@@ -1022,9 +1022,16 @@
     object-fit: contain;
 }
 
+/* Chapeau : ce qu'est le produit, lisible en premier */
+.product-lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+}
 .product-description {
-    font-size: 1.0625rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.75;
     color: var(--news-ink);
     margin-bottom: 1.25rem;
 }
