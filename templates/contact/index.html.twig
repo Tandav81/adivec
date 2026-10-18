@@ -66,6 +66,20 @@
                                     {{ form_errors(form.codePostal) }}
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.produit, {'attr': {'class': 'form-control', 'placeholder': 'Produit concerné'}}) }}
+                                    {{ form_label(form.produit, 'Produit concerné (facultatif)') }}
+                                    {{ form_errors(form.produit) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.quantite, {'attr': {'class': 'form-control', 'placeholder': 'Quantité souhaitée'}}) }}
+                                    {{ form_label(form.quantite, 'Quantité souhaitée (facultatif)') }}
+                                    {{ form_errors(form.quantite) }}
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     {{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message', 'style': 'height: 160px'}}) }}

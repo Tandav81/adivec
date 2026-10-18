@@ -41,9 +41,9 @@ class ContactController extends AbstractController
     }
 
     /**
-     * Message pré-rempli quand on arrive depuis une fiche produit :
-     *   /contact?produit={slug}               → demande de devis
-     *   /contact?produit={slug}&demande=fiche → fiche technique / échantillon
+     * Pré-remplissage quand on arrive depuis le formulaire « Demander un devis » d'une fiche produit :
+     *   /contact?produit={slug}&quantite=500&unite=kg   (unite : kg, t, ou p{id} = un conditionnement du produit)
+     * Toutes les valeurs sont contrôlées : produit existant, quantité numérique, unité de la liste.
      */
     private function prefill(Request $request, EntityManagerInterface $entityManager): ?array
     {
@@ -55,10 +55,23 @@ class ContactController extends AbstractController
         if (!$product) {
             return null;
         }
-        $objet = 'fiche' === $request->query->get('demande')
-            ? 'la fiche technique et un échantillon'
-            : 'un devis';
 
-        return ['message' => sprintf("Bonjour,\n\nJe souhaiterais recevoir %s pour le produit « %s ».\n\n", $objet, $product->getNom())];
+        $data = [
+            'produit' => $product->getNom(),
+            'message' => sprintf("Bonjour,\n\nJe souhaiterais recevoir un devis pour le produit « %s ».\n\n", $product->getNom()),
+        ];
+
+        $quantity = str_replace([' ', ','], ['', '.'], (string) $request->query->get('quantite', ''));
+        if (is_numeric($quantity) && (float) $quantity > 0 && (float) $quantity < 1e7) {
+            $amount = rtrim(rtrim(number_format((float) $quantity, 2, ',', ' '), '0'), ',');
+            $unit = (string) $request->query->get('unite', 'kg');
+            $units = ['kg' => 'kg', 't' => 'tonne(s)'];
+            foreach ($product->getPackagings() as $packaging) {
+                $units['p' . $packaging->getId()] = '× ' . $packaging;
+            }
+            $data['quantite'] = $amount . ' ' . ($units[$unit] ?? 'kg');
+        }
+
+        return $data;
     }
 }

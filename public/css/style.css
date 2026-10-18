@@ -1048,6 +1048,28 @@
     font-size: .9rem;
 }
 
+.product-quote {
+    max-width: 560px;
+    padding: 1.25rem;
+    background: var(--light);
+    border-radius: 12px;
+}
+.product-quote-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+.product-quote-row .form-control {
+    flex: 1 1 120px;
+    min-width: 0;
+}
+.product-quote-row .form-select {
+    flex: 1 1 150px;
+    width: auto;
+    min-width: 0;
+}
+.product-quote-row .btn { flex: 0 0 auto; }
+
 .product-section { margin-top: 3rem; }
 .product-section-first {
     padding-top: 2rem;

@@ -101,13 +101,24 @@
                     </ul>
                 {% endif %}
 
-                {# nofollow : la page contact a sa propre URL canonique, inutile de faire explorer ces variantes #}
-                <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-primary rounded-pill px-4 py-2" rel="nofollow"
-                       href="{{ path('app_contact', {produit: product.slug}) }}">Demander un devis</a>
-                    <a class="btn btn-outline-dark rounded-pill px-4 py-2" rel="nofollow"
-                       href="{{ path('app_contact', {produit: product.slug, demande: 'fiche'}) }}">Fiche technique / échantillon</a>
-                </div>
+                {# Demande de devis : la quantité est transmise au formulaire de contact (pré-rempli).
+                   Formulaire en GET : pas de jeton CSRF nécessaire, l'envoi réel se fait sur /contact. #}
+                <form class="product-quote" action="{{ path('app_contact') }}" method="get">
+                    <input type="hidden" name="produit" value="{{ product.slug }}">
+                    <label class="product-label d-block" for="quote-quantity">Quantité souhaitée pour le devis</label>
+                    <div class="product-quote-row">
+                        <input class="form-control" id="quote-quantity" type="number" name="quantite"
+                               min="1" step="any" inputmode="decimal" placeholder="ex. 500" required>
+                        <select class="form-select" name="unite" aria-label="Unité">
+                            <option value="kg">kg</option>
+                            <option value="t">tonnes</option>
+                            {% for packaging in product.packagings %}
+                                <option value="p{{ packaging.id }}">× {{ packaging }}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-primary rounded-pill px-4" type="submit">Demander un devis</button>
+                    </div>
+                </form>
             </div>
         </div>
 

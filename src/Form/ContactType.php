@@ -46,6 +46,19 @@ class ContactType extends AbstractType
                     new Assert\Length(['max' => 10, 'maxMessage' => 'Le code postal ne peut pas dépasser {{ limit }} caractères.']),
                 ],
             ])
+            // Renseignés automatiquement depuis le bouton « Demander un devis » d'une fiche produit
+            ->add('produit', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Assert\Length(['max' => 150, 'maxMessage' => 'Le nom du produit ne peut pas dépasser {{ limit }} caractères.']),
+                ],
+            ])
+            ->add('quantite', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Assert\Length(['max' => 100, 'maxMessage' => 'La quantité ne peut pas dépasser {{ limit }} caractères.']),
+                ],
+            ])
             ->add('message', TextareaType::class, [
                 'attr' => ['rows' => 6],
                 'constraints' => [
