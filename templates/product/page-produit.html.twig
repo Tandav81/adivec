@@ -35,21 +35,11 @@
             {'@type': 'ListItem', 'position': 4, 'name': product.nom, 'item': canonical_url}
         ]
     } %}
-    {# Pas d'« offers » : site vitrine sans prix (décision avril 2026). La marque est le fabricant partenaire. #}
-    {% set ld_product = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': product.nom,
-        'url': canonical_url,
-        'image': seo_image,
-        'description': seo_desc,
-        'category': product.type.family.name ~ ' > ' ~ product.type.name
-    } %}
-    {% if product.fournisseur and product.fournisseur.name %}
-        {% set ld_product = ld_product|merge({'brand': {'@type': 'Brand', 'name': product.fournisseur.name}}) %}
-    {% endif %}
+    {# Pas de balisage schema.org « Product » : Google le réserve aux pages où l'on peut acheter
+       (prix obligatoire). Sur ce site vitrine sans prix, il ne produisait que des erreurs
+       « Fiches de marchand » / « Extraits de produits » dans la Search Console (oct. 2026).
+       Le fil d'Ariane (BreadcrumbList) reste, il est valide et affiché dans les résultats. #}
     <script type="application/ld+json">{{ ld_breadcrumb|json_encode(ld_flags)|raw }}</script>
-    <script type="application/ld+json">{{ ld_product|json_encode(ld_flags)|raw }}</script>
 {% endblock %}
 
 {% block body %}
