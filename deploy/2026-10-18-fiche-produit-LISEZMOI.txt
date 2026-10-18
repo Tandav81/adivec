@@ -1,44 +1,43 @@
-MISE EN PRODUCTION ADIVEC – Fiches produits du 18/10/2026 (branche fix/page-produit)
-=================================================================================
+MISE EN PRODUCTION ADIVEC – Fiches produits et pied de page du 18/10/2026 (branche fix/page-produit)
+=================================================================================================
 
-- Nouvelle mise en page des fiches produits (photo + informations côte à côte,
-  applications, « Dans la même gamme », actualités liées, boutons devis / fiche technique).
+- Fiches produits : présentation seule (site vitrine, aucun bouton devis/échantillon).
+  Photo + catégorie, titre, logo du fabricant, chapeau (ce qu'est le produit),
+  « Utilisations » (applications) juste dessous, puis le reste de la description et
+  les conditionnements. En bas : « Dans la même gamme » et actualités liées.
 - Suppression du balisage schema.org « Product » (alerte Search Console « Fiches de
   marchand » : réservé aux sites qui vendent en ligne avec un prix).
-- Page contact : message pré-rempli quand on arrive depuis une fiche produit.
-- Pied de page : les puces de « Liens rapides » s'affichaient en rectangle vide
-  (ancienne police d'icônes plus chargée) → chevron dessiné en CSS.
-- Pied de page lisible : fond vert foncé et texte blanc (contraste ≥ 4,5:1 au lieu de 1,7:1).
+- Pied de page : chevrons des « Liens rapides » en CSS (ils s'affichaient en rectangle
+  vide) ; fond vert foncé et texte blanc (contraste ≥ 4,5:1 au lieu de 1,7:1).
 
 Point de départ : la prod est identique à la branche fix/page-actualite
 (refonte des actualités, style.css?v8 – vérifié le 18/10).
-Ce dossier contient UNIQUEMENT les 6 fichiers modifiés depuis, rangés comme sur le serveur.
+Ce dossier contient UNIQUEMENT les 5 fichiers modifiés depuis, rangés comme sur le serveur.
 Aucune migration, aucun fichier à supprimer, pas de nouvelle dépendance Composer.
 
 ÉTAPES
 ------
-1. Par sécurité, télécharger depuis le serveur les 6 fichiers qui vont être écrasés.
+1. Par sécurité, télécharger depuis le serveur les 5 fichiers qui vont être écrasés.
 2. Téléverser TOUT le contenu de « 2026-10-18-fiche-produit-a-televerser/ » à la racine
    du site (là où se trouvent src/, templates/, public/…) en écrasant les fichiers existants.
 3. Vider le cache – OBLIGATOIRE : supprimer le contenu de var/cache/prod/ par FTP
    (ou php bin/console cache:clear --env=prod).
 4. Vérifier :
-   - https://www.adivec.fr/product/sauce-soja-standard : photo à gauche, logo Kikkoman,
-     étiquettes de conditionnement, boutons, « Dans la même gamme » ;
-   - code source (Ctrl+U) : style.css?v11, et plus aucun "@type":"Product" ;
+   - https://www.adivec.fr/product/sauce-soja-standard : photo à gauche ; à droite le
+     logo Kikkoman, le chapeau, « Utilisations », les conditionnements ; en bas
+     « Dans la même gamme » ;
+   - une fiche sans fabricant ni photo : la page s'affiche normalement ;
+   - code source (Ctrl+U) : style.css?v12, et plus aucun "@type":"Product" ;
    - pied de page : fond vert foncé, texte blanc, chevrons « › » devant Découvrir,
-     Nous contacter… (plus de rectangle) ;
-   - clic sur « Demander un devis » : le message du formulaire est pré-rempli ;
-   - une fiche sans fabricant ni photo (la page doit s'afficher normalement).
-   En cas d'erreur 500 : remettre les 6 fichiers sauvegardés et vider var/cache/prod/.
+     Nous contacter… (plus de rectangle).
+   En cas d'erreur 500 : remettre les 5 fichiers sauvegardés et vider var/cache/prod/.
 5. Search Console : rapport « Fiches de marchand » (et/ou « Extraits de produits »)
    → « Valider la correction ».
 
-FICHIERS (6)
+FICHIERS (5)
 ------------
-  config/packages/framework.yaml           modifié (version des assets v8 → v11)
+  config/packages/framework.yaml           modifié (version des assets v8 → v12)
   public/css/style.css                     modifié
-  src/Controller/ContactController.php     modifié
   src/Controller/ProductController.php     modifié
   src/Repository/ProductRepository.php     modifié
   templates/product/page-produit.html.twig modifié
