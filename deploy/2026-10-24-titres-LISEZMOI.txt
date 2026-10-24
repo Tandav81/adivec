@@ -1,0 +1,50 @@
+MISE EN PRODUCTION ADIVEC – Titres des fiches produits du 24/10/2026 (branche seo/titres-produits)
+==================================================================================================
+
+- Titres des 108 fiches produits générés par une règle unique, sans cas particulier :
+      Nom (code E) Fabricant – qualificatif | ADIVEC
+  · code E lu dans la 1re phrase de la description (« (E412) ») ;
+  · fabricant de la fiche (Kikkoman, Emsland…) ;
+  · qualificatif = la catégorie si elle apporte un mot absent du nom, sinon
+    « fournisseur agroalimentaire » / « fournisseur industriel » (version courte si besoin).
+  Ex. : « Gomme de guar (E412) – Gélifiants - Epaississants | ADIVEC »
+        « Protéine de blé Jäckering – fournisseur agroalimentaire | ADIVEC »
+  Plus aucun titre « … – ingrédient naturel ». Aucun titre en double, 65 caractères max.
+- Redirection 301 manquante ajoutée : /product/concentrat-de-prot-eine-de-f-eve
+  → /product/concentrat-de-proteine-de-feve (ancienne URL encore connue de Google, en 404).
+
+Point de départ : la prod est identique à main (commit 851c33c, style.css?v12 – vérifié le 24/10).
+Ce dossier contient UNIQUEMENT les 3 fichiers modifiés, rangés comme sur le serveur.
+Aucun CSS/JS modifié (pas de changement de version des assets), aucune migration,
+aucun fichier à supprimer, pas de nouvelle dépendance Composer.
+
+ÉTAPES
+------
+1. Par sécurité, télécharger depuis le serveur les 3 fichiers qui vont être écrasés.
+2. Téléverser TOUT le contenu de « 2026-10-24-titres-a-televerser/ » à la racine du site
+   (là où se trouvent src/, templates/, public/…) en écrasant les fichiers existants.
+3. Vider le cache – OBLIGATOIRE : supprimer le contenu de var/cache/prod/ par FTP
+   (ou php bin/console cache:clear --env=prod).
+4. Corrections de données dans l'admin (EasyAdmin) :
+   - Logos partenaires : renommer « Jackering » en « Jäckering » ;
+   - Types : renommer « Extraits végetaux » en « Extraits végétaux ».
+5. Vérifier (Ctrl+U, balise <title>) :
+   - /product/gomme-de-guar   → Gomme de guar (E412) – Gélifiants - Epaississants | ADIVEC
+   - /product/carotene        → Carotène (E160a) Cyber colors – Colorants naturels | ADIVEC
+   - /product/proteine-de-ble → Protéine de blé Jäckering – fournisseur agroalimentaire | ADIVEC
+   - /product/concentrat-de-prot-eine-de-f-eve → redirige vers concentrat-de-proteine-de-feve
+   En cas d'erreur 500 : remettre les 3 fichiers sauvegardés et vider var/cache/prod/.
+6. Search Console : soumettre à nouveau le sitemap. Mesurer l'effet dans 4 à 6 semaines
+   (Performances, filtre page « /product/ », comparer avant / après le 24/10).
+
+FICHIERS (3)
+------------
+  src/Controller/ProductController.php     modifié (redirection fève)
+  src/Twig/SeoExtension.php                modifié (règle de titre)
+  templates/product/page-produit.html.twig modifié (commentaire uniquement)
+
+TESTS (24/10)
+-------------
+Symfony + SQLite chargé avec les 108 fiches de la prod : 108 pages en 200, titres identiques
+à la simulation, og:title identique au <title>, un seul h1, aucun doublon, 65 caractères max,
+redirection 301 de la fève OK.

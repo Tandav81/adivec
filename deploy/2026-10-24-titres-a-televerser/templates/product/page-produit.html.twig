@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+{# ---- Variables SEO communes (meta, Open Graph, JSON-LD) ---- #}
+{% set ld_flags = constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_HEX_TAG') %}
+{% set seo_image = product.image
+    ? 'https://www.adivec.fr/uploads/images/products/' ~ product.image
+    : 'https://www.adivec.fr/uploads/images/family/' ~ product.type.family.image %}
+{% set seo_apps = product.applications|map(a => a.libelle|lower)|slice(0, 4)|join(', ') %}
+{% set seo_desc_auto = product.nom ~ ' (' ~ product.type.name ~ ') : ingrédient naturel distribué par Adivec'
+    ~ (seo_apps ? ' pour ' ~ seo_apps : '') ~ '. Fournisseur B2B depuis 1989, devis sur demande.' %}
+{% set seo_desc = (product.description ? product.description|seo_text : seo_desc_auto)|seo_truncate(155) %}
+{# Titre : « Produit (code E) Fabricant – qualificatif » (cf. App\Twig\SeoExtension::productTitle) #}
+{% set seo_title = product_seo_title(product) %}
+
+{% block seo %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="description" content="{{ seo_desc }}"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:url" content="{{ canonical_url }}"/>
+    <meta property="og:title" content="{{ seo_title }} | ADIVEC"/>
+    <meta property="og:description" content="{{ seo_desc }}"/>
+    <meta property="og:image" content="{{ seo_image }}"/>
+    <meta property="og:site_name" content="ADIVEC"/>
+{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
+{% block schema %}
+    {{ parent() }}
+    {# JSON-LD généré via json_encode : échappement correct des apostrophes et guillemets #}
+    {% set ld_breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': url('app_home')},
+            {'@type': 'ListItem', 'position': 2, 'name': product.type.family.name, 'item': url('app_types_family', {slug: product.type.family.slug})},
+            {'@type': 'ListItem', 'position': 3, 'name': product.type.name, 'item': url('app_products_type', {slug: product.type.slug})},
+            {'@type': 'ListItem', 'position': 4, 'name': product.nom, 'item': canonical_url}
+        ]
+    } %}
+    {# Pas de balisage schema.org « Product » : Google le réserve aux pages où l'on peut acheter
+       (prix obligatoire). Sur ce site vitrine sans prix, il ne produisait que des erreurs
+       « Fiches de marchand » / « Extraits de produits » dans la Search Console (oct. 2026).
+       Le fil d'Ariane (BreadcrumbList) reste, il est valide et affiché dans les résultats. #}
+    <script type="application/ld+json">{{ ld_breadcrumb|json_encode(ld_flags)|raw }}</script>
+{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <p class="h1 display-3 text-white mb-4 animated slideInDown">{{ product.type.name }}</p>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    {# Fiche produit : photo et informations côte à côte, puis applications, même gamme, actualités #}
+    {% set product_image = product.image
+        ? 'uploads/images/products/' ~ product.image
+        : 'uploads/images/family/' ~ product.type.family.image %}
+    <div class="container pb-5 product-page">
+        <nav class="article-breadcrumb" aria-label="Fil d’Ariane">
+            <a href="{{ path('app_home') }}">Accueil</a><span aria-hidden="true">›</span><a href="{{ path('app_types_family', {slug: product.type.family.slug}) }}">{{ product.type.family.name }}</a><span aria-hidden="true">›</span><a href="{{ path('app_products_type', {slug: product.type.slug}) }}">{{ product.type.name }}</a><span aria-hidden="true">›</span><span aria-current="page">{{ product.nom }}</span>
+        </nav>
+
+        <div class="row g-4 g-lg-5 align-items-start">
+            <div class="col-lg-5">
+                {# Image principale : pas de lazy-loading (visible dès l'arrivée sur la page) #}
+                <img class="img-fluid product-cover" src="{{ asset(product_image) }}" {{ img_dims(product_image) }}
+                     alt="{{ product.image ? product.nom : product.type.family.name }}" fetchpriority="high">
+            </div>
+
+            <div class="col-lg-7">
+                <a class="article-kicker text-decoration-none" href="{{ path('app_products_type', {slug: product.type.slug}) }}">{{ product.type.name }}</a>
+                <h1 class="article-title">{{ product.nom }}</h1>
+
+                {% if product.fournisseur %}
+                    <p class="product-maker">
+                        <span>Fabricant</span>
+                        {% if product.fournisseur.logo %}
+                            <img src="{{ asset('uploads/images/logos/'~product.fournisseur.logo) }}" {{ img_dims('uploads/images/logos/'~product.fournisseur.logo) }}
+                                 alt="{{ product.fournisseur.name }}" loading="lazy">
+                        {% else %}
+                            <strong>{{ product.fournisseur.name }}</strong>
+                        {% endif %}
+                    </p>
+                {% endif %}
+
+                {# Lecture « en un coup d'œil » : ce qu'est le produit (1er paragraphe en chapeau),
+                   puis ses utilisations (applications), puis le reste de la description. #}
+                {% set paragraphs = product.description
+                    ? product.description|replace({"\r\n": "\n"})|split("\n\n")|map(p => p|trim)|filter(p => p is not empty)
+                    : [] %}
+                {% if paragraphs is not empty %}
+                    <p class="product-lead">{{ paragraphs|first|nl2br }}</p>
+                {% endif %}
+
+                {% if product.applications is not empty %}
+                    <h2 class="product-label">Utilisations</h2>
+                    <ul class="list-unstyled row g-2 mb-4">
+                        {% for application in product.applications %}
+                            <li class="col-sm-6">
+                                <a class="product-app" href="{{ path('app_application', {slug: application.slug}) }}">
+                                    {% if application.icone %}
+                                        <img src="{{ asset('uploads/images/application/icone/'~application.icone) }}" alt="" width="34" height="34" loading="lazy">
+                                    {% endif %}
+                                    <span>{{ application.libelle }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if paragraphs|length > 1 %}
+                    <div class="product-description">
+                        {% for paragraph in paragraphs|slice(1) %}
+                            <p>{{ paragraph|nl2br }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if product.packagings is not empty %}
+                    <h2 class="product-label">Conditionnements</h2>
+                    <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
+                        {% for packaging in product.packagings %}
+                            <li class="product-pack">{{ packaging }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if same_range is not empty %}
+            <section class="product-section product-section-first" aria-labelledby="meme-gamme">
+                <h2 id="meme-gamme" class="product-section-title">Dans la même gamme</h2>
+                <ul class="list-unstyled row g-3 g-lg-4 mb-0">
+                    {% for item in same_range %}
+                        {% set item_image = item.image
+                            ? 'uploads/images/products/' ~ item.image
+                            : 'uploads/images/family/' ~ item.type.family.image %}
+                        <li class="col-6 col-lg-3">
+                            <a class="product-card" href="{{ path('app_product_page', {slug: item.slug}) }}">
+                                <img src="{{ asset(item_image) }}" alt="" loading="lazy">
+                                <span>{{ item.nom }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+
+        {% set related_news = product.relatedNews|filter(n => n.visible) %}
+        {% if related_news is not empty %}
+            <section class="product-section" aria-labelledby="actualites-liees">
+                <h2 id="actualites-liees" class="product-section-title">Actualités liées</h2>
+                <ul class="list-unstyled mb-0">
+                    {% for news in related_news %}
+                        <li class="mb-2"><a class="product-news" href="{{ path('show_blog', {slug: news.slug}) }}">→ {{ news.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+    </div>
+{% endblock %}

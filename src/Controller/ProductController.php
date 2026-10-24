@@ -34,6 +34,7 @@ class ProductController extends AbstractController
         // Slugs corrigés
         'sauce-soja-umami-elev-e' => 'sauce-soja-umami-eleve',
         'carot-ene' => 'carotene',
+        'concentrat-de-prot-eine-de-f-eve' => 'concentrat-de-proteine-de-feve',
         'concentrat-de-prot-eine-de-pois' => 'concentrat-de-proteine-de-pois',
         'exhausteur-de-go-ut-sauce-soja-sans-soja' => 'exhausteur-de-gout-sauce-soja-sans-soja',
         'isolat-de-prot-eine-de-pois' => 'isolat-de-proteine-de-pois',

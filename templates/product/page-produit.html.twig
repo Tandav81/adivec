@@ -8,7 +8,7 @@
 {% set seo_desc_auto = product.nom ~ ' (' ~ product.type.name ~ ') : ingrédient naturel distribué par Adivec'
     ~ (seo_apps ? ' pour ' ~ seo_apps : '') ~ '. Fournisseur B2B depuis 1989, devis sur demande.' %}
 {% set seo_desc = (product.description ? product.description|seo_text : seo_desc_auto)|seo_truncate(155) %}
-{# Titre : « Produit – Type » (cf. App\Twig\SeoExtension::productTitle) #}
+{# Titre : « Produit (code E) Fabricant – qualificatif » (cf. App\Twig\SeoExtension::productTitle) #}
 {% set seo_title = product_seo_title(product) %}
 
 {% block seo %}
