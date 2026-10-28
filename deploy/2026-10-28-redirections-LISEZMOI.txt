@@ -1,0 +1,55 @@
+MISE EN PRODUCTION ADIVEC – Anciennes URL /Rub_* du 28/10/2026 (branche seo/redirections-rub)
+=============================================================================================
+
+- Anciennes pages de l'ancien site (/Rub_*, /Ress_*) :
+  · 301 vers la page équivalente quand elle existe (7 URL encore explorées par Google, d'après
+    le rapport Search Console « Page avec redirection » du 28/10) :
+      Anthocyanes            → /product/anthocyane
+      Lécithine de soja (×2) → /product/lecithines-de-soja
+      Konjac                 → /product/konjac
+      Aloe Vera              → /product/aloe-vera
+      Amidon natif de pois   → /product/amidon-natif-de-pois
+      Farine de graine de caroube (bio) → /product/farine-de-graine-de-caroube-bio
+      Gamme Emox             → /products/amidons-modifies-alimentation
+      Actualités (Rub_42)    → /news (inchangé)
+  · toutes les autres : 410 Gone (au lieu d'une 301 vers /familles, vue par Google comme une
+    « soft 404 »). Le visiteur voit la page public/410.html (aux couleurs du site, liens vers
+    familles / applications / contact + recherche).
+- Ancienne accueil « ?IdRubrique=… » → 301 vers l'accueil sans paramètre (l'ancienne règle
+  ne fonctionnait pas : elle testait REQUEST_URI, qui ne contient pas la query string).
+
+Point de départ : la prod est identique à main (commit f35c350, vérifié le 28/10).
+Ce dossier contient UNIQUEMENT 2 fichiers, rangés comme sur le serveur :
+  public/.htaccess   modifié
+  public/410.html    nouveau
+Pas de PHP, de template, de CSS/JS ni de migration → pas de cache à vider, pas de version
+d'assets à changer. Le .htaccess est pris en compte immédiatement.
+
+ÉTAPES
+------
+1. Par sécurité, télécharger depuis le serveur public/.htaccess (il va être écrasé).
+2. Téléverser public/.htaccess et public/410.html dans public/ sur le serveur.
+3. Vérifier dans le navigateur :
+   - https://www.adivec.fr/Rub_79/Fr/L-alimentaire/Gelifiants-Epaississants/E-425-Konjac.html
+     → fiche Konjac ;
+   - https://www.adivec.fr/Rub_54/Fr/Menu-haut/L-alimentaire/Amidons/Amidon-d-Arrow-Root.html
+     → page « Cette page n'existe plus » (F12 > Réseau : statut 410) ;
+   - https://www.adivec.fr/Rub_42/Fr/Actualites.html → /news ;
+   - https://www.adivec.fr/?IdRubrique=30 → accueil ;
+   - l'accueil, une fiche produit, /contact et une image s'affichent normalement.
+   En cas d'erreur 500 sur tout le site : remettre le .htaccess sauvegardé (une erreur de
+   syntaxe dans ce fichier bloque tout le site).
+4. Search Console : les URL en 410 vont passer du rapport « Page avec redirection » à
+   « Introuvable (404) » (Google range les 410 dans cette catégorie). C'est voulu : ne pas
+   cliquer sur « Valider la correction » pour celles-là. Elles disparaîtront d'elles-mêmes.
+
+TESTS (28/10, Apache 2.4.58 + PHP 8.3, .htaccess identique, base SQLite avec les 108 fiches)
+-------------------------------------------------------------------------------------------
+- Les 10 URL /Rub_* et /index.php du rapport : 301 → page en 200 (une seule redirection),
+  Arrow-Root en 410. Autres /Rub_* et /Ress_* : 410 + page 410.html.
+- ?IdRubrique= : 301 vers / sur l'accueil et /index.php ; sans effet sur les autres pages.
+- Non-régression : accueil, /familles, /news, /application, /contact, fiches, types,
+  recherche, sitemap, robots.txt, CSS en 200 ; anciens slugs produits (gomme-de-guar-1, fève)
+  en 301 ; page inexistante en 404 ; WebP servi (Content-Type image/webp, Vary: Accept,
+  Cache-Control 30 jours).
+- Page 410 : affichage ordinateur et mobile (390 px) sans défilement horizontal, recherche OK.
